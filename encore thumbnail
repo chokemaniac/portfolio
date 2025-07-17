@@ -1,0 +1,3 @@
+<video autoplay loop muted playsinline style="width: 100%; height: auto;">
+  <source src="https://raw.githubusercontent.com/chokemaniac/portfolio/main/encore_thumbnail.mp4" type="video/mp4">
+</video>

@@ -27,6 +27,23 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <link rel="icon" type="image/png" href={asset("16804da32557")} />
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      // a refresh starts at the top instead of jumping back to where you were; back and forward still restore the position
+      (function () {
+        var nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if (nav && nav.type === "reload" && "scrollRestoration" in history) {
+          history.scrollRestoration = "manual";
+          var top = function () { scrollTo(0, 0); };
+          top();
+          // some browsers restore the position late, so go to the top again once the page has loaded
+          addEventListener("DOMContentLoaded", top);
+          addEventListener("load", function () { top(); setTimeout(top, 60); });
+          // when leaving the page, hand restoration back to the browser so back and forward keep your place
+          addEventListener("pagehide", function () { history.scrollRestoration = "auto"; });
+        }
+      })();
+    </script>
   </head>
   <body>
     <div class="wrap full">
@@ -74,6 +91,14 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
     </footer>
 
     <script>
+      // images fade in once they are fully decoded, instead of painting in from the top while they download
+      document.querySelectorAll<HTMLImageElement>("img[loading='lazy']:not(.card > img), .avatar img").forEach((img) => {
+        if (img.complete) return img.classList.add("in", "now");
+        const show = () => img.classList.add("in");
+        // decoding first means the whole picture appears at once; the timeout makes sure nothing stays hidden if decoding is slow
+        img.addEventListener("load", () => Promise.race([img.decode ? img.decode().catch(() => {}) : 0, new Promise((r) => setTimeout(r, 700))]).then(show), { once: true });
+        img.addEventListener("error", show, { once: true });
+      });
       const btn = document.querySelector<HTMLButtonElement>(".menu-btn")!;
       const menu = document.querySelector<HTMLElement>("#menu")!;
       const page = [document.querySelector("main"), document.querySelector(".footer")];

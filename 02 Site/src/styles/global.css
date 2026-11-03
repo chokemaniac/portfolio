@@ -207,3 +207,9 @@ button.btn { border: 0; font-family: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   .svc:hover .ic-tile > span > svg, .mi:hover .ic-tile > span > svg { animation: none; }
 }
+
+/* images stay hidden until the script marks them as loaded (.in), then fade in; without JavaScript they just show */
+.js :is(img[loading="lazy"], .avatar img):not(.card > img):not(.in) { opacity: 0; } /* the home tiles reveal themselves with the slide-up instead */
+img.in:not(.now) { animation: img-fade .6s ease both; }
+@keyframes img-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { img.in { animation: none; } }

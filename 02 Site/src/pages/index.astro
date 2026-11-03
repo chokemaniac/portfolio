@@ -13,8 +13,8 @@ const clients = [
   ["9802a4ee3cfe", "Viessmann", [114, 24], [96, 20], [71, 15]],
   ["bb5c3fbff1b9", "Disney Pictures", [96, 32], [96, 32], [70, 23]],
   ["01808cb33e3a", "Mercedes-Benz", [75, 44], [72, 42], [57, 33]],
-  ["cfa0de9ed26c", "Sennheiser", [120, 17], [100, 20], [91, 18]],
-  ["c76588b869a9", "ProSiebenSat.1 Media SE", [120, 24], [96, 14], [91, 13]],
+  ["cfa0de9ed26c", "Sennheiser", [120, 17], [96, 14], [91, 13]],
+  ["c76588b869a9", "ProSiebenSat.1 Media SE", [120, 24], [100, 20], [91, 18]],
 ];
 // listed in the single-column (mobile) order; desktop shows two columns (odd = left, even = right)
 const cards = [
@@ -36,7 +36,7 @@ const services = [
 ];
 ---
 <Layout>
-  <div class="wrap"><div class="inner">
+  <div class="wrap hero-wrap"><div class="inner">
     <section class="hero">
       <div class="who">
         <div class="avatar"><img src={asset("4abf805abe78")} alt="mathias mahling" /></div>
@@ -120,6 +120,12 @@ const services = [
 
 <style is:global>
   .hero { padding-top: 49px; }
+  /* the intro block stays where it is while the page scrolls and fades out as scrolling starts; everything after it slides over it */
+  .hero-wrap { position: sticky; top: var(--pin, 0px); z-index: 0; }
+  main > :not(.hero-wrap) { position: relative; z-index: 1; }
+  /* the logo and menu button are pinned and faded with the intro; an open menu always keeps its close button */
+  .header-pin { position: sticky; top: 0; z-index: 60; }
+  .menu-open .header-pin { opacity: 1 !important; pointer-events: auto !important; }
   .who { display: flex; gap: 24px; align-items: flex-start; }
   .avatar { width: 88px; height: 88px; border-radius: 24px; overflow: hidden; flex: none; }
   .avatar img { width: 231.8%; max-width: none; margin-left: -55.7%; }
@@ -133,7 +139,8 @@ const services = [
 
   .grid { display: flex; gap: 32px; margin-top: 120px; }
   .col { display: flex; flex-direction: column; gap: 32px; flex: 1; min-width: 0; }
-  .col + .col { margin-top: calc(32.7px + (100vw - 192px) * .0345); }
+  /* how much lower the right column starts than the left one: the original measurement, made 20% bigger */
+  .col + .col { margin-top: calc((32.7px + (100vw - 192px) * .0345) * 1.2); }
   .card { --cx: 32px; --ct: 32px; --nt: 23px; position: relative; display: block; width: 100%; aspect-ratio: 1; border-radius: 56px; overflow: hidden; color: #fff; }
   .card > img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
   .card .kind { position: absolute; left: var(--cx); top: var(--ct); font-size: 12px; letter-spacing: -.48px; }
@@ -172,6 +179,11 @@ const services = [
   .card:hover > img { transform: scale(1.05); }
   .card .go { transition: transform .4s cubic-bezier(.2, .7, .2, 1), background .3s; }
   .card:hover .go { transform: translateX(6px); background: rgba(255, 255, 255, .3); }
+  /* tiles slide up from below as they come into view (the script adds .in); the right column follows a beat later */
+  .js .card { opacity: 0; transform: translateY(90px); transition: opacity .7s ease, transform 1s cubic-bezier(.2, .7, .2, 1); }
+  .js .card.in { opacity: 1; transform: none; }
+  .js .col + .col .card { transition-delay: .12s; }
+  .col { will-change: transform; }
   .tool { transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
   .tool:hover { transform: translateY(-4px); }
   @supports (animation-timeline: view()) {
@@ -181,13 +193,13 @@ const services = [
   }
   @media (prefers-reduced-motion: reduce) {
     .hero > *, .badge i, .svc, .about > div, .stats > div { animation: none !important; }
-    .card > img, .card .go, .tool { transition: none; }
+    .card > img, .card .go, .tool, .js .card { transition: none; }
   }
 
   /* widest layout (1623+): cards grow between margins that scale from 80px to 200px (--edge), bigger hero */
   @media (min-width: 1623px) {
     .wrap.grid-wrap { padding-inline: var(--edge); }
-    .col + .col { margin-top: calc((100vw - 2 * var(--edge) - 32px) * .02675 + 32px); }
+    .col + .col { margin-top: calc(((100vw - 2 * var(--edge) - 32px) * .02675 + 32px) * 1.2); }
     .card .name { font-size: 24px; letter-spacing: -.96px; line-height: normal; }
     .card .go { top: calc(var(--ct) + 62px); }
     .avatar { width: 96px; height: 96px; }
@@ -210,6 +222,7 @@ const services = [
     .hero h1 { font-size: 40px; letter-spacing: -1.6px; max-width: 660px; }
     .lead { font-size: 22px; line-height: 32px; max-width: 640px; }
     .clients { gap: 24px 40px; }
+    .clients img:nth-child(5) { order: 6; } /* on tablet and phone ProSiebenSat.1 comes before Sennheiser, as on the old site */
     .clients img { width: calc(var(--tw) * 1px); height: calc(var(--th) * 1px); }
 
     .grid { flex-direction: column; gap: 32px; }
@@ -296,6 +309,58 @@ const services = [
 </style>
 
 <script>
+  // intro block: pinned at its own place (--pin = its distance from the top) and faded out over the first 280px of scrolling
+  const heroWrap = document.querySelector<HTMLElement>(".hero-wrap");
+  if (heroWrap && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const main = heroWrap.parentElement!; // the intro is main's first child, so main's top is where the intro naturally sits
+    const pin = () => heroWrap.style.setProperty("--pin", `${main.getBoundingClientRect().top + scrollY}px`);
+    let heroTick = 0;
+    const bar = document.querySelector<HTMLElement>(".header")?.parentElement; // logo and menu button
+    bar?.classList.add("header-pin");
+    const fade = () => {
+      const o = Math.max(0, 1 - scrollY / 280);
+      for (const el of [heroWrap, bar]) if (el) { el.style.opacity = String(o); el.style.pointerEvents = o === 0 ? "none" : ""; }
+    };
+    pin();
+    fade();
+    addEventListener("scroll", () => { cancelAnimationFrame(heroTick); heroTick = requestAnimationFrame(fade); }, { passive: true });
+    addEventListener("resize", pin);
+  } else heroWrap?.style.setProperty("position", "static");
+
+  // project tiles: slide up into place as they appear, and the right column drifts upward faster than the left one (it starts lower and ends higher)
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const cards = document.querySelectorAll<HTMLElement>(".card");
+  if (reduce) cards.forEach((c) => c.classList.add("in"));
+  else {
+    // a tile waits 90px lower while hidden, so a margin of -170px reveals it once its real spot is 260px above the bottom of the screen
+    // the tile starts sliding once its picture has loaded (or after a second), so the picture slides in with it
+    const reveal = (card: Element) => {
+      const img = card.querySelector<HTMLImageElement>(":scope > img");
+      const go = () => card.classList.add("in");
+      if (!img || img.complete) return go();
+      Promise.race([new Promise((r) => img.addEventListener("load", r, { once: true })), new Promise((r) => setTimeout(r, 1000))]).then(go);
+    };
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); } }), { rootMargin: "0px 0px -170px 0px", threshold: 0 });
+    // tiles already on screen when the page opens slide in right away; the rest wait for the scroll
+    cards.forEach((c) => (c.getBoundingClientRect().top - 90 < innerHeight ? (reveal(c), 0) : io.observe(c)));
+    const grid = document.querySelector<HTMLElement>(".grid");
+    const right = document.querySelectorAll<HTMLElement>(".grid > .col")[1];
+    const DRIFT = 190; // px the right column travels more than the page does while the grid passes through the screen (it starts in its normal place, lower than the left column, and ends this much higher)
+    if (grid && right) {
+      const update = () => {
+        if (getComputedStyle(right).display === "contents") return void (right.style.transform = "");
+        // 0 at the top of the page (both columns start exactly where the layout puts them), 1 when the bottom of the grid reaches the bottom of the screen
+        const end = scrollY + grid.getBoundingClientRect().bottom - innerHeight;
+        const t = end > 0 ? Math.min(1, Math.max(0, scrollY / end)) : 0;
+        right.style.transform = `translate3d(0, ${(-t * DRIFT).toFixed(1)}px, 0)`;
+      };
+      let tick = 0;
+      addEventListener("scroll", () => { cancelAnimationFrame(tick); tick = requestAnimationFrame(update); }, { passive: true });
+      addEventListener("resize", update);
+      update();
+    }
+  }
+
   // scale the tool logos with their tile (tiles are fluid, logos are laid out for a 188px tile)
   const tools = document.querySelector<HTMLElement>(".tools");
   if (tools) new ResizeObserver(() => tools.style.setProperty("--s", String(Math.min(1, tools.firstElementChild!.clientWidth / 188)))).observe(tools);

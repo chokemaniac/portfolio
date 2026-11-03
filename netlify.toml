@@ -1,0 +1,8 @@
+# Netlify builds only the Astro site; the videos and the old prototype stay on GitHub Pages.
+[build]
+  base = "02 Site"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"

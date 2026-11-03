@@ -22,6 +22,11 @@ body {
 /* gradient image: stretched to exactly the viewport and fixed while scrolling (a fixed layer instead of background-attachment, which iOS Safari ignores) */
 body::before { content: ""; position: fixed; inset: 0; z-index: -1; background: url("/assets/06909d179cfca46ce6f2a3797b1b4438272d84ea.png") center / 100% 100% no-repeat; pointer-events: none; }
 
+/* squircle corners (a flatter, smoother curve than a plain round corner) on every image; browsers without support keep the normal rounded corner */
+@supports (corner-shape: squircle) {
+  img, video, .card, .card2, .thumb, .avatar { corner-shape: squircle; }
+}
+
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
@@ -33,7 +38,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* header */
 .header { height: 164px; display: flex; align-items: flex-start; justify-content: space-between; padding-top: 64px; }
 .header .logo { width: 48px; height: 37px; }
-.header .menu-btn { width: 36px; height: 36px; margin-top: 19px; }
+.header .menu-btn { width: 36px; height: 36px; margin-top: .5px; }
 .header { position: relative; z-index: 60; }
 .menu-btn { position: relative; }
 .menu-btn i { position: absolute; right: 7px; height: 2px; border-radius: 2px; background: var(--ink); transition: transform .5s cubic-bezier(.7, 0, .2, 1), width .4s, top .4s, opacity .3s; }
@@ -52,14 +57,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transition: clip-path .8s cubic-bezier(.7, 0, .2, 1), visibility 0s .8s; }
 .menu-open .menu { clip-path: circle(160vmax at var(--x, 95%) var(--y, 60px)); visibility: visible; transition: clip-path .8s cubic-bezier(.7, 0, .2, 1), visibility 0s; }
 .menu-open { overflow: hidden; }
+html { scrollbar-gutter: stable; }
 .menu ol { list-style: none; padding: 0; max-width: 1280px; width: 100%; margin: 0 auto; }
 .menu li, .menu-foot { opacity: 0; transform: translateY(36px); transition: opacity .4s, transform .6s cubic-bezier(.2, .7, .2, 1); }
 .menu-open .menu li, .menu-open .menu-foot { opacity: 1; transform: none; transition-delay: calc(.25s + var(--i) * 55ms); }
 .menu li a { display: flex; align-items: baseline; gap: 24px; padding: 6px 0; font-size: clamp(30px, 5vw, 64px); font-weight: 600; letter-spacing: -.04em; line-height: 1.15; color: var(--ink); transition: opacity .3s, transform .4s cubic-bezier(.2, .7, .2, 1); }
-.menu li .n { font-size: 14px; font-weight: 400; letter-spacing: 0; color: var(--muted); width: 28px; flex: none; }
-.menu li .k { margin-left: auto; font-size: 14px; font-weight: 400; letter-spacing: 0; color: var(--muted); }
-.menu ol:hover li a { opacity: .3; }
-.menu ol li a:hover, .menu ol li a:focus-visible { opacity: 1; transform: translateX(14px); }
+.menu li.h { margin: 28px 0 4px; font-size: 14px; font-weight: 400; letter-spacing: 0; color: var(--muted); }
+.menu li a { pointer-events: none; }
+.menu-ready li a { pointer-events: auto; }
+.menu-ready ol:hover li a { opacity: .3; }
+.menu-ready ol li a:hover, .menu ol li a:focus-visible { opacity: 1; transform: translateX(14px); }
 .menu li a[aria-current] .t::after { content: ""; display: inline-block; width: 10px; height: 10px; margin-left: 14px; border-radius: 50%; background: #fdad00; vertical-align: middle; }
 .menu-foot { display: flex; flex-wrap: wrap; gap: 8px 32px; max-width: 1280px; width: 100%; margin: 40px auto 0; font-size: 14px; color: var(--muted); }
 .menu-foot a:hover { color: var(--ink); }
@@ -72,14 +79,47 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .h2 { font-size: 32px; line-height: 42px; font-weight: 700; letter-spacing: -1.28px; color: #000; }
 .cta.tight { padding-bottom: 150px; }
 .cta .btn { width: 175px; padding: 0; }
+button.btn { border: 0; font-family: inherit; cursor: pointer; }
+/* "Get in touch" turns into a call pill and a mail pill: the box grows from one pill's height to two */
+.cta-act { display: grid; justify-items: center; align-content: start; height: 48px; transition: height .5s cubic-bezier(.22, 1, .36, 1); }
+.cta-act.open { height: 104px; }
+.cta-act > * { grid-area: 1 / 1; }
+.cta-open { transition: opacity .25s, transform .4s cubic-bezier(.22, 1, .36, 1), visibility 0s .25s; }
+.cta-act.open .cta-open { opacity: 0; transform: scale(.94); visibility: hidden; pointer-events: none; }
+.cta-opts { display: flex; flex-direction: column; align-items: center; gap: 8px; visibility: hidden; transition: visibility 0s .3s; }
+.cta-act.open .cta-opts { visibility: visible; transition: none; }
+.cta .cta-opts .btn { width: auto; padding: 0; opacity: 0; transform: translateY(14px); transition: opacity .3s, transform .5s cubic-bezier(.22, 1, .36, 1); }
+.cta-act.open .cta-opts .btn { opacity: 1; transform: none; transition-delay: .12s; }
+.cta-act.open .cta-opts .btn:nth-child(2) { transition-delay: .2s; }
+/* a "Copy" label sits inside the pill, on the right, on a 15% white background; hovering it brightens that background */
+.cta-link { display: flex; align-items: center; height: 100%; padding: 0 6px 0 24px; color: inherit; }
+.cta-copy { position: relative; height: 36px; margin-right: 6px; padding: 0 14px; border: 0; border-radius: 18px; background: rgba(255, 255, 255, .15); color: #fff; font-family: inherit; font-size: 14px; line-height: 20px; font-weight: 600; cursor: pointer; display: grid; place-items: center; }
+.cta-copy::before { content: ""; position: absolute; inset: 0; border-radius: 18px; background: rgba(255, 255, 255, .18); transform: scale(0); transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
+.cta-copy span { position: relative; grid-area: 1 / 1; transition: opacity .2s, transform .4s cubic-bezier(.34, 1.6, .64, 1); }
+.cta-copy .i-done { opacity: 0; transform: translateY(8px); }
+.cta-copy.done .i-copy { opacity: 0; transform: translateY(-8px); }
+.cta-copy.done .i-done { opacity: 1; transform: none; }
+@media (hover: hover) {
+  .cta-copy:hover::before { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) { .cta-act, .cta-open, .cta-opts, .cta .cta-opts .btn, .cta-copy, .cta-copy::before, .cta-copy span { transition: none !important; } }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 24px; border-radius: 62px; background: var(--ink); color: #fff; font-size: 16px; line-height: 24px; font-weight: 600; }
 .actions { display: flex; gap: 8px; margin-top: 40px; }
 .btn-icon { width: 48px; height: 48px; padding: 0; background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .07); }
-.btn-icon img { width: 24px; height: 24px; }
-/* fill rise: a lighter purple circle grows from the left middle on hover (0.5s in, 0.35s out, springy), the label stays white */
+.btn-icon { transition: box-shadow .3s; }
+@media (hover: hover) { .btn-icon:hover { box-shadow: 0 3px 12px rgba(118, 69, 164, .18); } }
+.btn-icon img, .btn-icon .soc { width: 24px; height: 24px; }
+/* social icons: ink by default, brand colors on hover (change the values here) */
+.soc path { fill: var(--ink); transition: fill .3s; }
+@media (hover: hover) {
+  :is(.btn-icon, .footer .social a):hover .soc.li path { fill: #0a66c2; }
+  :is(.btn-icon, .footer .social a):hover .soc.xi .l { fill: #026466; }
+  :is(.btn-icon, .footer .social a):hover .soc.xi .s { fill: #a7c61a; }
+}
+/* fill rise: a lighter purple circle grows from the top left corner on hover (0.25s, slow build in after a 0.1s delay, soft out), the label stays white */
 .btn:not(.btn-icon) { position: relative; overflow: hidden; isolation: isolate; }
-.btn:not(.btn-icon)::before { content: ""; position: absolute; left: 0; top: 50%; z-index: -1; width: 210%; aspect-ratio: 1; border-radius: 50%; background: #2a2759; transform: translate(-50%, -50%) scale(0); will-change: transform; transition: transform .35s cubic-bezier(.34, 1.3, .64, 1); }
-@media (hover: hover) { .btn:not(.btn-icon):hover::before { transform: translate(-50%, -50%) scale(1); transition-duration: .5s; } }
+.btn:not(.btn-icon)::before { content: ""; position: absolute; left: 0; top: 0; z-index: -1; width: 230%; aspect-ratio: 1; border-radius: 50%; background: hsl(244, 39%, 35%); transform: translate(-50%, -50%) scale(0); will-change: transform; transition: transform .25s cubic-bezier(.22, 1, .36, 1); }
+@media (hover: hover) { .btn:not(.btn-icon):hover::before { transform: translate(-50%, -50%) scale(1); transition: transform .25s cubic-bezier(.5, 0, .9, .6) .1s; } }
 @media (prefers-reduced-motion: reduce) { .btn:not(.btn-icon)::before { transition: none; } }
 
 /* cta */
@@ -87,7 +127,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .cta p { font-size: 24px; line-height: 34px; letter-spacing: -.72px; color: var(--muted); margin: 8px 0 32px; }
 
 /* footer */
-.footer { position: relative; background: var(--ink); color: #fff; height: 128px; margin-top: 0; }
+.footer { position: relative; background: var(--ink); color: #fff; height: 160px; margin-top: 0; }
 .footer::before, .footer::after { content: ""; position: absolute; top: -30px; width: 30px; height: 30px; }
 .footer::before { left: 0; background: url("/assets/cef49c0fd12b8bd3137b282d76c3efdf823fa144.svg"); }
 .footer::after { right: 0; background: url("/assets/eef6e864b189baa53478660479904cdd1672fdb6.svg"); }
@@ -95,8 +135,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .footer .copy { font: 400 16px "Inter", system-ui, sans-serif; display: flex; align-items: center; gap: 16px; }
 .footer .copy a { text-decoration: underline; }
 .footer .social { display: flex; gap: 12px; }
-.footer .social a { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .25); display: grid; place-items: center; }
-.footer .social img { width: 20px; height: 20px; }
+.footer .social a { width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, .15); display: grid; place-items: center; transition: background .3s; }
+.footer .social .soc { width: 20px; height: 20px; }
+.footer .soc path { fill: #fff; }
+@media (hover: hover) { .footer .social a:hover { background: #fff; } }
 
 /* service / value items (home + about) */
 .svc { display: flex; gap: 14px; align-items: flex-start; padding-right: 52px; }
@@ -110,6 +152,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .ic-tile > span > svg { width: 65px; height: 65px; color: var(--tile-icon); background: var(--tile-inner); border-radius: 12px; box-shadow: 0 .8px .8px rgba(0,0,0,.024), 0 2.41px 2.41px rgba(0,0,0,.024), 0 6.38px 6.38px rgba(0,0,0,.024), 0 10px 10px rgba(0,0,0,.024), 0 -.6px .6px rgba(0,0,0,.024), 0 -2.29px 2.29px rgba(0,0,0,.024); }
 
 /* ---------- responsive blocks, same switch points as the live site: 1623 / 1100 / 800 / 640 ---------- */
+/* widest layout (1623+): the side margin of the big images and home tiles stays 80px (same as the logo) up to 1728px, then grows steadily to 200px at 2560px, so there is no jump anywhere */
+@media (min-width: 1623px) { :root { --edge: clamp(80px, calc(80px + (100vw - 1728px) * 0.144231), 200px); } }
 @media (max-width: 1099px) {
   :root { --pad: 40px; }
   .header { height: 156px; padding-top: 43px; }
@@ -130,7 +174,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   :root { --pad: 24px; }
   .header { height: 132px; padding-top: 38px; }
   .header .logo { width: 32px; height: 25px; }
-  .header .menu-btn { margin-top: -5px; }
+  .header .menu-btn { margin-top: -6px; }
   .h2 { font-size: 26px; line-height: 34px; letter-spacing: -1.04px; }
   .cta, .cta.tight { padding: 100px 0 110px; }
   .cta.tight { padding-bottom: 108px; }

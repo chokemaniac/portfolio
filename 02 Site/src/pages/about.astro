@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Cta from "../components/Cta.astro";
+import Social from "../components/Social.astro";
 import Tile from "../components/Tile.astro";
 import { asset } from "../data/asset";
 
@@ -30,8 +31,8 @@ const mind = [
         <p class="ab-lead">I’m a senior UX/UI and product designer with over 16 years of experience making complex software interfaces user-friendly, intuitive, and visually polished. I’ve led more than 200 projects across automotive, energy, and digital services while often taking full ownership from concept to implementation.</p>
         <div class="actions">
           <a class="btn" href="https://chokemaniac.github.io/portfolio/Mathias_Mahling_CV_08_2025_EN.pdf" target="_blank" rel="noopener">Download resume</a>
-          <a class="btn btn-icon" href="https://www.linkedin.com/in/mathias-mahling-64b3801/" aria-label="LinkedIn"><img src={asset("0ce790a9f960")} alt="" /></a>
-          <a class="btn btn-icon" href="https://www.xing.com/profile/Mathias_Mahling/" aria-label="Xing"><img src={asset("9ec4ef4e9eee")} alt="" /></a>
+          <a class="btn btn-icon" href="https://www.linkedin.com/in/mathias-mahling-64b3801/" aria-label="LinkedIn"><Social name="linkedin" /></a>
+          <a class="btn btn-icon" href="https://www.xing.com/profile/Mathias_Mahling/" aria-label="Xing"><Social name="xing" /></a>
         </div>
       </div>
       <img class="portrait" src={asset("de2464db811d")} alt="Mathias Mahling" />
@@ -58,7 +59,7 @@ const mind = [
 
 <style is:global>
   .about-page { padding-top: 49px; }
-  .about-page .pill { display: block; width: fit-content; padding: 4px 7px; border-radius: 3px; background: #9c9bab; color: #fff; font-size: 14px; line-height: 18px; letter-spacing: -.42px; }
+  .about-page .pill { display: block; width: fit-content; padding: 4px 7px; border-radius: 6px; background: #9c9bab; color: #fff; font-size: 14px; line-height: 18px; letter-spacing: -.42px; }
   .ab-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
   .ab-text { flex: 1; min-width: 0; }
   .ab-top h1 { font-size: 40px; font-weight: 600; letter-spacing: -1.6px; color: #000; margin-top: 24px; }

@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Cta from "../components/Cta.astro";
+import Social from "../components/Social.astro";
 import Tile from "../components/Tile.astro";
 import tools from "../data/tools.json";
 import { asset, u } from "../data/asset";
@@ -95,8 +96,8 @@ const services = [
         </div>
         <div class="actions">
           <a class="btn" href={u("/about")}>More about me</a>
-          <a class="btn btn-icon" href="https://www.linkedin.com/in/mathias-mahling-64b3801/" aria-label="LinkedIn"><img src={asset("0ce790a9f960")} alt="" /></a>
-          <a class="btn btn-icon" href="https://www.xing.com/profile/Mathias_Mahling/" aria-label="Xing"><img src={asset("9ec4ef4e9eee")} alt="" /></a>
+          <a class="btn btn-icon" href="https://www.linkedin.com/in/mathias-mahling-64b3801/" aria-label="LinkedIn"><Social name="linkedin" /></a>
+          <a class="btn btn-icon" href="https://www.xing.com/profile/Mathias_Mahling/" aria-label="Xing"><Social name="xing" /></a>
         </div>
       </div>
       <div>
@@ -120,7 +121,7 @@ const services = [
 <style is:global>
   .hero { padding-top: 49px; }
   .who { display: flex; gap: 24px; align-items: flex-start; }
-  .avatar { width: 88px; height: 88px; border-radius: 12px; overflow: hidden; flex: none; }
+  .avatar { width: 88px; height: 88px; border-radius: 24px; overflow: hidden; flex: none; }
   .avatar img { width: 231.8%; max-width: none; margin-left: -55.7%; }
   .who h2 { font-size: 28px; font-weight: 600; letter-spacing: -1.12px; margin-top: 5px; line-height: 35px; }
   .badge { display: inline-flex; align-items: center; gap: 14px; height: 36px; margin-top: 8px; padding: 0 13px; background: #fff; border-radius: 40px; font-size: 14px; line-height: 24px; }
@@ -133,11 +134,11 @@ const services = [
   .grid { display: flex; gap: 32px; margin-top: 120px; }
   .col { display: flex; flex-direction: column; gap: 32px; flex: 1; min-width: 0; }
   .col + .col { margin-top: calc(32.7px + (100vw - 192px) * .0345); }
-  .card { --cx: 32px; --ct: 32px; --nt: 23px; position: relative; display: block; width: 100%; aspect-ratio: 1; border-radius: 24px; overflow: hidden; color: #fff; }
+  .card { --cx: 32px; --ct: 32px; --nt: 23px; position: relative; display: block; width: 100%; aspect-ratio: 1; border-radius: 56px; overflow: hidden; color: #fff; }
   .card > img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
   .card .kind { position: absolute; left: var(--cx); top: var(--ct); font-size: 12px; letter-spacing: -.48px; }
   .card .name { position: absolute; left: var(--cx); top: calc(var(--ct) + var(--nt)); font-size: 22px; font-weight: 600; letter-spacing: -.88px; line-height: 28px; }
-  .card .go { position: absolute; left: var(--cx); top: calc(var(--ct) + 59px); width: 36px; height: 36px; border-radius: 112px; background: rgba(255, 255, 255, .15); backdrop-filter: blur(8px); display: grid; place-items: center; }
+  .card .go { position: absolute; left: var(--cx); top: calc(var(--ct) + 59px); width: 36px; height: 36px; border-radius: 112px; background: rgba(255, 255, 255, .15); display: grid; place-items: center; }
   .card .go img { width: 12px; height: 10px; }
   .ag { display: none; }
 
@@ -183,10 +184,10 @@ const services = [
     .card > img, .card .go, .tool { transition: none; }
   }
 
-  /* widest layout (1623+): cards grow between 200px margins, bigger hero */
+  /* widest layout (1623+): cards grow between margins that scale from 80px to 200px (--edge), bigger hero */
   @media (min-width: 1623px) {
-    .wrap.grid-wrap { padding-inline: 200px; }
-    .col + .col { margin-top: calc((100vw - 432px) * .02675 + 32px); }
+    .wrap.grid-wrap { padding-inline: var(--edge); }
+    .col + .col { margin-top: calc((100vw - 2 * var(--edge) - 32px) * .02675 + 32px); }
     .card .name { font-size: 24px; letter-spacing: -.96px; line-height: normal; }
     .card .go { top: calc(var(--ct) + 62px); }
     .avatar { width: 96px; height: 96px; }

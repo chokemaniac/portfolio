@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { asset, u } from "../data/asset";
+import Social from "../components/Social.astro";
 const { title = "Mathias Mahling - UX/UI Design Portfolio" } = Astro.props;
 
 const ARCHIVE = "https://chokemaniac.github.io/portfolio/#/screens/467913937/title?browse";
@@ -14,6 +15,9 @@ const links = [
   ["Favourites", "/showcase-favourites", "Showcase"],
   ["UX/UI Archive", ARCHIVE, "Showcase"],
 ];
+const heads = { "Case Study": "Case studies", Showcase: "Showcases" };
+// a small headline goes in before the first link of each group
+const items = links.flatMap((l, j) => (l[2] && l[2] !== links[j - 1]?.[2] ? [{ head: heads[l[2]] }, { l }] : [{ l }]));
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 <!doctype html>
@@ -34,21 +38,21 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 
     <nav class="menu" id="menu" aria-label="Main menu" aria-hidden="true" inert>
       <ol>
-        {links.map(([name, href, kind], i) => {
+        {items.map((it, i) => {
+          if (it.head) return <li class="h" style={`--i:${i}`}>{it.head}</li>;
+          const [name, href] = it.l;
           const ext = href.startsWith("http");
           const to = ext ? href : u(href);
           return (
             <li style={`--i:${i}`}>
               <a href={to} target={ext ? "_blank" : undefined} rel={ext ? "noopener" : undefined} aria-current={(to.replace(/\/$/, "") || "/") === path ? "page" : undefined}>
-                <span class="n">{String(i + 1).padStart(2, "0")}</span>
                 <span class="t">{name}</span>
-                <span class="k">{kind}</span>
               </a>
             </li>
           );
         })}
       </ol>
-      <div class="menu-foot" style={`--i:${links.length}`}>
+      <div class="menu-foot" style={`--i:${items.length}`}>
         <a href={u("/impressum-datenschutz")}>Impressum &amp; Datenschutz</a>
         <a href="https://www.linkedin.com/in/mathias-mahling-64b3801/">LinkedIn</a>
         <a href="https://www.xing.com/profile/Mathias_Mahling/">Xing</a>
@@ -63,8 +67,8 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
           <span>© 2025 Mathias Mahling - <a href={u("/impressum-datenschutz")}>Impressum &amp; Datenschutz</a></span>
         </div>
         <div class="social">
-          <a href="https://www.linkedin.com/in/mathias-mahling-64b3801/" aria-label="LinkedIn"><img src={asset("d8447f536ff1")} alt="" loading="lazy" decoding="async" /></a>
-          <a href="https://www.xing.com/profile/Mathias_Mahling/" aria-label="Xing"><img src={asset("52ef8d8c47a0")} alt="" loading="lazy" decoding="async" /></a>
+          <a href="https://www.linkedin.com/in/mathias-mahling-64b3801/" aria-label="LinkedIn"><Social name="linkedin" /></a>
+          <a href="https://www.xing.com/profile/Mathias_Mahling/" aria-label="Xing"><Social name="xing" /></a>
         </div>
       </div>
     </footer>
@@ -73,6 +77,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
       const btn = document.querySelector<HTMLButtonElement>(".menu-btn")!;
       const menu = document.querySelector<HTMLElement>("#menu")!;
       const page = [document.querySelector("main"), document.querySelector(".footer")];
+      let ready: number;
       const toggle = (open: boolean) => {
         const r = btn.getBoundingClientRect();
         menu.style.setProperty("--x", `${r.x + r.width / 2}px`);
@@ -83,6 +88,9 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
         menu.setAttribute("aria-hidden", String(!open));
         menu.toggleAttribute("inert", !open);
         page.forEach((el) => el?.toggleAttribute("inert", open));
+        clearTimeout(ready);
+        document.documentElement.classList.remove("menu-ready");
+        if (open) ready = setTimeout(() => document.documentElement.classList.add("menu-ready"), 1100);
         if (open) menu.querySelector<HTMLAnchorElement>("a")?.focus({ preventScroll: true });
         else btn.focus({ preventScroll: true });
       };

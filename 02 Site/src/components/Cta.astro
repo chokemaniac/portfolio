@@ -1,12 +1,63 @@
 ---
-import { CONTACT_EMAIL } from "../data/site";
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_TEL } from "../data/site";
 import { asset } from "../data/asset";
 const { tight = false, style = "", cls = "" } = Astro.props;
 ---
 <section class={`${tight ? "cta tight" : "cta"} ${cls}`} style={style}>
   <h3 class="h2">Ready to take your design to the next level?</h3>
   <p>Let’s make it happen</p>
-  <a class="btn" href={CONTACT_EMAIL ? `mailto:${CONTACT_EMAIL}` : "#"}>
-    <img src={asset("7dc6c2b86247")} alt="" width="16" height="16" />Get in touch
-  </a>
+  <div class="cta-act">
+    <button class="btn cta-open" type="button" aria-expanded="false">
+      <img src={asset("paper-plane-solid")} alt="" width="16" height="16" />Get in touch
+    </button>
+    <div class="cta-opts" inert>
+      <div class="btn">
+        <a class="cta-link" href={`tel:${CONTACT_TEL}`}>{CONTACT_PHONE}</a>
+        <button class="cta-copy" type="button" data-copy={CONTACT_PHONE} aria-label="Copy phone number"><span class="i-copy">Copy</span><span class="i-done" aria-hidden="true">Copied</span></button>
+      </div>
+      <div class="btn">
+        <a class="cta-link" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+        <button class="cta-copy" type="button" data-copy={CONTACT_EMAIL} aria-label="Copy email address"><span class="i-copy">Copy</span><span class="i-done" aria-hidden="true">Copied</span></button>
+      </div>
+    </div>
+  </div>
 </section>
+
+<script>
+  // "Get in touch" turns into a call pill and a mail pill; Escape or a click elsewhere turns it back.
+  document.querySelectorAll<HTMLElement>(".cta-act").forEach((act) => {
+    const open = act.querySelector<HTMLButtonElement>(".cta-open")!;
+    const opts = act.querySelector<HTMLElement>(".cta-opts")!;
+    const set = (on: boolean, focus = true) => {
+      act.classList.toggle("open", on);
+      open.setAttribute("aria-expanded", String(on));
+      open.toggleAttribute("inert", on);
+      opts.toggleAttribute("inert", !on);
+      if (focus) (on ? opts.querySelector("a") : open)?.focus({ preventScroll: true });
+    };
+    open.addEventListener("click", () => set(true));
+    act.querySelectorAll<HTMLButtonElement>(".cta-copy").forEach((c) => {
+      const label = c.getAttribute("aria-label")!;
+      let t: number;
+      c.addEventListener("click", async () => {
+        const text = c.dataset.copy!;
+        try { await navigator.clipboard.writeText(text); } catch {
+          // fallback for browsers that block the clipboard API
+          const ta = Object.assign(document.createElement("textarea"), { value: text });
+          ta.style.cssText = "position:fixed;opacity:0";
+          document.body.append(ta);
+          ta.select();
+          const ok = document.execCommand("copy");
+          ta.remove();
+          if (!ok) return;
+        }
+        c.classList.add("done");
+        c.setAttribute("aria-label", "Copied");
+        clearTimeout(t);
+        t = setTimeout(() => { c.classList.remove("done"); c.setAttribute("aria-label", label); }, 1600);
+      });
+    });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && act.classList.contains("open")) set(false); });
+    document.addEventListener("click", (e) => { if (act.classList.contains("open") && !(act.contains(e.target as Node) && (e.target as Element).closest(".btn"))) set(false, false); });
+  });
+</script>

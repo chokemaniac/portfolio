@@ -1,0 +1,7 @@
+---
+// Label whose letters roll up on hover: a copy of each letter waits below and slides up as the original slides out.
+// The roll starts when the parent link/card matches the selectors in Article.astro.
+const { text } = Astro.props;
+const chars = [...text].map((c, i, a) => ({ c, i, o: a.length - 1 - i }));
+---
+<span class="rl"><span class="sr">{text}</span><span class="a" aria-hidden="true">{chars.map((x) => <i style={`--c:${x.i};--o:${x.o}`}>{x.c}</i>)}</span><span class="b" aria-hidden="true">{chars.map((x) => <i style={`--c:${x.i};--o:${x.o}`}>{x.c}</i>)}</span></span>

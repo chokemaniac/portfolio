@@ -1,0 +1,12 @@
+---
+import { CONTACT_EMAIL } from "../data/site";
+import { asset } from "../data/asset";
+const { tight = false, style = "", cls = "" } = Astro.props;
+---
+<section class={`${tight ? "cta tight" : "cta"} ${cls}`} style={style}>
+  <h3 class="h2">Ready to take your design to the next level?</h3>
+  <p>Let’s make it happen</p>
+  <a class="btn" href={CONTACT_EMAIL ? `mailto:${CONTACT_EMAIL}` : "#"}>
+    <img src={asset("7dc6c2b86247")} alt="" width="16" height="16" />Get in touch
+  </a>
+</section>

@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro";
+import d from "../content/impressum.json";
+---
+<Layout title="Impressum & Datenschutz | Mathias Mahling">
+  <div class="wrap">
+    <header class="lhd">
+      <h1>{d.title}</h1>
+      <p class="intro">{d.intro}</p>
+    </header>
+    <article class="legal">
+      {d.sections.map((s) => (
+        <section>
+          <h2>{s.h2}</h2>
+          {s.lines.map(([w, t]) => t ? <p style={`font-weight:${w}`}>{t}</p> : <p class="sp"></p>)}
+        </section>
+      ))}
+    </article>
+  </div>
+</Layout>
+
+<style is:global>
+  .lhd { width: min(100%, 808px); margin-inline: auto; padding-top: 49px; }
+  .lhd h1 { font-size: 48px; font-weight: 600; letter-spacing: -1.92px; color: #000; }
+  .lhd .intro { font-size: 22px; line-height: 36px; margin-top: 24px; }
+  .legal { width: min(100%, 808px); margin-inline: auto; padding-bottom: 149px; }
+  .legal h2 { font-size: 36px; line-height: 46px; font-weight: 600; letter-spacing: -1.44px; margin: 80px 0 23px; }
+  .legal section + section h2 { margin-top: 97px; margin-bottom: 24px; }
+  .legal section p { font-family: var(--jakarta); font-size: 18px; line-height: 30px; color: #000; white-space: pre-line; overflow-wrap: anywhere; }
+  .legal .sp { height: 30px; }
+
+  /* 800 block */
+  @media (max-width: 1099px) {
+    .lhd { padding-top: 0; margin-inline: 0; width: min(100%, 660px); }
+    .lhd h1 { font-size: 40px; letter-spacing: -1.6px; }
+    .lhd .intro { font-size: 20px; line-height: 32px; }
+    .legal { padding-bottom: 109px; }
+    .legal section:first-child h2 { font-size: 32px; line-height: 41px; letter-spacing: -1.28px; margin-top: 64px; }
+  }
+  /* 640 block */
+  @media (max-width: 799px) {
+    .lhd { width: min(100%, 703px); }
+    .lhd h1 { font-size: 36px; letter-spacing: -1.44px; }
+    .legal section:first-child h2 { margin-top: 100px; }
+    .legal section + section h2 { font-size: 32px; line-height: 41px; letter-spacing: -1.28px; }
+  }
+  /* mobile block */
+  @media (max-width: 639px) {
+    .lhd { width: min(100%, 470px); }
+    .lhd h1 { font-size: 30px; letter-spacing: -1.2px; }
+    .lhd .intro { font-size: 18px; line-height: 30px; }
+    .legal { padding-bottom: 85px; }
+    .legal h2, .legal section + section h2 { font-size: 28px; line-height: 35px; letter-spacing: -1.12px; margin-bottom: 24px; }
+    .legal section:first-child h2 { margin-top: 40px; }
+  }
+</style>

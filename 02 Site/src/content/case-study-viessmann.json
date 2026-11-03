@@ -1,0 +1,808 @@
+{
+ "page": "case-study-viessmann",
+ "tag": "Case Study // 2022",
+ "title": "How i crafted Viessmann’s redesign that won them an award",
+ "intro": "Viessmann hired me as one-man-show Lead Product Designer to build a flexible web toolkit that anyone in their 43 market countries could use to create beautiful, flexible, yet brand-consistent websites.",
+ "blocks": [
+  {
+   "t": "img",
+   "src": "0516f7392295",
+   "kind": "wide",
+   "h": 605,
+   "r": [
+    [
+     2160,
+     1021
+    ],
+    [
+     1140,
+     539
+    ],
+    [
+     820,
+     388
+    ],
+    [
+     620,
+     620
+    ],
+    [
+     452,
+     484
+    ]
+   ],
+   "g": [
+    80,
+    80,
+    64,
+    60,
+    40
+   ]
+  },
+  {
+   "t": "card",
+   "label": "The client",
+   "title": "About Viessmann",
+   "text": "The Viessmann Group is a German company that manufactures heating and cooling systems. They have 22 factories in 12 countries and sell their products in 74 countries through sales offices, agencies, and partners around the world.",
+   "img": "988fd41550db",
+   "g": [
+    79,
+    79,
+    63,
+    64,
+    64
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "The project",
+   "g": [
+    60,
+    60,
+    60,
+    40.5,
+    59.84
+   ]
+  },
+  {
+   "t": "p",
+   "text": "Over 2.5 years, we redesigned Viessmann’s websites for 4 countries. We started with an MVP for the UK, which we used for extensive user testing on a live product. Insights from this launch helped us create a significantly improved version for the USA and Canada. We then fine-tuned everything further to deliver the final, optimised version for Viessmann’s key market: Germany.",
+   "g": [
+    24,
+    24,
+    24.5,
+    24.5,
+    24
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "My role and my responsibilities",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "As the only UX/UI designer, I was responsible for all user research, wireframing, prototyping, and user testing. I designed around 30 page templates that served as a reference for content editors and built the entire design system from scratch, continuously updating it. I wrote comprehensive documentation for developers, closely supported the development process, and handled quality assurance by testing all final components. Additionally, I created a detailed online user guide to help editors effectively use the components I designed.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Main tools",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "tools",
+   "h": 40,
+   "w": 611,
+   "flow": true,
+   "imgs": [
+    [
+     "31ffddb7baa4",
+     0,
+     10,
+     72,
+     20
+    ],
+    [
+     "52672ced6dc9",
+     104,
+     6,
+     80,
+     28
+    ],
+    [
+     "b84bec52bb34",
+     216,
+     3,
+     89,
+     35
+    ],
+    [
+     "3ff0971359c4",
+     337,
+     10,
+     80,
+     20
+    ],
+    [
+     "8b7a224d14c3",
+     449,
+     12,
+     88,
+     17
+    ],
+    [
+     "228bba3214b7",
+     569,
+     0,
+     42,
+     40
+    ]
+   ],
+   "g": [
+    24,
+    24,
+    24,
+    24,
+    24
+   ],
+   "sz": [
+    [
+     [
+      72,
+      20
+     ],
+     [
+      72,
+      20
+     ]
+    ],
+    [
+     [
+      64,
+      23
+     ],
+     [
+      72,
+      26
+     ]
+    ],
+    [
+     [
+      76,
+      30
+     ],
+     [
+      79,
+      31
+     ]
+    ],
+    [
+     [
+      72,
+      18
+     ],
+     [
+      80,
+      20
+     ]
+    ],
+    [
+     [
+      64,
+      13
+     ],
+     [
+      72,
+      14
+     ]
+    ],
+    [
+     [
+      34,
+      32
+     ],
+     [
+      33,
+      32
+     ]
+    ]
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    54,
+    54,
+    54,
+    54,
+    54
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "The initial problems",
+   "g": [
+    37,
+    37,
+    37,
+    37,
+    37
+   ]
+  },
+  {
+   "t": "p",
+   "text": "Since we were essentially redesigning 40+ different websites in 40+ different countries, there was a whole multitude of problems that all needed resolving. Here i will only outline a few of the biggest ones.",
+   "g": [
+    23,
+    23,
+    23.5,
+    23.5,
+    24
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "General design inconsistency across the 40+ different websites",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "Viessmann’s website ecosystem was complex and fragmented. Each country created its own content and assets, often without design support, leading to inconsistent quality. There were multiple separate websites for B2B, B2C, and product-specific microsites, all with different priorities. For users, it was difficult to find and understand product information, and installers spent too much time searching for technical details.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Overloaded menu",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "There was a general lack of structure and consistency on Viessmann’s old website. Being a large company with many different branches - the amount of content they had to handle outgrew their old menu structure and made it hard to find anything.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "img",
+   "src": "6773515e518b",
+   "kind": "col",
+   "h": 753,
+   "r": [
+    [
+     808,
+     753
+    ],
+    [
+     808,
+     753
+    ],
+    [
+     808,
+     762
+    ],
+    [
+     620,
+     580
+    ],
+    [
+     452,
+     423
+    ]
+   ],
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Awkward product catalogue access",
+   "g": [
+    60,
+    60,
+    60,
+    60,
+    60
+   ]
+  },
+  {
+   "t": "p",
+   "text": "A product catalogue existed in theory, but there was no way to just browse the products. The initial approach was to narrow down the search as much as possible - either through navigating multiple category pages or by using clumsy menu that folded out of the header. At the end there was only a list of product names.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "img",
+   "src": "242a756fa6c0",
+   "kind": "col",
+   "h": 729,
+   "r": [
+    [
+     808,
+     729
+    ],
+    [
+     808,
+     729
+    ],
+    [
+     808,
+     726
+    ],
+    [
+     620,
+     556
+    ],
+    [
+     452,
+     405
+    ]
+   ],
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    55,
+    55,
+    54,
+    54,
+    55
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "The solution",
+   "g": [
+    36,
+    36,
+    37,
+    37,
+    36
+   ]
+  },
+  {
+   "t": "p",
+   "text": "To solve all the numerous problems, we needed a good strategy and a scalable solution that would be able to roll out everything across all the 40+ country websites.",
+   "g": [
+    24,
+    24,
+    23.5,
+    23.5,
+    24
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Unified core components and design system",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "The first task was to create over 50 component templates for the website builder, designed so that even users without a design background could easily add text, images, or videos while maintaining a consistent, brand-compliant look.",
+   "g": [
+    17,
+    17,
+    17,
+    17,
+    17
+   ]
+  },
+  {
+   "t": "p",
+   "text": "During this process, I also built the design system from scratch, including the font and icon libraries. This gave us a strong understanding of the design language, which we then used to develop the more complex lead generation components.",
+   "g": [
+    30,
+    30,
+    30,
+    30,
+    30
+   ]
+  },
+  {
+   "t": "img",
+   "src": "6260390196e4",
+   "kind": "wide",
+   "h": 717,
+   "r": [
+    [
+     2160,
+     1210
+    ],
+    [
+     1140,
+     639
+    ],
+    [
+     820,
+     460
+    ],
+    [
+     620,
+     348
+    ],
+    [
+     452,
+     254
+    ]
+   ],
+   "g": [
+    70,
+    70,
+    70,
+    50,
+    50
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Refining key user flows: Product Catalogue and Lead Gen Tools",
+   "g": [
+    80,
+    80,
+    64,
+    56,
+    56
+   ]
+  },
+  {
+   "t": "p",
+   "text": "Since we already had a solid design system in place, we skipped lo-fi wireframes and moved straight into high-fidelity prototyping. We began with internal testing, focusing on both desktop and smartphone touchpoints, with a strong emphasis on delivering a consistent user experience across devices. Using the Double Diamond method for each of the four core components, we refined our designs and later conducted a brief round of external user testing to validate our solutions. The prototypes closely resembled the final product and served as a valuable reference for the development team.",
+   "g": [
+    17,
+    17,
+    17,
+    17,
+    17
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Centralised website builder with centralised resources",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "We developed a centralised website builder with a shared database for images and product information. To ensure global consistency, we created reusable components and templates that followed brand guidelines while giving editors the flexibility to create content. Extensive UX research helped improve key lead generation features for the main navigation, product catalogue, product finder, and installer finder.",
+   "g": [
+    17,
+    17,
+    17,
+    17,
+    17
+   ]
+  },
+  {
+   "t": "img",
+   "src": "27e9bf933725",
+   "kind": "wide",
+   "h": 806,
+   "r": [
+    [
+     2160,
+     1361
+    ],
+    [
+     1140,
+     718
+    ],
+    [
+     820,
+     517
+    ],
+    [
+     620,
+     391
+    ],
+    [
+     452,
+     285
+    ]
+   ],
+   "g": [
+    70,
+    70,
+    70,
+    50,
+    50
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Not just responsive, but a 100% identical experience across all devices",
+   "g": [
+    79,
+    80,
+    64,
+    55,
+    56
+   ]
+  },
+  {
+   "t": "p",
+   "text": "It's important to me that the user experience feels identical on all devices, whether you're on a phone, tablet, or desktop. I believe people shouldn't have to re-learn how to use an interface just because they switch screens. A consistent experience makes things feel more natural, saves time, and helps users stay focused on what they came to do.",
+   "g": [
+    17,
+    17,
+    17,
+    17,
+    17
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    55,
+    55,
+    54,
+    55,
+    54
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "The outcome",
+   "g": [
+    36,
+    36,
+    37,
+    36,
+    37
+   ]
+  },
+  {
+   "t": "p",
+   "text": "The user-centered redesign of the product catalog and installer finder significantly improved usability, resulting in a substantial increase in lead generation. Aggregating all websites into one central system and integrating former microsites into the main website positively impacted the company's web KPIs by boosting organic page views, increasing leads, and reducing the bounce rate.",
+   "g": [
+    24,
+    24,
+    23.5,
+    24.5,
+    24
+   ]
+  },
+  {
+   "t": "video",
+   "mp4": "viessmann_casestudy_full.mp4",
+   "kind": "wide",
+   "h": 679,
+   "r": [
+    [
+     2160,
+     1147
+    ],
+    [
+     1140,
+     605
+    ],
+    [
+     820,
+     435
+    ],
+    [
+     620,
+     329
+    ],
+    [
+     452,
+     241
+    ]
+   ],
+   "g": [
+    64,
+    64,
+    64,
+    64,
+    64
+   ]
+  },
+  {
+   "t": "card",
+   "label": "The cherry on top",
+   "title": "We won the Contentspace DX Award for \"Best Redesign.\"",
+   "text": "In November 2022, Viessmann Germany received the Contentspace DX Award for \"Best New Website / Website Redesign.\" for the main product we created together.",
+   "img": "696c13eb82bc",
+   "g": [
+    80,
+    80,
+    60,
+    40,
+    59
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    54,
+    54,
+    55,
+    54.5,
+    51.84
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "In summary",
+   "g": [
+    37,
+    37,
+    36,
+    36,
+    36
+   ]
+  },
+  {
+   "t": "p",
+   "text": "I led the redesign of Viessmann’s digital ecosystem—streamlining UX, modernising the visual identity, and unifying their platform architecture. The result? A sleeker, more intuitive experience that boosted engagement, improved conversion, and won an industry award for design excellence. By balancing innovation with brand heritage, the project elevated Viessmann’s position as a leader in sustainable heating solutions.",
+   "g": [
+    23,
+    23,
+    24.5,
+    24.5,
+    24
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Key wins",
+   "g": [
+    30,
+    30,
+    30,
+    30,
+    30
+   ]
+  },
+  {
+   "t": "wins",
+   "items": [
+    [
+     "Award-winning design"
+    ],
+    [
+     "Dramatically improved usability and up to 300% more conversions"
+    ],
+    [
+     "Cohesive brand experience across all 40+ websites"
+    ]
+   ],
+   "g": [
+    24,
+    24,
+    24,
+    24,
+    24
+   ]
+  },
+  {
+   "t": "link",
+   "text": "Go to the live site",
+   "href": "https://www.viessmann.de/",
+   "g": [
+    60,
+    60,
+    60,
+    60,
+    60
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    55,
+    55,
+    54,
+    54,
+    55
+   ]
+  }
+ ],
+ "next": "/case-study-encore",
+ "variants": {
+  "The user-centered redesign of the product catalog and installer finder significantly improved usability, resulting in a substantial increase in lead generation. Aggregating all websites into one central system and integrating former microsites into the main website positively impacted the company's web KPIs by boosting organic page views, increasing leads, and reducing the bounce rate.": {
+   "w": "The user-centered redesign of the product catalog and installer finder significantly improved usability, resulting in a substantial increase in lead generation. Aggregating all websites into one central system and integrating former microsites into the main website positively impacted the company's web KPIs by boosting organic page views, increasing leads, and reducing the bounce rate.",
+   "t": "The user-centered redesign of the product catalog and installer finder significantly improved usability, resulting in a substantial increase in lead generation. In November 2022, Viessmann Germany received the Contentspace DX Award for \"Best New Website / Website Redesign.\" Aggregating all websites into one central system and integrating former microsites into the main website positively impacted the company's web KPIs by boosting organic page views, increasing leads, and reducing the bounce rate."
+  },
+  "I led the redesign of Viessmann’s digital ecosystem—streamlining UX, modernising the visual identity, and unifying their platform architecture. The result? A sleeker, more intuitive experience that boosted engagement, improved conversion, and won an industry award for design excellence. By balancing innovation with brand heritage, the project elevated Viessmann’s position as a leader in sustainable heating solutions.": {
+   "w": "I led the redesign of Viessmann’s digital ecosystem—streamlining UX, modernising the visual identity, and unifying their platform architecture. The result? A sleeker, more intuitive experience that boosted engagement, improved conversion, and won an industry award for design excellence. By balancing innovation with brand heritage, the project elevated Viessmann’s position as a leader in sustainable heating solutions.",
+   "t": "The user-centered redesign of the product catalog and installer finder significantly improved usability, resulting in a substantial increase in lead generation. In November 2022, Viessmann Germany received the Contentspace DX Award for \"Best New Website / Website Redesign.\" Aggregating all websites into one central system and integrating former microsites into the main website positively impacted the company's web KPIs by boosting organic page views, increasing leads, and reducing the bounce rate."
+  }
+ },
+ "gx": {
+  "next": [
+   20,
+   20,
+   21,
+   21,
+   20
+  ],
+  "relH": [
+   80,
+   80,
+   80,
+   80,
+   136
+  ],
+  "rel": [
+   24,
+   24,
+   23.5,
+   23.5,
+   24
+  ],
+  "cta": [
+   146,
+   126,
+   106,
+   106.98,
+   88.3
+  ]
+ }
+}

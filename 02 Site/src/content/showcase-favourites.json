@@ -1,0 +1,535 @@
+{
+ "page": "showcase-favourites",
+ "tag": "Showcase",
+ "title": "My favourite projects",
+ "intro": "In my career i successfully delivered more than 200 projects. Here are some more of my personal favourites.",
+ "blocks": [
+  {
+   "t": "h3",
+   "text": "Members App (2024)",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "The concept of this app is to create exclusive private groups with exclusive content where members could only join if they fulfilled certain requirements. For example be at a certain geo location (like a concert or a sports event), or you would have to own a certain NFT.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "hscroll",
+   "imgs": [
+    "0f779756eb8f",
+    "e5feb1160bdd",
+    "802a02286483"
+   ],
+   "g": [
+    null,
+    null,
+    null,
+    null,
+    40
+   ]
+  },
+  {
+   "t": "img",
+   "src": "41faf5b3f371",
+   "kind": "wide",
+   "h": 711,
+   "r": [
+    [
+     2160,
+     1199
+    ],
+    [
+     1140,
+     633
+    ],
+    [
+     820,
+     456
+    ],
+    [
+     620,
+     620
+    ],
+    null
+   ],
+   "hideMobile": true,
+   "mt": 40,
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    null
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Viessmann Developers (2022)",
+   "g": [
+    80,
+    80,
+    64,
+    64,
+    80
+   ]
+  },
+  {
+   "t": "p",
+   "text": "Viessmann Developers is a hub for software engineers to explore the Viessmann API and create their own apps. The requirement was to go dark and tech heavy. I had a lot of fun designing this.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "video",
+   "mp4": "videvs_compressed.mp4",
+   "kind": "wide",
+   "h": 1280,
+   "r": [
+    [
+     2160,
+     2160
+    ],
+    [
+     1140,
+     1140
+    ],
+    [
+     820,
+     820
+    ],
+    [
+     620,
+     620
+    ],
+    [
+     452,
+     452
+    ]
+   ],
+   "mb": 16,
+   "mt": 40,
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "masonry",
+   "cols": [
+    [
+     [
+      "e78ee58c6290",
+      2001,
+      [
+       [
+        1064,
+        3368
+       ],
+       [
+        562,
+        1779
+       ],
+       [
+        402,
+        1272
+       ],
+       [
+        302,
+        956
+       ],
+       [
+        452,
+        1431
+       ]
+      ]
+     ]
+    ],
+    [
+     [
+      "ec873238fc5d",
+      2311,
+      [
+       [
+        1064,
+        3891
+       ],
+       [
+        562,
+        2055
+       ],
+       [
+        402,
+        1470
+       ],
+       [
+        302,
+        1104
+       ],
+       [
+        452,
+        1653
+       ]
+      ]
+     ]
+    ]
+   ],
+   "r": 12,
+   "g": [
+    32,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Quantum Energy Dashbaord (2019)",
+   "g": [
+    80,
+    81,
+    40,
+    40,
+    39
+   ]
+  },
+  {
+   "t": "p",
+   "text": "This web app is an internal Tool for Quantum to manage their entire business. Markets, portfolios, prices, calculations, transactions and much more.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "masonry",
+   "cols": [
+    [
+     [
+      "00d62adfb753",
+      349,
+      [
+       [
+        1064,
+        600
+       ],
+       [
+        562,
+        311
+       ],
+       [
+        402,
+        226
+       ],
+       [
+        302,
+        170
+       ],
+       [
+        452,
+        254
+       ]
+      ]
+     ],
+     [
+      "a45fc5c5a2fb",
+      469,
+      [
+       [
+        1064,
+        788
+       ],
+       [
+        562,
+        417
+       ],
+       [
+        402,
+        297
+       ],
+       [
+        302,
+        223
+       ],
+       [
+        452,
+        334
+       ]
+      ]
+     ]
+    ],
+    [
+     [
+      "83b5d78569e8",
+      451,
+      [
+       [
+        1064,
+        761
+       ],
+       [
+        562,
+        401
+       ],
+       [
+        402,
+        287
+       ],
+       [
+        302,
+        215
+       ],
+       [
+        452,
+        322
+       ]
+      ]
+     ],
+     [
+      "feb4a7c79bde",
+      355,
+      [
+       [
+        1064,
+        599
+       ],
+       [
+        562,
+        316
+       ],
+       [
+        402,
+        226
+       ],
+       [
+        302,
+        170
+       ],
+       [
+        452,
+        254
+       ]
+      ]
+     ]
+    ]
+   ],
+   "r": 8,
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Crobo Intelligence (2013)",
+   "g": [
+    81,
+    78,
+    39,
+    39,
+    38
+   ]
+  },
+  {
+   "t": "p",
+   "text": "This was probably the most complex web app i have ever worked on. The challenge was to combine 3 separate, complex Sales- & Marketing Tools into one seamless tool that would be able to manage them all.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "masonry",
+   "cols": [
+    [
+     [
+      "d14b861f366c",
+      960,
+      [
+       [
+        1064,
+        1615
+       ],
+       [
+        562,
+        854
+       ],
+       [
+        402,
+        613
+       ],
+       [
+        302,
+        460
+       ],
+       [
+        452,
+        687
+       ]
+      ]
+     ],
+     [
+      "f0dd70a26df5",
+      446,
+      [
+       [
+        1064,
+        750
+       ],
+       [
+        562,
+        397
+       ],
+       [
+        402,
+        283
+       ],
+       [
+        302,
+        213
+       ],
+       [
+        452,
+        319
+       ]
+      ]
+     ]
+    ],
+    [
+     [
+      "ebc2473936ca",
+      536,
+      [
+       [
+        1064,
+        904
+       ],
+       [
+        562,
+        477
+       ],
+       [
+        402,
+        341
+       ],
+       [
+        302,
+        256
+       ],
+       [
+        452,
+        383
+       ]
+      ]
+     ],
+     [
+      "7fceb131aaec",
+      620,
+      [
+       [
+        1064,
+        1043
+       ],
+       [
+        562,
+        551
+       ],
+       [
+        402,
+        394
+       ],
+       [
+        302,
+        296
+       ],
+       [
+        452,
+        444
+       ]
+      ]
+     ]
+    ]
+   ],
+   "r": 8,
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    115,
+    113,
+    114,
+    114,
+    51
+   ]
+  }
+ ],
+ "next": "/case-study-viessmann",
+ "variants": {},
+ "gx": {
+  "next": [
+   20,
+   21,
+   20,
+   20,
+   21
+  ],
+  "relH": [
+   80,
+   80,
+   80,
+   80,
+   80
+  ],
+  "rel": [
+   24,
+   23,
+   24.5,
+   24.5,
+   24
+  ],
+  "cta": [
+   146,
+   126,
+   106,
+   106.98,
+   87.3
+  ]
+ }
+}

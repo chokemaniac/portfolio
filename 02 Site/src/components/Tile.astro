@@ -1,0 +1,7 @@
+---
+// Icon tile built in code: change colors with --tile-bg, --tile-border, --tile-inner, --tile-icon.
+import icons from "../data/icons.json";
+const { name, cls = "" } = Astro.props;
+const i = icons[name];
+---
+<span class:list={["ic-tile", cls]}><span><svg viewBox={i.vb} aria-hidden="true" set:html={i.svg} /></span></span>

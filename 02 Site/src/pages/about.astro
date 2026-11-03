@@ -1,0 +1,135 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Cta from "../components/Cta.astro";
+import Tile from "../components/Tile.astro";
+import { asset } from "../data/asset";
+
+// Brand logos: the live site uses its own set (files, order, sizes) in each layout block. [file, w, h]
+const brandsDesktop = [
+  [["6a31761538ab", 38, 38], ["80ecb337502c", 128, 27], ["ecf610c6c5e4", 70, 40], ["3c9d25699481", 102, 32], ["2aefdd1dd5d7", 96, 32], ["b7c1e92dd9cb", 112, 25], ["4313bd3dd47f", 149, 27], ["fb0a912daf79", 146, 22]],
+  [["3d13d1ca2a8f", 65, 32], ["d0e3ed89bd4d", 118, 25], ["cf4ba7765a7b", 140, 28], ["dfe4f9ca548b", 44, 40], ["61a0eccadd62", 145, 32], ["80d28403ce21", 108, 34], ["14e623efc707", 84, 40], ["90c7dc8c32be", 40, 40]],
+];
+const brands800 = [["6a31761538ab", 38, 38], ["80ecb337502c", 128, 27], ["ecf610c6c5e4", 70, 40], ["3c9d25699481", 102, 32], ["77941d2fd55b", 96, 32], ["3d13d1ca2a8f", 65, 32], ["b7c1e92dd9cb", 112, 25], ["b1fa9f177b61", 140, 25], ["fb0a912daf79", 146, 22], ["d0e3ed89bd4d", 118, 25], ["90c7dc8c32be", 40, 40], ["b24503614b50", 140, 28], ["5ec517317d4f", 44, 40], ["61a0eccadd62", 145, 32], ["dac81ed1d449", 108, 34], ["14e623efc707", 84, 40]];
+const brands640 = [["7adbd430320d", 35, 35], ["0c7bab535cc7", 108, 23], ["ecf610c6c5e4", 70, 40], ["9728376d2ea1", 91, 28], ["c3a73113a7b4", 90, 30], ["aacc210099b0", 104, 23], ["3de8dbd77277", 126, 24], ["0dd1e0fe9dbc", 131, 20], ["3d13d1ca2a8f", 65, 32], ["486ce32c877d", 112, 24], ["8a60b3a4907a", 132, 26], ["13e8a8332491", 44, 40], ["7fe5c94706a3", 140, 31], ["dac81ed1d449", 108, 34], ["14e623efc707", 84, 40], ["90c7dc8c32be", 40, 40]];
+const brandsMobile = [["0f19c8a14f35", 32, 32], ["2270f6e1a89f", 84, 18], ["88a06f5553a8", 60, 35], ["0f13162fe917", 36, 33], ["55c16dc2e60c", 64, 20], ["edd39299a7c6", 64, 22], ["57775ae39920", 86, 19], ["d2c4dfbd4ddf", 97, 18], ["ffcade10bb92", 112, 17], ["4f1e3b61a0b8", 54, 27], ["3f79c1c93db2", 101, 21], ["f900dd53d5f9", 104, 21], ["c1addd1d717d", 36, 36], ["63c85db42605", 98, 22], ["6761757e94c1", 80, 25], ["2ecb26d0141f", 56, 26]];
+const mind = [
+  ["target", "Great design guides without words", "I believe in the term “If you have to explain your interface, then the design isn’t good enough, yet”"],
+  ["layers-2", "Consistency breeds familiarity", "Familiar structures mean faster decisions. I design with repeating patterns, so users spend zero time relearning your interface."],
+  ["check-circle", "Simplicity is sophistication", "Good design subtracts before it adds. I strip away noise so users find clarity, not confusion. Clarity drives engagement."],
+  ["cube", "Function over design", "I prioritise intuitive flows over flashy visuals. Good design solves problems first. Every choice serves a purpose, and every pixel earns its place."],
+  ["head-heart", "Brands speak louder than words", "Your brand’s visuals tell a story before a word is read. I craft identities that catch eyes, spark trust, and most importantly: say the right thing."],
+  ["user-check", "Not everything needs testing", "Good design leans on proven patterns. I test where it counts, and trust expertise for the rest. No overthinking, just outcomes."],
+];
+---
+<Layout title="About | Mathias Mahling">
+  <div class="wrap about-page">
+    <section class="ab-top">
+      <div class="ab-text">
+        <span class="pill">About me</span>
+        <h1>I love bringing clear, consistent structure and a polished UI to everyday digital products.</h1>
+        <p class="ab-lead">I’m a senior UX/UI and product designer with over 16 years of experience making complex software interfaces user-friendly, intuitive, and visually polished. I’ve led more than 200 projects across automotive, energy, and digital services while often taking full ownership from concept to implementation.</p>
+        <div class="actions">
+          <a class="btn" href="https://chokemaniac.github.io/portfolio/Mathias_Mahling_CV_08_2025_EN.pdf" target="_blank" rel="noopener">Download resume</a>
+          <a class="btn btn-icon" href="https://www.linkedin.com/in/mathias-mahling-64b3801/" aria-label="LinkedIn"><img src={asset("0ce790a9f960")} alt="" /></a>
+          <a class="btn btn-icon" href="https://www.xing.com/profile/Mathias_Mahling/" aria-label="Xing"><img src={asset("9ec4ef4e9eee")} alt="" /></a>
+        </div>
+      </div>
+      <img class="portrait" src={asset("de2464db811d")} alt="Mathias Mahling" />
+    </section>
+
+    <h3 class="label brands-h">Brands i’ve helped bring ideas to life</h3>
+    <div class="brands b-d">{brandsDesktop.flat().map(([f, w, h]) => <img src={asset(f)} alt="" width={w} height={h} loading="lazy" decoding="async" />)}</div>
+    <div class="brands b-t">{brands800.map(([f, w, h]) => <img src={asset(f)} alt="" width={w} height={h} loading="lazy" decoding="async" />)}</div>
+    <div class="brands b-s">{brands640.map(([f, w, h]) => <img src={asset(f)} alt="" width={w} height={h} loading="lazy" decoding="async" />)}</div>
+    <div class="brands b-m">{brandsMobile.map(([f, w, h]) => <img src={asset(f)} alt="" width={w} height={h} loading="lazy" decoding="async" />)}</div>
+
+    <h2 class="label mind-h">State of mind</h2>
+    <div class="mind">
+      {mind.map(([ic, t, p], i) => (
+        <div class="mi">
+          <Tile name={ic} cls="ico" />
+          <div><h3>{t}</h3><p>{p}</p></div>
+        </div>
+      ))}
+    </div>
+  </div>
+  <Cta />
+</Layout>
+
+<style is:global>
+  .about-page { padding-top: 49px; }
+  .about-page .pill { display: block; width: fit-content; padding: 4px 7px; border-radius: 3px; background: #9c9bab; color: #fff; font-size: 14px; line-height: 18px; letter-spacing: -.42px; }
+  .ab-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
+  .ab-text { flex: 1; min-width: 0; }
+  .ab-top h1 { font-size: 40px; font-weight: 600; letter-spacing: -1.6px; color: #000; margin-top: 24px; }
+  .ab-lead { font-size: 20px; line-height: 32px; margin-top: 24px; }
+  .ab-text .actions { margin-top: 40px; }
+  .ab-text .actions .btn:first-child { width: 197px; padding: 0; }
+  .portrait { flex: none; width: 330px; height: 401px; max-width: none; margin-top: 24px; object-fit: cover; }
+
+  .brands-h { margin-top: 80px; }
+  .brands { margin-top: 40px; }
+  .b-t, .b-s, .b-m { display: none; }
+  .b-d { display: flex; flex-wrap: wrap; align-items: center; gap: 32px 40px; }
+  .brands img { flex: none; max-width: none; }
+
+  .mind-h { margin-top: 80px; }
+  .mind { display: grid; grid-template-columns: 1fr 1fr; margin: 34px -14px -40px -10px; row-gap: 34px; }
+  .mi { position: relative; padding: 0 54px 0 122px; }
+  .mi .ico { position: absolute; left: 0; top: 0; width: 108px; height: 108px; max-width: none; }
+  .mi h3 { font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -.72px; color: var(--ink-2); margin-top: 6px; }
+  .mi p { font-size: 17px; line-height: 27px; color: var(--muted); margin-top: 8px; }
+  .mi .ico.ic-tile { display: block; }
+  .mi .ic-tile > span { width: 88px; height: 88px; }
+  .mi .ic-tile > span > svg { width: 55px; height: 55px; }
+
+  /* widest layout (1623+) */
+  @media (min-width: 1623px) {
+    .ab-text { flex: none; width: 718px; }
+    .ab-top h1 { font-size: 48px; letter-spacing: -1.92px; }
+    .ab-lead { font-size: 22px; line-height: 36px; }
+    .portrait { width: 424px; height: 516px; margin-top: 4px; }
+  }
+
+  /* 800 block (800-1099): portrait on the right, items with the icon above the text */
+  @media (max-width: 1099px) {
+    .about-page { padding-top: 0; }
+    .ab-top { gap: 24px; }
+    .ab-text { flex: none; width: min(696px, calc(100% - 264px)); }
+    .ab-top h1 { font-size: 24px; letter-spacing: -.96px; }
+    .ab-lead { font-size: 16px; line-height: 24px; }
+    .portrait { width: 240px; height: 292px; }
+    .brands-h { margin-top: 64px; }
+    .b-d { display: none; }
+    .b-t { display: flex; flex-wrap: wrap; align-items: center; gap: 32px 40px; }
+    .mind { grid-template-columns: 1fr 1fr; column-gap: 24px; row-gap: 34px; margin: 34px 0 -6px; }
+    .mi { padding: 0 16px 0 0; }
+    .mi .ico { position: relative; display: block; margin: 0 0 10px -10px; }
+    .mi h3 { font-size: 22px; letter-spacing: -.66px; margin-top: 0; }
+  }
+  /* 640 block (640-799): portrait above the text */
+  @media (max-width: 799px) {
+    .ab-top { flex-direction: column; gap: 0; align-items: stretch; }
+    .portrait { order: -1; margin: -32px 0 40px; align-self: flex-start; width: 200px; height: 243px; }
+    .ab-text { width: min(703px, 100%); }
+    .ab-top h1 { font-size: 36px; letter-spacing: -1.44px; }
+    .ab-lead { font-size: 18px; line-height: 30px; }
+    .brands-h { margin-top: 60px; }
+    .b-t { display: none; }
+    .b-s { display: flex; flex-wrap: wrap; align-items: center; gap: 32px 40px; }
+    .mi { padding-right: 40px; }
+    .mi h3 { font-size: 24px; letter-spacing: -.72px; }
+  }
+  /* mobile block (<640) */
+  @media (max-width: 639px) {
+    .ab-text { width: min(470px, 100%); }
+    .portrait { width: calc(100% - 80px); height: auto; aspect-ratio: 247 / 300; align-self: center; margin-top: -24px; }
+    .ab-top h1 { font-size: 30px; letter-spacing: -1.2px; }
+    .brands-h { margin-top: 80px; font-size: 18px; letter-spacing: -.18px; }
+    .b-s { display: none; }
+    .b-m { display: flex; flex-wrap: wrap; align-items: center; gap: 36px 32px; }
+    .mind-h { font-size: 18px; letter-spacing: -.18px; }
+    .mind { grid-template-columns: 1fr; row-gap: 34px; margin-bottom: -20px; }
+    .mi { padding-right: 0; }
+  }
+</style>

@@ -1,0 +1,5 @@
+---
+const { s, v } = Astro.props;
+const x = v?.[s];
+---
+{x ? <><span class="vd">{s}</span><span class="vw">{x.w}</span><span class="vt">{x.t}</span></> : s}

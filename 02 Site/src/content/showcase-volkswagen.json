@@ -1,0 +1,682 @@
+{
+ "page": "showcase-volkswagen",
+ "tag": "Showcase // 2023",
+ "title": "Designing Automotive Human Machine Interfaces for VW",
+ "intro": "As Senior UX/UI Designer i was part of two design teams. First i worked on the Infotainment System for the ID.Unyx - especially tailored for the Chinese market. Later i moved over to the HMI design team for the series production HMI in their entire fleet.",
+ "blocks": [
+  {
+   "t": "img",
+   "src": "33338c370ac4",
+   "kind": "wide",
+   "h": 711,
+   "r": [
+    [
+     2160,
+     1199
+    ],
+    [
+     1140,
+     633
+    ],
+    [
+     820,
+     456
+    ],
+    [
+     620,
+     620
+    ],
+    [
+     452,
+     538
+    ]
+   ],
+   "pos": [
+    18,
+    30
+   ],
+   "g": [
+    80,
+    80,
+    64,
+    60,
+    40
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "Project 1 : HMI design for the ID.Unyx to be  released in China",
+   "g": [
+    80,
+    80,
+    63,
+    64,
+    63
+   ]
+  },
+  {
+   "t": "p",
+   "text": "For the release of the ID.Unyx in the Chinese market, Volkswagen required a custom HMI, tailored specifically to local cultural expectations and user behaviours.",
+   "g": [
+    23,
+    23,
+    24,
+    24,
+    24
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "My role and my responsibilities",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "Due to the complexity and scale of the project, i was part of a design team. Each designer was assigned a certain set of screens that they were mainly working on. But since my responsibilities also involved the main design grid and general layout, i was eventually involved in pretty much every screen.\n\nAddiotionally I improved, updated and maintained the design system in Sketch, wrote design documentation",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Main tools",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "tools",
+   "h": 40,
+   "w": 424,
+   "flow": false,
+   "imgs": [
+    [
+     "3eeec8d60ced",
+     35,
+     10,
+     75,
+     19
+    ],
+    [
+     "6f4d2cde9335",
+     0,
+     7,
+     28,
+     25
+    ],
+    [
+     "8a6397fa96e0",
+     0,
+     16,
+     14,
+     16
+    ],
+    [
+     "39d7d5aa8da4",
+     14,
+     16,
+     14,
+     16
+    ],
+    [
+     "6316666852ee",
+     6,
+     16,
+     17,
+     16
+    ],
+    [
+     "e7fcf819e01f",
+     6,
+     7,
+     8,
+     9
+    ],
+    [
+     "a5e1aeff46b4",
+     14,
+     7,
+     8,
+     9
+    ],
+    [
+     "33e1385ef4b5",
+     6,
+     7,
+     17,
+     9
+    ],
+    [
+     "52672ced6dc9",
+     142,
+     6,
+     80,
+     28
+    ],
+    [
+     "c2bfe6dba90a",
+     295,
+     7,
+     11,
+     25
+    ],
+    [
+     "0686e4039efe",
+     320,
+     13,
+     10,
+     20
+    ],
+    [
+     "1dcf16b5072e",
+     331,
+     13,
+     18,
+     20
+    ],
+    [
+     "e24df5779575",
+     269,
+     3,
+     17,
+     16
+    ],
+    [
+     "8595224267b9",
+     262,
+     11,
+     17,
+     16
+    ],
+    [
+     "4d80d8062a3d",
+     254,
+     18,
+     17,
+     16
+    ],
+    [
+     "a7259188ef8b",
+     382,
+     0,
+     42,
+     40
+    ],
+    [
+     "4d6b81f97f42",
+     21.8,
+     7.9,
+     6.1,
+     8.2
+    ],
+    [
+     "f2b5a8d886e8",
+     0,
+     7.9,
+     6.1,
+     8.2
+    ],
+    [
+     "431f9d38c1f7",
+     310.4,
+     6,
+     4.8,
+     26.5
+    ]
+   ],
+   "g": [
+    24,
+    24,
+    24,
+    27,
+    28
+   ]
+  },
+  {
+   "t": "img",
+   "src": "b66baa38f8b5",
+   "kind": "wide",
+   "h": 679,
+   "r": [
+    [
+     2160,
+     1162
+    ],
+    [
+     1140,
+     605
+    ],
+    [
+     820,
+     440
+    ],
+    [
+     620,
+     399
+    ],
+    [
+     452,
+     452
+    ]
+   ],
+   "pos": [
+    null,
+    53
+   ],
+   "g": [
+    100,
+    100,
+    80,
+    77,
+    53
+   ]
+  },
+  {
+   "t": "img",
+   "src": "6e62b5fa73cd",
+   "kind": "wide",
+   "h": 679,
+   "r": [
+    [
+     2160,
+     1162
+    ],
+    [
+     1140,
+     605
+    ],
+    [
+     820,
+     440
+    ],
+    [
+     620,
+     399
+    ],
+    [
+     452,
+     452
+    ]
+   ],
+   "pos": [
+    null,
+    49
+   ],
+   "g": [
+    32,
+    32,
+    32,
+    31,
+    32
+   ]
+  },
+  {
+   "t": "img",
+   "src": "494c98e82900",
+   "kind": "wide",
+   "h": 679,
+   "r": [
+    [
+     2160,
+     1162
+    ],
+    [
+     1140,
+     605
+    ],
+    [
+     820,
+     440
+    ],
+    [
+     620,
+     399
+    ],
+    [
+     452,
+     452
+    ]
+   ],
+   "g": [
+    32,
+    32,
+    32,
+    32,
+    32
+   ]
+  },
+  {
+   "t": "img",
+   "src": "a4d02017e1ca",
+   "kind": "wide",
+   "h": 679,
+   "r": [
+    [
+     2160,
+     1162
+    ],
+    [
+     1140,
+     605
+    ],
+    [
+     820,
+     440
+    ],
+    [
+     620,
+     399
+    ],
+    [
+     452,
+     452
+    ]
+   ],
+   "pos": [
+    null,
+    72
+   ],
+   "g": [
+    32,
+    33,
+    31,
+    32,
+    32
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "NDA Disclaimer",
+   "g": [
+    80,
+    80,
+    64,
+    63,
+    64
+   ]
+  },
+  {
+   "t": "p",
+   "text": "Due to the NDA i’ve signed i cannot show detailed processes  and screenshots, but only the official promo images owned by the Volkswagen Group.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    55,
+    54,
+    54,
+    55,
+    54
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "Project 2 : HMI design for the global Volkswagen series production",
+   "g": [
+    36,
+    37,
+    37,
+    36,
+    37
+   ]
+  },
+  {
+   "t": "p",
+   "text": "After the VW.Unyx project i immediately switched over to the HMI design team in Wolfsburg to work on the ID.Software 6.0 - the HMI for the Volkswagen series production.",
+   "g": [
+    23,
+    23,
+    24,
+    24,
+    24
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "My role and my responsibilities",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "Like in the first project, i was part of a bigger design team. This time i was trusted with the high profile screens. Homepage, Navigation, Media Player and App Drawer.\n\nAlso here I improved, updated and maintained the design system in Figma, wrote design documentation and mentored the junior designers.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Main tools",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "tools",
+   "h": 40,
+   "w": 386,
+   "flow": false,
+   "imgs": [
+    [
+     "7d2075e2ac2e",
+     0,
+     10,
+     72,
+     20
+    ],
+    [
+     "52672ced6dc9",
+     104,
+     6,
+     80,
+     28
+    ],
+    [
+     "c2bfe6dba90a",
+     257,
+     7,
+     11,
+     25
+    ],
+    [
+     "0686e4039efe",
+     282,
+     13,
+     10,
+     20
+    ],
+    [
+     "1dcf16b5072e",
+     293,
+     13,
+     18,
+     20
+    ],
+    [
+     "e24df5779575",
+     231,
+     3,
+     17,
+     16
+    ],
+    [
+     "8595224267b9",
+     224,
+     11,
+     17,
+     16
+    ],
+    [
+     "4d80d8062a3d",
+     216,
+     18,
+     17,
+     16
+    ],
+    [
+     "a7259188ef8b",
+     344,
+     0,
+     42,
+     40
+    ],
+    [
+     "431f9d38c1f7",
+     272.4,
+     6,
+     4.8,
+     26.5
+    ]
+   ],
+   "g": [
+    24,
+    24,
+    24,
+    28,
+    27
+   ]
+  },
+  {
+   "t": "img",
+   "src": "6b8771bf0b23",
+   "kind": "wide",
+   "h": 679,
+   "r": [
+    [
+     2160,
+     1162
+    ],
+    [
+     1140,
+     605
+    ],
+    [
+     820,
+     440
+    ],
+    [
+     620,
+     399
+    ],
+    [
+     452,
+     357
+    ]
+   ],
+   "pos": [
+    null,
+    84
+   ],
+   "g": [
+    100,
+    100,
+    100,
+    97,
+    53
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "NDA Disclaimer",
+   "g": [
+    80,
+    80,
+    64,
+    63,
+    64
+   ]
+  },
+  {
+   "t": "p",
+   "text": "Due to the NDA i’ve signed i cannot show detailed processes  and screenshots, but only the official promo images owned by the Volkswagen Group.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    55,
+    55,
+    54,
+    55,
+    54
+   ]
+  }
+ ],
+ "next": "/showcase-favourites",
+ "variants": {
+  "Due to the complexity and scale of the project, i was part of a design team. Each designer was assigned a certain set of screens that they were mainly working on. But since my responsibilities also involved the main design grid and general layout, i was eventually involved in pretty much every screen.\n\nAddiotionally I improved, updated and maintained the design system in Sketch, wrote design documentation": {
+   "w": "Due to the complexity and scale of the project, i was part of a design team. Each designer was assigned a certain set of screens that they were mainly working on. But since my responsibilities also involved the main design grid and general layout, i was eventually involved in pretty much every screen.\n\nAdditionally I improved, updated and maintained the design system in Sketch, wrote design documentation and mentored the junior designers.",
+   "t": "Due to the complexity and scale of the project, i was part of a design team. Each designer was assigned a certain set of screens that they were mainly working on. But since my responsibilities also involved the main design grid and general layout, i was eventually involved in pretty much every screen.\n\nAddiotionally I improved, updated and maintained the design system in Sketch, wrote design documentation"
+  }
+ },
+ "gx": {
+  "next": [
+   20,
+   20,
+   21,
+   20,
+   21
+  ],
+  "relH": [
+   80,
+   80,
+   80,
+   80,
+   80
+  ],
+  "rel": [
+   24,
+   24,
+   23.5,
+   24.5,
+   24
+  ],
+  "cta": [
+   146,
+   126,
+   106,
+   106.98,
+   86.59
+  ]
+ }
+}

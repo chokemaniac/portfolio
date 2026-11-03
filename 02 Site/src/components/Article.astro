@@ -1,0 +1,258 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Cta from "./Cta.astro";
+import Txt from "./Txt.astro";
+import { asset, u } from "../data/asset";
+import { GH, projects } from "../data/projects";
+
+const { d, related } = Astro.props;
+const rel = related.map((k) => projects[k]);
+// media sizes come in as [w, h] for the layout blocks 1623+ / 1100 / 800 / 640 / <640 (null = same as the previous block)
+const vars = (b, alt) => {
+  const r = alt ?? b.r;
+  if (!r) return "";
+  const names = ["--a0", "--a1", "--a2", "--a3", "--a4"];
+  return r.map((x, i) => (x ? `${names[alt ? i + 3 : i]}:${x[0]} / ${x[1]}` : "")).filter(Boolean).join(";") + ";" +
+    (b.pos ? `${b.pos[0] != null ? `--p3:${b.pos[0]}%;` : ""}--p4:${b.pos[1]}%;` : "");
+};
+// mobile type differs per page on the live site
+const small = d.page === "case-study-viessmann" || d.page === "case-study-encore";
+const mobileType = `--h3m:${small ? 22 : 24}px;--h3ls:${small ? -0.88 : -0.96}px;--iml:${d.page.startsWith("showcase") ? 28 : 30}px`;
+// exact gap above each block per layout block (1623+ / 1100 / 800 / 640 / <640), measured on the live site
+const bs = (g) => (g ? g.map((x, i) => (x != null ? `--g${i}:${x}px` : "")).filter(Boolean).join(";") : "");
+const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filter(Boolean).join(";") : "");
+---
+<Layout title={d.title + " | Mathias Mahling"}>
+  <div class="wrap" style={mobileType}>
+    <header class="ahd">
+      <span class="pill">{d.tag}</span>
+      <h1>{d.title}</h1>
+      <p class="intro"><Txt s={d.intro} v={d.variants} /></p>
+    </header>
+
+    <article class="article">
+      {d.blocks.map((b) => (
+        <div class="blk" style={bs(b.g)}>
+          {b.t === "h2" && <h2><Txt s={b.text} v={d.variants} /></h2>}
+          {b.t === "h3" && <h3><Txt s={b.text} v={d.variants} /></h3>}
+          {b.t === "p" && <p><Txt s={b.text} v={d.variants} /></p>}
+          {b.t === "divider" && <div class="divider" aria-hidden="true"></div>}
+          {b.t === "img" && (
+            <>
+              <img class={`media ${b.kind} ${b.alt ? "show-d" : ""} ${b.hideMobile ? "hide-m" : ""}`} src={asset(b.src)} alt=""
+                style={`${vars(b)}border-radius:${b.kind === "wide" ? 24 : 8}px`} loading="lazy" />
+              {b.alt && <img class={`media ${b.kind} show-m`} src={asset(b.alt.src)} alt="" style={`${vars(b, b.alt.r)}border-radius:24px`} loading="lazy" />}
+            </>
+          )}
+          {b.t === "video" && (
+            <video class={`media ${b.kind}`} src={GH + b.mp4} autoplay muted loop playsinline preload="metadata"
+              style={`${vars(b)}border-radius:12px`}></video>
+          )}
+          {b.t === "phones" && (
+            <div class="phones">{b.mp4.map((m) => <video src={GH + m} autoplay muted loop playsinline preload="metadata"></video>)}</div>
+          )}
+          {b.t === "hscroll" && (
+            <div class="hscroll">{b.imgs.map((x) => <img src={asset(x)} alt="" width="268" height="550" loading="lazy" />)}</div>
+          )}
+          {b.t === "masonry" && (
+            <div class="masonry">{b.cols.map((col) => (
+              <div>{col.map(([src, h, r]) => <img class="media" src={asset(src)} alt="" loading="lazy" style={`${r.map((x, i) => `--a${i}:${x[0]} / ${x[1]}`).join(";")};border-radius:${b.r}px`} />)}</div>
+            ))}</div>
+          )}
+          {b.t === "tools" && (b.flow ? (
+            <div class="tools-flow">{b.imgs.map(([src, , , w, h], i) => <img src={asset(src)} alt="" width={w} height={h} style={`--w:${w};--h:${h};--w6:${b.sz?.[i]?.[0][0] ?? w};--h6:${b.sz?.[i]?.[0][1] ?? h};--w3:${b.sz?.[i]?.[1][0] ?? w};--h3:${b.sz?.[i]?.[1][1] ?? h}`} />)}</div>
+          ) : (
+            <div class="tools-row" data-w={b.w} style={`height:${b.h}px;width:${b.w}px`}>
+              {b.imgs.map(([src, x, y, w, h]) => <img src={asset(src)} alt="" style={`left:${x}px;top:${y}px;width:${w}px;height:${h}px`} />)}
+            </div>
+          ))}
+          {b.t === "card" && (
+            <div class={`card2 ${b.label === "The client" ? "" : "card2-b"}`}>
+              <div>
+                <span>{b.label}</span><h2><Txt s={b.title} v={d.variants} /></h2><p><Txt s={b.text} v={d.variants} /></p>
+              </div>
+              <img src={asset(b.img)} alt="" />
+            </div>
+          )}
+          {b.t === "wins" && (
+            <ul class={`wins ${b.items[0].length > 1 ? "wins-long" : ""}`}>
+              {b.items.map((it) => <li><b>{it[0]}</b>{it[1] && <p>{it[1]}</p>}</li>)}
+            </ul>
+          )}
+          {b.t === "link" && (
+            <a class="live" href={b.href} target="_blank" rel="noopener">{b.text}<img src={asset("740c822f733b")} alt="" width="22" height="28" /></a>
+          )}
+        </div>
+      ))}
+
+      {d.next && (
+        <>
+          <div class="blk" style={bs(d.gx.next)}><a class="next" href={u(d.next)}>Next project<img src={asset("b1d3bd5eec40")} alt="" width="16" height="13" /></a></div>
+          <div class="blk" style={bs(d.gx.relH)}><h2 class="rel-h">Related projects</h2></div>
+          <div class="blk" style={bs(d.gx.rel)}>
+            <div class="related">
+              {rel.map((p) => (
+                <a href={u(p.href)}>
+                  {"img" in p.thumb
+                    ? <img src={asset(p.thumb.img)} alt="" />
+                    : <video src={GH + p.thumb.mp4} autoplay muted loop playsinline preload="metadata"></video>}
+                  <span class="k">{p.kind}</span>
+                  <h3>{p.title}</h3>
+                  <p>{p.text}</p>
+                  <span class="go">Check it out<img src={asset("5fb239f4237f")} alt="" width="16" height="13" /></span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+    </article>
+  </div>
+  <Cta tight style={cs(d.gx.cta)} cls={d.page === "case-study-viessmann" ? "cta-v" : ""} />
+</Layout>
+
+<style is:global>
+  /* title block (pill, headline, intro) and the article column */
+  .ahd { width: min(100%, 808px); margin-inline: auto; padding-top: 49px; color: var(--ink); }
+  .article { width: min(100%, 808px); margin-inline: auto; color: var(--ink); }
+  .pill { display: inline-block; padding: 4px 7px; border-radius: 3px; background: #9c9bab; color: #fff; font-size: 14px; line-height: 18px; letter-spacing: -.42px; }
+  .ahd h1 { font-size: 48px; font-weight: 600; letter-spacing: -1.92px; color: #000; margin-top: 24px; }
+  .ahd .intro { font-size: 22px; line-height: 36px; margin-top: 24px; }
+
+  /* every block sits at the exact distance from the previous one that the live site uses (--g0..--g4 per layout block) */
+  .blk { margin-top: var(--g1, 0); }
+  .blk > * { margin: 0; }
+  .article h2 { font-size: 36px; line-height: 46px; font-weight: 600; letter-spacing: -1.44px; }
+  .article h3 { font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -.96px; }
+  .blk > p { white-space: pre-line; font-family: var(--jakarta); font-size: 18px; line-height: 30px; font-weight: 300; color: #000; }
+
+  /* 8px strip of 45deg lines, cut off at both edges of the column so the start and end are filled */
+  .blk > .divider { height: 8px; background: repeating-linear-gradient(135deg, #bac3d1 0 1px, transparent 1px 3.465px); }
+
+  /* media: aspect ratio per layout block via --a0 (1623+), --a1 (1100), --a2 (800), --a3 (640), --a4 (<640) */
+  .media { display: block; width: 100%; object-fit: cover; aspect-ratio: var(--a1); object-position: 50% 50%; }
+  .media.wide { max-width: none; width: calc(100vw - 2 * var(--pad)); position: relative; left: 50%; transform: translateX(-50%); }
+  .show-m { display: none; }
+
+  .tools-row { position: relative; }
+  .tools-row img { position: absolute; max-width: none; }
+  .tools-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 28px 32px; }
+  .tools-flow img { width: calc(var(--w) * 1px); height: calc(var(--h) * 1px); max-width: none; }
+
+  .phones { display: flex; justify-content: center; gap: 16px; width: min(1001px, calc(100vw - 2 * var(--pad))); position: relative; left: 50%; transform: translateX(-50%); }
+  .phones video { flex: 1; min-width: 0; max-width: 323px; aspect-ratio: 323 / 591; border-radius: 12px; object-fit: cover; }
+  .hscroll { display: none; }
+
+  .masonry { display: flex; gap: 16px; width: calc(100vw - 2 * var(--pad)); position: relative; left: 50%; transform: translateX(-50%); }
+  .masonry > div { flex: 1; display: flex; flex-direction: column; gap: 17px; }
+  .masonry img { width: 100%; max-width: none; object-fit: cover; }
+  .masonry .media { width: 100%; }
+
+  .card2 { display: flex; gap: 32px; align-items: flex-start; background: #fff; border-radius: 20px; padding: 40px; }
+  .card2 > div { flex: 1; min-width: 0; }
+  .card2 span { display: block; font-size: 17px; letter-spacing: -.68px; color: var(--muted); }
+  .article .card2 h2 { font-size: 24px; line-height: 32px; letter-spacing: -.96px; margin: 3px 0 16px; }
+  .article .card2-b h2 { margin-top: 7px; }
+  .card2 p { font-family: var(--jakarta); font-size: 16px; line-height: 26px; font-weight: 300; color: #000; }
+  .card2 img { flex: 1; min-width: 0; aspect-ratio: 3 / 2; height: auto; border-radius: 8px; object-fit: cover; }
+
+  .wins { list-style: none; padding: 0; display: grid; gap: 32px; }
+  .wins li { position: relative; padding-left: 23px; }
+  .wins li::before { content: ""; position: absolute; left: 0; top: 2px; width: 16px; height: 16px; background: url("/assets/62a09c5607f6d3091dc18c19c2c415caa1aa60a6.svg") center / contain no-repeat; }
+  .wins b { display: block; font-family: var(--jakarta); font-size: 16px; line-height: 20px; font-weight: 500; }
+  .wins-long { gap: 32px; }
+  .wins-long li { padding-left: 0; }
+  .wins-long li::before { top: 7px; }
+  .wins-long b { font-size: 18px; line-height: 30px; font-weight: 700; padding-left: 23px; }
+  .wins-long p { font-family: var(--jakarta); font-size: 18px; line-height: 30px; font-weight: 300; margin-top: 8px; }
+
+  .live { display: inline-flex; align-items: center; gap: 6px; font-size: 22px; font-weight: 600; letter-spacing: -.88px; color: #7645a4; }
+  .live img { width: 22px; height: 28px; }
+
+  .blk > .next { display: flex; align-items: center; justify-content: center; gap: 12px; width: 173px; height: 48px; margin: 0 auto; border-radius: 62px; background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .07); font-size: 16px; font-weight: 600; letter-spacing: -.48px; }
+  .related { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .related a { display: block; }
+  .related a > img, .related a > video { width: 100%; border-radius: 12px; object-fit: cover; display: block; }
+  .related a > img { aspect-ratio: 1; }
+  .related a > video { aspect-ratio: 384 / 388; }
+  .related .k { display: block; margin-top: 35px; font-size: 17px; line-height: 22px; letter-spacing: -.68px; color: #454366; }
+  .related h3 { margin: 8px 0 16px; }
+  .related p { font-family: var(--jakarta); font-size: 16px; line-height: 26px; font-weight: 300; color: #000; }
+  .related .go { display: inline-flex; align-items: center; gap: 6px; margin-top: 24px; font-size: 22px; font-weight: 600; letter-spacing: -.88px; color: #7645a4; }
+  body .cta.tight { padding-top: var(--c1, 130px); }
+
+  .vw, .vt { display: none; }
+
+  /* widest layout (1623+) */
+  @media (min-width: 1623px) {
+    .vd { display: none; }
+    .vw { display: inline; }
+    .blk { margin-top: var(--g0, 0); }
+    body .cta.tight { padding-top: var(--c0, 150px); }
+    .media { aspect-ratio: var(--a0, var(--a1)); }
+    .article .media.wide, .article .masonry { width: calc(100vw - 400px); }
+    .article .masonry, .article .masonry > div { gap: 32px; }
+    .article .phones { width: 1201px; gap: 32px; }
+    .article .phones video { max-width: 379px; aspect-ratio: 379 / 698; }
+    body .cta.tight { padding-bottom: 170px; }
+  }
+
+  /* 800 block (800-1099): title block left-aligned, media as wide as the window minus 80px */
+  @media (max-width: 1099px) {
+    .vd { display: none; }
+    .vt { display: inline; }
+    .blk { margin-top: var(--g2, 0); }
+    body .cta.tight { padding-top: var(--c2, 110px); }
+    .media { aspect-ratio: var(--a2, var(--a1)); }
+    .ahd { padding-top: 0; margin-inline: 0; width: min(100%, 660px); }
+    .ahd h1 { font-size: 40px; letter-spacing: -1.6px; }
+    .ahd .intro { font-size: 20px; line-height: 32px; }
+    .article h2 { font-size: 32px; line-height: normal; letter-spacing: -1.28px; }
+    .phones { width: 100%; left: 0; transform: none; }
+    .article .card2-b h2 { margin-top: 8px; }
+  }
+  /* 640 block (640-799) */
+  @media (max-width: 799px) {
+    .blk { margin-top: var(--g3, 0); }
+    body .cta.tight { padding-top: var(--c3, 110px); }
+    .media { aspect-ratio: var(--a3, var(--a2, var(--a1))); object-position: var(--p3, 50%) 50%; }
+    .ahd { width: min(100%, 703px); }
+    .ahd h1 { font-size: 36px; letter-spacing: -1.44px; margin-top: 16px; }
+    .show-d { display: none; }
+    .show-m { display: block; }
+    .tools-flow img { width: calc(var(--w6) * 1px); height: calc(var(--h6) * 1px); }
+    .card2 { flex-direction: column; align-items: stretch; }
+    .card2 > div, .card2 img { flex: none; width: 100%; }
+  }
+  /* mobile block (<640) */
+  @media (max-width: 639px) {
+    .blk { margin-top: var(--g4, 0); }
+    body .cta.tight { padding-top: var(--c4, 80px); }
+    .media { aspect-ratio: var(--a4, var(--a3, var(--a2, var(--a1)))); object-position: var(--p4, 50%) 50%; }
+    .ahd { width: min(100%, 470px); }
+    .ahd h1 { font-size: 30px; letter-spacing: -1.2px; margin-top: 24px; }
+    .ahd .intro { font-size: 18px; line-height: var(--iml, 30px); }
+    .article h2 { font-size: 28px; letter-spacing: -1.12px; }
+    .article h3 { font-size: var(--h3m, 24px); letter-spacing: var(--h3ls, -.96px); }
+    .tools-flow { gap: 24px 32px; }
+    .tools-flow img { width: calc(var(--w3) * 1px); height: calc(var(--h3) * 1px); }
+    .card2 { padding: 33px 32px 34px; gap: 32px; }
+    .masonry { flex-direction: column; gap: 17px; }
+    .masonry > div { display: contents; }
+    .phones { flex-direction: column; gap: 32px; }
+    .phones video { max-width: none; width: 100%; flex: none; aspect-ratio: 1042 / 1910; }
+    .hide-m { display: none; }
+    .hscroll { display: flex; gap: 24px; margin-inline: -24px; padding: 0 24px; overflow-x: auto; scrollbar-width: none; }
+    .hscroll img { flex: none; width: 268px; height: 550px; border-radius: 12px; object-fit: cover; }
+    .related { grid-template-columns: 1fr; gap: 48px; }
+  }
+</style>
+
+<script>
+  // multi-piece tool logos are laid out at a fixed width; shrink them as a unit when the column is narrower
+  document.querySelectorAll<HTMLElement>(".tools-row").forEach((el) => {
+    const w = Number(el.dataset.w), box = el.parentElement!;
+    const fit = () => el.style.setProperty("zoom", String(Math.min(1, box.clientWidth / w)));
+    new ResizeObserver(fit).observe(box);
+  });
+</script>

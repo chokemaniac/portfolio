@@ -1,0 +1,114 @@
+{
+ "page": "case-study-studydrive",
+ "tag": "Case Study // 2025",
+ "title": "How I elevated an entire product ecosystem while keeping existing user habits intact",
+ "intro": "As Senior UX/UI Designer at Studydrive, I took a critical look at all key digital touchpoints to spot what could be improved. I modernised and visually refined the entire experience while fixing pain points and bringing more clarity, structure, and consistency.",
+ "blocks": [
+  {
+   "t": "img",
+   "src": "d3ef441dcb17",
+   "kind": "wide",
+   "h": 711,
+   "r": [
+    [
+     2160,
+     1199
+    ],
+    [
+     1140,
+     633
+    ],
+    [
+     820,
+     456
+    ],
+    null,
+    null
+   ],
+   "alt": {
+    "src": "8d4158cb5a13",
+    "r": [
+     [
+      620,
+      620
+     ],
+     [
+      452,
+      538
+     ]
+    ]
+   },
+   "g": [
+    80,
+    80,
+    64,
+    60,
+    40
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "I’m still working on the page for this Case Study",
+   "g": [
+    80,
+    80,
+    64,
+    64,
+    63
+   ]
+  },
+  {
+   "t": "p",
+   "text": "Check back in the next couple of days if you are interested.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    55,
+    55,
+    54,
+    54,
+    55
+   ]
+  }
+ ],
+ "next": "/showcase-volkswagen",
+ "variants": {},
+ "gx": {
+  "next": [
+   20,
+   20,
+   21,
+   21,
+   20
+  ],
+  "relH": [
+   80,
+   80,
+   80,
+   80,
+   80
+  ],
+  "rel": [
+   24,
+   24,
+   23.5,
+   24.5,
+   24
+  ],
+  "cta": [
+   146,
+   126,
+   106,
+   106.98,
+   88.3
+  ]
+ }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" height="100%" overflow="visible" preserveAspectRatio="none" style="display: block;" viewBox="0 0 36 36" width="100%">
+<g id="burger menu">
+<g id="Union">
+<path d="M29 26H16V24H29V26Z" fill="var(--fill-0, #181638)"/>
+<path d="M29 19H7V17H29V19Z" fill="var(--fill-0, #181638)"/>
+<path d="M29 12H7V10H29V12Z" fill="var(--fill-0, #181638)"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,501 @@
+{
+ "page": "case-study-encore",
+ "tag": "Case Study // 2024",
+ "title": "How i turned a good idea into a great one and helped land the investor buy-in",
+ "intro": "Initially i was hired to improve the already existing UI designs for an app that was supposed to be a Tiktok clone for livestreamed concerts. But i  ended up reshaping the business model and creating a high-fidelity prototype that helped the founder secure funding and move into development.",
+ "blocks": [
+  {
+   "t": "img",
+   "src": "1ac05f2d57ba",
+   "kind": "wide",
+   "h": 679,
+   "r": [
+    [
+     2160,
+     1162
+    ],
+    [
+     1140,
+     605
+    ],
+    [
+     820,
+     440
+    ],
+    [
+     620,
+     575
+    ],
+    [
+     452,
+     616
+    ]
+   ],
+   "g": [
+    80,
+    80,
+    64,
+    60,
+    40
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "The project",
+   "g": [
+    80,
+    80,
+    64,
+    104,
+    64
+   ]
+  },
+  {
+   "t": "p",
+   "text": "I was brought on to design an app experience similar to TikTok. an endless feed of short-form videos. The idea: musicians post teaser videos to promote their upcoming live-streamed concerts and performances, and fans can buy tickets to eventually watch the live stream directly through the app.",
+   "g": [
+    24,
+    24,
+    23.5,
+    23.5,
+    24
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    54,
+    54,
+    55,
+    55,
+    55
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "The challenge",
+   "g": [
+    37,
+    37,
+    36,
+    36,
+    36
+   ]
+  },
+  {
+   "t": "p",
+   "text": "While the core idea was clear, the project had hit a wall. The client had existing designs but struggled to gain traction with investors. One major hurdle: the app seemed too similar to existing platforms like TikTok, Instagram, and YouTube. And those even already offer some similar concepts in their own platform. Why would artists switch to a new platform? And more importantly, why would the audience even come to the platform?",
+   "g": [
+    23,
+    23,
+    24.5,
+    24.5,
+    24
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    55,
+    55,
+    54,
+    54,
+    55
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "Rethinking the concept",
+   "g": [
+    36,
+    36,
+    37,
+    37,
+    36
+   ]
+  },
+  {
+   "t": "p",
+   "text": "My first reaction: Who needs another Tiktok clone? The idea was good and the intentions were noble, but the value proposition wasn’t strong enough. So I took a step back and started digging.",
+   "g": [
+    24,
+    24,
+    23.5,
+    23.5,
+    24
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    54,
+    54,
+    55,
+    55,
+    55
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "The solution",
+   "g": [
+    37,
+    37,
+    36,
+    36,
+    36
+   ]
+  },
+  {
+   "t": "p",
+   "text": "After doing some research and thoroughly looking into all the competiton, i came up with a proposal",
+   "g": [
+    23,
+    23,
+    24.5,
+    24.5,
+    24
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Focus on delivering the best experience for the niche",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "While the app would offer similar features to other platforms, it was built specifically for a niche: livestreamed concerts and performances. That meant everything. From the interface to the business model — could be tailored to what artists and fans in this space actually need. With better earning potential and a clear purpose, we could stand out by doing one thing really well.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Allow browsing and exploring, rather than just scrolling",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "The initial idea of having an endless scroll of teaser clips sounded good in theory, but i soon realised that it doesn’t work well for the concept. We needed a more organised way to browse and explore the artists, genres and performances. That's why I added simple ways to explore. Search by artist, browse by genre, and personalised recommendations. Now users can actually discover shows they'll love instead of just passively scrolling.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Integrate as an extension instead of being direct competition",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "Instead of competing with platforms like TikTok or Instagram, the idea was to create something that integrates with them. Kinda like CapCut made editing videos more fun than the regular video editing that Tiktok offers. Artists wouldn’t need to build a new following from scratch. Instead, they could connect their existing social media accounts like TikTok, YouTube, and Instagram and focus on just the live stream performances. This made the product feel more like a helpful extension, not a rival.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    55,
+    55,
+    54,
+    54,
+    55
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "The execution",
+   "g": [
+    36,
+    36,
+    37,
+    37,
+    36
+   ]
+  },
+  {
+   "t": "p",
+   "text": "With the new concept in place, we decided to build a prototype in Figma, so it could be used as a proof of concept at investor pitches. The quality and functionality of the prototype should be already very close to the final product, so it could be used once an investor was found.",
+   "g": [
+    24,
+    24,
+    23.5,
+    23.5,
+    24
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Super high fidelity prototype as proof of concept",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "I designed a high-fidelity prototype in Figma that looked and felt like a real product. It helped the client clearly communicate the idea to investors — not just with words, but through a fully clickable, visually polished experience.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "img",
+   "src": "02d6059fb34a",
+   "kind": "col",
+   "h": 646,
+   "r": [
+    [
+     808,
+     646
+    ],
+    [
+     808,
+     646
+    ],
+    [
+     808,
+     653
+    ],
+    [
+     620,
+     498
+    ],
+    [
+     452,
+     361
+    ]
+   ],
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "UX aligned with familiar social patterns",
+   "g": [
+    60,
+    60,
+    60,
+    60,
+    60
+   ]
+  },
+  {
+   "t": "p",
+   "text": "The user experience was built around patterns people already know from apps like TikTok, Instagram and Spotify. This made it easy for new users to understand how the app works right away, reducing friction and speeding up onboarding.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Developer-ready design handoff",
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "p",
+   "text": "The prototype wasn’t just for show - it was built with real-world implementation in mind. All components were organised, labeled, and structured for a smooth handoff to developers once funding was secured.",
+   "g": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    54,
+    54,
+    55,
+    55,
+    55
+   ]
+  },
+  {
+   "t": "h2",
+   "text": "The outcome",
+   "g": [
+    37,
+    37,
+    36,
+    36,
+    36
+   ]
+  },
+  {
+   "t": "p",
+   "text": "The new concept and prototype helped the client secure initial funding, and the designs were handed over to developers to begin building the app.",
+   "g": [
+    23,
+    23,
+    24.5,
+    24.5,
+    24
+   ]
+  },
+  {
+   "t": "phones",
+   "mp4": [
+    "encore_home_only_compressed.mp4",
+    "encore_feed_only_compressed.mp4",
+    "encore_artist_profile_compressed.mp4"
+   ],
+   "g": [
+    40,
+    40,
+    40,
+    40,
+    40
+   ]
+  },
+  {
+   "t": "h3",
+   "text": "Key wins",
+   "g": [
+    40,
+    41,
+    40.7,
+    40.38,
+    40.45
+   ]
+  },
+  {
+   "t": "wins",
+   "items": [
+    [
+     "Strategic product pivot",
+     "I transformed the concept from a TikTok clone into a complementary tool that works with existing social platforms - making the idea more realistic, user-friendly, and investor-ready."
+    ],
+    [
+     "Investor-ready prototype",
+     "I delivered a polished, clickable Figma prototype that clearly communicated the value of the app, helping the client secure funding to move into development."
+    ],
+    [
+     "Design built for launch",
+     "The UI and UX weren’t just beautiful — they were practical. The prototype followed real social app patterns and was fully prepared for a clean developer handoff."
+    ]
+   ],
+   "g": [
+    24,
+    24,
+    24,
+    24,
+    24
+   ]
+  },
+  {
+   "t": "divider",
+   "g": [
+    54,
+    54,
+    54,
+    55,
+    54
+   ]
+  }
+ ],
+ "next": "/case-study-studydrive",
+ "variants": {
+  "Initially i was hired to improve the already existing UI designs for an app that was supposed to be a Tiktok clone for livestreamed concerts. But i  ended up reshaping the business model and creating a high-fidelity prototype that helped the founder secure funding and move into development.": {
+   "w": "Initially i was hired to improve the already existing UI designs for an app that was supposed to be a Tiktok clone for livestreamed concerts. In the end i didn’t just create a super-hifi prototype of the entire app, but also reshaped the business model and helped the founder secure funding.",
+   "t": "Initially i was hired to improve the already existing UI designs for an app that was supposed to be a Tiktok clone for livestreamed concerts. But i  ended up reshaping the business model and creating a high-fidelity prototype that helped the founder secure funding and move into development."
+  },
+  "After doing some research and thoroughly looking into all the competiton, i came up with a proposal": {
+   "w": "After doing some research, asking around in some music fan communities and thoroughly looking into all the competition, i came up with a new proposal.",
+   "t": "After doing some research and thoroughly looking into all the competiton, i came up with a proposal"
+  },
+  "While the app would offer similar features to other platforms, it was built specifically for a niche: livestreamed concerts and performances. That meant everything. From the interface to the business model — could be tailored to what artists and fans in this space actually need. With better earning potential and a clear purpose, we could stand out by doing one thing really well.": {
+   "w": "While the app would offer similar features to other platforms, it was built specifically for a niche: livestreamed concerts and performances. That meant everything could be tailored exactly to what artists and fans in this space actually need. From the interface to the business model. With better earning potential and a clear purpose, we could stand out by doing one thing really well. Kinda like CapCut made editing videos more fun than the regular video editing that Tiktok offers and eventually was acquired by Tiktok as a fun extension.",
+   "t": "While the app would offer similar features to other platforms, it was built specifically for a niche: livestreamed concerts and performances. That meant everything. From the interface to the business model — could be tailored to what artists and fans in this space actually need. With better earning potential and a clear purpose, we could stand out by doing one thing really well."
+  },
+  "Instead of competing with platforms like TikTok or Instagram, the idea was to create something that integrates with them. Kinda like CapCut made editing videos more fun than the regular video editing that Tiktok offers. Artists wouldn’t need to build a new following from scratch. Instead, they could connect their existing social media accounts like TikTok, YouTube, and Instagram and focus on just the live stream performances. This made the product feel more like a helpful extension, not a rival.": {
+   "w": "Instead of competing with platforms like TikTok or Instagram, the idea was to create something that integrates with them.  Artists wouldn’t need to build a new following from scratch. Instead, they could connect their existing social media accounts like TikTok, YouTube, and Instagram and focus on just the live stream performances. This made the product feel more like a fun, helpful extension to the existing platforms, not a rival.",
+   "t": "Instead of competing with platforms like TikTok or Instagram, the idea was to create something that integrates with them. Kinda like CapCut made editing videos more fun than the regular video editing that Tiktok offers. Artists wouldn’t need to build a new following from scratch. Instead, they could connect their existing social media accounts like TikTok, YouTube, and Instagram and focus on just the live stream performances. This made the product feel more like a helpful extension, not a rival."
+  }
+ },
+ "gx": {
+  "next": [
+   21,
+   21,
+   21,
+   20,
+   21
+  ],
+  "relH": [
+   80,
+   80,
+   80,
+   80,
+   80
+  ],
+  "rel": [
+   23,
+   23,
+   23.5,
+   24.5,
+   24
+  ],
+  "cta": [
+   147,
+   127,
+   107,
+   106,
+   89
+  ]
+ }
+}

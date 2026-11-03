@@ -1,0 +1,94 @@
+---
+import "../styles/global.css";
+import { asset, u } from "../data/asset";
+const { title = "Mathias Mahling - UX/UI Design Portfolio" } = Astro.props;
+
+const ARCHIVE = "https://chokemaniac.github.io/portfolio/#/screens/467913937/title?browse";
+const links = [
+  ["Home", "/", ""],
+  ["About", "/about", ""],
+  ["Viessmann", "/case-study-viessmann", "Case Study"],
+  ["Encore", "/case-study-encore", "Case Study"],
+  ["Studydrive", "/case-study-studydrive", "Case Study"],
+  ["Volkswagen", "/showcase-volkswagen", "Showcase"],
+  ["Favourites", "/showcase-favourites", "Showcase"],
+  ["UX/UI Archive", ARCHIVE, "Showcase"],
+];
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <link rel="icon" type="image/png" href={asset("16804da32557")} />
+  </head>
+  <body>
+    <div class="wrap full">
+      <header class="header">
+        <a href={u("/")}><img class="logo" src={asset("5242da610365")} alt="go to the home page" loading="eager" decoding="async" /></a>
+        <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+      </header>
+    </div>
+
+    <nav class="menu" id="menu" aria-label="Main menu" aria-hidden="true" inert>
+      <ol>
+        {links.map(([name, href, kind], i) => {
+          const ext = href.startsWith("http");
+          const to = ext ? href : u(href);
+          return (
+            <li style={`--i:${i}`}>
+              <a href={to} target={ext ? "_blank" : undefined} rel={ext ? "noopener" : undefined} aria-current={(to.replace(/\/$/, "") || "/") === path ? "page" : undefined}>
+                <span class="n">{String(i + 1).padStart(2, "0")}</span>
+                <span class="t">{name}</span>
+                <span class="k">{kind}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ol>
+      <div class="menu-foot" style={`--i:${links.length}`}>
+        <a href={u("/impressum-datenschutz")}>Impressum &amp; Datenschutz</a>
+        <a href="https://www.linkedin.com/in/mathias-mahling-64b3801/">LinkedIn</a>
+        <a href="https://www.xing.com/profile/Mathias_Mahling/">Xing</a>
+      </div>
+    </nav>
+
+    <main><slot /></main>
+    <footer class="footer">
+      <div class="wrap full">
+        <div class="copy">
+          <a href={u("/")}><img src={asset("bf9b3af0383c")} alt="go to home page" width="48" height="37" loading="lazy" decoding="async" /></a>
+          <span>© 2025 Mathias Mahling - <a href={u("/impressum-datenschutz")}>Impressum &amp; Datenschutz</a></span>
+        </div>
+        <div class="social">
+          <a href="https://www.linkedin.com/in/mathias-mahling-64b3801/" aria-label="LinkedIn"><img src={asset("d8447f536ff1")} alt="" loading="lazy" decoding="async" /></a>
+          <a href="https://www.xing.com/profile/Mathias_Mahling/" aria-label="Xing"><img src={asset("52ef8d8c47a0")} alt="" loading="lazy" decoding="async" /></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const btn = document.querySelector<HTMLButtonElement>(".menu-btn")!;
+      const menu = document.querySelector<HTMLElement>("#menu")!;
+      const page = [document.querySelector("main"), document.querySelector(".footer")];
+      const toggle = (open: boolean) => {
+        const r = btn.getBoundingClientRect();
+        menu.style.setProperty("--x", `${r.x + r.width / 2}px`);
+        menu.style.setProperty("--y", `${r.y + r.height / 2}px`);
+        document.documentElement.classList.toggle("menu-open", open);
+        btn.setAttribute("aria-expanded", String(open));
+        btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        menu.setAttribute("aria-hidden", String(!open));
+        menu.toggleAttribute("inert", !open);
+        page.forEach((el) => el?.toggleAttribute("inert", open));
+        if (open) menu.querySelector<HTMLAnchorElement>("a")?.focus({ preventScroll: true });
+        else btn.focus({ preventScroll: true });
+      };
+      btn.addEventListener("click", () => toggle(btn.getAttribute("aria-expanded") !== "true"));
+      menu.addEventListener("click", (e) => { if ((e.target as HTMLElement).closest("a")) toggle(false); });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") toggle(false); });
+    </script>
+  </body>
+</html>

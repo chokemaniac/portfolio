@@ -36,7 +36,7 @@ const services = [
 ];
 ---
 <Layout>
-  <div class="wrap hero-wrap"><div class="inner">
+  <div class="wrap"><div class="inner">
     <section class="hero">
       <div class="who">
         <div class="avatar"><img src={asset("4abf805abe78")} alt="mathias mahling" /></div>
@@ -120,12 +120,6 @@ const services = [
 
 <style is:global>
   .hero { padding-top: 49px; }
-  /* the intro block stays where it is while the page scrolls and fades out as scrolling starts; everything after it slides over it */
-  .hero-wrap { position: sticky; top: var(--pin, 0px); z-index: 0; }
-  main > :not(.hero-wrap) { position: relative; z-index: 1; }
-  /* the logo and menu button are pinned and faded with the intro; an open menu always keeps its close button */
-  .header-pin { position: sticky; top: 0; z-index: 60; }
-  .menu-open .header-pin { opacity: 1 !important; pointer-events: auto !important; }
   .who { display: flex; gap: 24px; align-items: flex-start; }
   .avatar { width: 88px; height: 88px; border-radius: 24px; overflow: hidden; flex: none; }
   .avatar img { width: 231.8%; max-width: none; margin-left: -55.7%; }
@@ -309,24 +303,6 @@ const services = [
 </style>
 
 <script>
-  // intro block: pinned at its own place (--pin = its distance from the top) and faded out over the first 280px of scrolling
-  const heroWrap = document.querySelector<HTMLElement>(".hero-wrap");
-  if (heroWrap && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const main = heroWrap.parentElement!; // the intro is main's first child, so main's top is where the intro naturally sits
-    const pin = () => heroWrap.style.setProperty("--pin", `${main.getBoundingClientRect().top + scrollY}px`);
-    let heroTick = 0;
-    const bar = document.querySelector<HTMLElement>(".header")?.parentElement; // logo and menu button
-    bar?.classList.add("header-pin");
-    const fade = () => {
-      const o = Math.max(0, 1 - scrollY / 280);
-      for (const el of [heroWrap, bar]) if (el) { el.style.opacity = String(o); el.style.pointerEvents = o === 0 ? "none" : ""; }
-    };
-    pin();
-    fade();
-    addEventListener("scroll", () => { cancelAnimationFrame(heroTick); heroTick = requestAnimationFrame(fade); }, { passive: true });
-    addEventListener("resize", pin);
-  } else heroWrap?.style.setProperty("position", "static");
-
   // project tiles: slide up into place as they appear, and the right column drifts upward faster than the left one (it starts lower and ends higher)
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const cards = document.querySelectorAll<HTMLElement>(".card");

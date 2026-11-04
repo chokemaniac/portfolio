@@ -332,17 +332,27 @@ const services = [
   const cards = document.querySelectorAll<HTMLElement>(".card");
   if (reduce) cards.forEach((c) => c.classList.add("in"));
   else {
-    // a tile waits 90px lower while hidden, so a margin of -170px reveals it once its real spot is 260px above the bottom of the screen
-    // the tile starts sliding once its picture has loaded (or after a second), so the picture slides in with it
+    // a tile waits 90px lower while hidden. It starts sliding once its real spot is LEAD px above the bottom of the screen:
+    // 130px on wide screens, and less on tall ones (portrait tablets and phones) so the tiles show up sooner there
     const reveal = (card: Element) => {
+      // the tile starts sliding once its picture has loaded (or after a second), so the picture slides in with it
       const img = card.querySelector<HTMLImageElement>(":scope > img");
       const go = () => card.classList.add("in");
       if (!img || img.complete) return go();
       Promise.race([new Promise((r) => img.addEventListener("load", r, { once: true })), new Promise((r) => setTimeout(r, 1000))]).then(go);
     };
-    const io = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); } }), { rootMargin: "0px 0px -170px 0px", threshold: 0 });
-    // tiles already on screen when the page opens slide in right away; the rest wait for the scroll
-    cards.forEach((c) => (c.getBoundingClientRect().top - 90 < innerHeight ? (reveal(c), 0) : io.observe(c)));
+    const waiting = [...cards];
+    const check = (lead: number) => {
+      for (const c of [...waiting]) {
+        if (c.getBoundingClientRect().top - 90 < innerHeight - lead) { reveal(c); waiting.splice(waiting.indexOf(c), 1); }
+      }
+    };
+    const lead = () => { const a = innerWidth / innerHeight; return a >= 1 ? 130 : 130 * a * a; };
+    check(0); // tiles already on screen when the page opens slide in right away
+    let revealTick = 0;
+    const onScroll = () => { cancelAnimationFrame(revealTick); revealTick = requestAnimationFrame(() => check(lead())); };
+    addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll);
     const grid = document.querySelector<HTMLElement>(".grid");
     const right = document.querySelectorAll<HTMLElement>(".grid > .col")[1];
     const DRIFT = 190; // px the right column travels more than the page does while the grid passes through the screen (it starts in its normal place, lower than the left column, and ends this much higher)

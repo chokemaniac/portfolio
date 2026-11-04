@@ -105,9 +105,7 @@ const services = [
         <div class="tools">
           {tools.map((t) => (
             <div class="tool" title={t.name}>
-              <div class="g">
-                {t.imgs.map(([f, x, y, w, h]) => <img src={asset(f)} alt="" style={`left:${x}px;top:${y}px;width:${w}px;height:${h}px`} />)}
-              </div>
+              <div class="g"><img src={asset(`tool-${t.name.toLowerCase()}`)} alt="" /></div>
             </div>
           ))}
         </div>
@@ -143,7 +141,7 @@ const services = [
   .card .go img { width: 12px; height: 10px; }
   .ag { display: none; }
 
-  .services { margin-top: 80px; }
+  .services { margin-top: 106px; } /* the gap above Services matches the gap above About at every width (see .about) */
   .svc-grid { display: grid; grid-template-columns: 1fr 1fr; margin: 40px -14px 0 -10px; row-gap: 76px; }
   .svc { padding-right: 54px; }
   .svc > div { padding-bottom: 9px; }
@@ -159,7 +157,8 @@ const services = [
   .tools { --s: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 12.5px; }
   .tool { position: relative; width: 100%; height: 110px; border-radius: 16px; background: rgba(255, 255, 255, .6); overflow: hidden; box-shadow: 0 2px 12px rgba(0, 0, 0, .08); }
   .tool .g { position: absolute; left: 50%; top: 0; width: 188px; height: 110px; margin-left: -94px; transform: scale(var(--s)); }
-  .tool img { position: absolute; max-width: none; }
+  /* each logo is one picture (it used to be many small pieces, which showed hairline seams) */
+  .tool .g img { position: absolute; left: 0; top: 0; width: 188px; height: 110px; max-width: none; }
 
   /* motion: staggered hero entrance, scroll reveals, card hover, pulsing availability dot */
   @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
@@ -177,7 +176,6 @@ const services = [
   .js .card { opacity: 0; transform: translateY(90px); transition: opacity .7s ease, transform 1s cubic-bezier(.2, .7, .2, 1); }
   .js .card.in { opacity: 1; transform: none; }
   .js .col + .col .card { transition-delay: .12s; }
-  .col { will-change: transform; }
   .tool { transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
   .tool:hover { transform: translateY(-4px); }
   @supports (animation-timeline: view()) {
@@ -200,7 +198,7 @@ const services = [
     .who h2 { font-size: 32px; letter-spacing: -1.28px; line-height: normal; margin-top: 6px; }
     .badge { margin-top: 7px; }
     .hero h1 { font-size: 56px; letter-spacing: -2.24px; max-width: 808px; }
-    .services { margin-top: 100px; }
+    .services { margin-top: 113px; }
     .svc-grid { margin-top: 46px; }
     .svc h3 { margin-top: 16px; }
     .svc:nth-child(-n+2) { margin-bottom: 12px; }
@@ -293,6 +291,7 @@ const services = [
     .ic-tile > span { width: 88px; height: 88px; }
     .ic-tile > span > svg { width: 55px; height: 55px; }
 
+    .services { margin-top: 80px; }
     .about { gap: 80px; margin-top: 80px; }
     .about .h2 { font-size: 24px; line-height: normal; letter-spacing: -.72px; }
     .stats { margin-top: 32px; }
@@ -303,7 +302,7 @@ const services = [
 </style>
 
 <script>
-  // project tiles: slide up into place as they appear, and the right column drifts upward faster than the left one (it starts lower and ends higher)
+  // project tiles: slide up into place as they appear
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const cards = document.querySelectorAll<HTMLElement>(".card");
   if (reduce) cards.forEach((c) => c.classList.add("in"));
@@ -329,22 +328,6 @@ const services = [
     const onScroll = () => { cancelAnimationFrame(revealTick); revealTick = requestAnimationFrame(() => check(lead())); };
     addEventListener("scroll", onScroll, { passive: true });
     addEventListener("resize", onScroll);
-    const grid = document.querySelector<HTMLElement>(".grid");
-    const right = document.querySelectorAll<HTMLElement>(".grid > .col")[1];
-    const DRIFT = 190; // px the right column travels more than the page does while the grid passes through the screen (it starts in its normal place, lower than the left column, and ends this much higher)
-    if (grid && right) {
-      const update = () => {
-        if (getComputedStyle(right).display === "contents") return void (right.style.transform = "");
-        // 0 at the top of the page (both columns start exactly where the layout puts them), 1 when the bottom of the grid reaches the bottom of the screen
-        const end = scrollY + grid.getBoundingClientRect().bottom - innerHeight;
-        const t = end > 0 ? Math.min(1, Math.max(0, scrollY / end)) : 0;
-        right.style.transform = `translate3d(0, ${(-t * DRIFT).toFixed(1)}px, 0)`;
-      };
-      let tick = 0;
-      addEventListener("scroll", () => { cancelAnimationFrame(tick); tick = requestAnimationFrame(update); }, { passive: true });
-      addEventListener("resize", update);
-      update();
-    }
   }
 
   // scale the tool logos with their tile (tiles are fluid, logos are laid out for a 188px tile)

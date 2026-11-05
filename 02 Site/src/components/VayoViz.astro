@@ -184,7 +184,7 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
 
     {name === "funnel" && (
       <div class="v-fn">
-        <svg class="v-fsh" viewBox="0 0 800 520" aria-hidden="true"><path d="M28 70C300 100 470 190 772 220V300C470 330 300 420 28 450Z"/></svg>
+        <svg class="v-fsh" viewBox="0 0 800 520" aria-hidden="true"><path d="M0 70C300 100 470 190 800 220V300C470 330 300 420 0 450Z"/></svg>
         {Array.from({ length: 26 }).map((_, i) => <i class="v-d" style={`--y:${((i * 53) % 260) - 130}px;--dl:${(i * 0.31).toFixed(2)}s;--sz:${6 + (i % 3) * 2}px`}></i>)}
         <div class="v-tool t1"><div class="v-nl">{[88, 70, 94, 60, 80, 52, 90].map((w) => <i style={`width:${w}%`}></i>)}</div></div>
         <div class="v-tool t2"><div class="v-gr">{Array.from({ length: 18 }).map((_, i) => <i class={i % 6 === 5 ? "h" : ""}></i>)}</div></div>
@@ -522,7 +522,7 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   .stage[data-scene="2"] .v-tool.t1 { transform: translate(190px, 20px) scale(.5); opacity: 0; } .stage[data-scene="2"] .v-tool.t2 { transform: translate(60px, 0) scale(.5); opacity: 0; } .stage[data-scene="2"] .v-tool.t3 { transform: translate(-190px, -20px) scale(.5); opacity: 0; }
   .v-nl { display: grid; gap: 14px; } .v-nl i { display: block; height: 8px; border-radius: 4px; background: var(--line); animation: nl 3s infinite ease-in-out; } .v-nl i:nth-child(even) { animation-delay: .5s; background: color-mix(in srgb, var(--rust) 30%, var(--line)); } @keyframes nl { 50% { transform: scaleX(.8); transform-origin: left; } }
   .v-gr { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; } .v-gr i { height: 18px; border-radius: 4px; background: var(--bg-soft); } .v-gr i.h { background: var(--star); animation: nl 2.4s infinite; }
-  .v-one { position: absolute; left: 110px; top: 130px; width: 580px; height: 260px; padding: 20px 24px; border-radius: 32px; background: var(--bg); box-shadow: 0 20px 50px rgba(24, 22, 56, .16); outline: 2px solid var(--rust); outline-offset: -2px; opacity: 0; transform: scale(.7); transition: opacity .5s, transform .9s var(--spring); }
+  .v-one { position: absolute; left: 110px; top: 130px; width: 580px; height: 260px; padding: 20px 24px; border-radius: 32px; background: var(--bg); box-shadow: 0 20px 50px rgba(24, 22, 56, .16); opacity: 0; transform: scale(.7); transition: opacity .5s, transform .9s var(--spring); }
   .stage[data-scene="2"] .v-one { opacity: 1; transform: none; transition-delay: .5s; }
   .v-cols { display: grid; grid-template-columns: 1.1fr 1fr .9fr; gap: 18px; margin-top: 18px; } .v-cols > div { display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
   .v-cols .vp { animation: bobp 2.4s infinite ease-in-out; animation-delay: calc(var(--i) * .2s); } @keyframes bobp { 50% { transform: translateY(-5px); } }

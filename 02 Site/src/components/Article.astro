@@ -214,17 +214,20 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
 
   /* the four problem cards */
   .probs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .prob { padding: 12px 12px 30px; border-radius: 32px; corner-shape: squircle; background: #fff; }
+  .prob { padding: 12px 12px 30px; border-radius: 32px; corner-shape: squircle; background: #fff; box-shadow: 0 4px 32px rgba(0, 0, 0, .05); }
   .article .prob h3 { margin: 22px 16px 0; font-size: 20px; line-height: 26px; letter-spacing: -.8px; }
   .blk > .probs .prob > p { margin: 8px 16px 0; font-family: var(--jakarta); font-size: 16px; line-height: 26px; font-weight: 300; color: #000; white-space: normal; }
   @media (max-width: 639px) { .probs { grid-template-columns: 1fr; } }
+  /* four across once the window is wide enough (each card stays about 290px or more), breaking out of the text column like the wide images do */
+  @media (min-width: 1400px) { .blk > .probs { grid-template-columns: repeat(4, 1fr); width: calc(100vw - 2 * var(--pad)); position: relative; left: 50%; transform: translateX(-50%); } }
+  @media (min-width: 1623px) { .blk > .probs { width: calc(100vw - 2 * var(--edge)); gap: 32px; } }
 
   /* "how I worked": what I did and what AI did, per phase. Two columns by two rows, in the width of the text column */
   .howw { width: 100%; }
   .how-e { display: inline-block; padding: 4px 7px; border-radius: 6px; background: rgba(118, 69, 164, .1); color: #7645a4; font-size: 14px; line-height: 18px; letter-spacing: -.42px; }
   .article .howw h2 { margin-top: 20px; }
   .how-g { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(10, auto); column-gap: 16px; margin-top: 32px; }
-  .how-c { display: grid; grid-template-rows: subgrid; grid-row: span 5; padding: 28px 28px 32px; border-radius: 32px; background: #fff; transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
+  .how-c { display: grid; grid-template-rows: subgrid; grid-row: span 5; padding: 28px 28px 32px; border-radius: 32px; background: #fff; box-shadow: 0 4px 32px rgba(0, 0, 0, .05); transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
   .how-c:nth-child(n+3) { margin-top: 16px; }
   .how-s { display: block; font-size: 14px; line-height: 22px; letter-spacing: -.28px; color: #7645a4; }
   .how-b { display: block; width: max-content; align-self: start; justify-self: start; margin-top: 20px; padding: 3px 12px; border-radius: 999px; font-size: 12px; line-height: 18px; font-weight: 600; letter-spacing: .04em; }
@@ -261,7 +264,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   .masonry img { width: 100%; max-width: none; object-fit: cover; }
   .masonry .media { width: 100%; }
 
-  .card2 { display: flex; gap: 32px; align-items: flex-start; background: #fff; border-radius: 48px; padding: 40px; }
+  .card2 { display: flex; gap: 32px; align-items: flex-start; background: #fff; border-radius: 48px; padding: 40px; box-shadow: 0 4px 32px rgba(0, 0, 0, .05); }
   .card2 > div { flex: 1; min-width: 0; }
   .card2 span { display: block; font-size: 17px; letter-spacing: -.68px; color: var(--muted); }
   .article .card2 h2 { font-size: 24px; line-height: 32px; letter-spacing: -.96px; margin: 3px 0 16px; }

@@ -77,36 +77,151 @@
     },
     {
       "t": "how",
-      "eyebrow": "How I worked",
-      "title": "AI did the legwork and the audits. Every pick was mine.",
-      "cards": [
-        {
-          "step": "01 Discover",
-          "me": "Planned and ran interviews with travelers who plan their own trips, and set the questions that mattered",
-          "ai": "Mapped my assumptions and turned them into interview questions, transcribed the talks, and pulled out more than 130 observations in minutes. I checked every one against the transcript and kept 99. It also researched competitors and similar problems in other fields."
-        },
-        {
-          "step": "02 Define",
-          "me": "Chose the need and the problem to design for, and cut the insights down to the strong ones by hand",
-          "ai": "Grouped the observations into themes and drafted a need statement. It wrote five problem statements from five different angles at once, then audited them. When I changed direction, it rebuilt the whole synthesis, including the persona, in a day."
-        },
-        {
-          "step": "03 Develop",
-          "me": "Chose the concept and decided what is in scope",
-          "ai": "Generated five concepts from five angles in parallel and rated each for desirability, viability and feasibility, with evidence. It mapped the user flow, then hunted for dead ends, missing steps and edge cases. It also built a prototype so I could test whether AI-driven research is good enough to rely on."
-        },
-        {
-          "step": "04 Deliver",
-          "me": "Directed the design, reviewed every screen and signed off the documents",
-          "ai": "Built the prototype in Claude Design, wrote the handoff and built the app with Claude Code. It also checked 18 project documents against their sources before I approved them."
-        }
-      ],
+      "eyebrow": "My approach",
+      "title": "Learning how far AI can go, by building something I needed",
       "g": [
         80,
         80,
         64,
         64,
         48
+      ],
+      "paras": [
+        "I started this project to find out how to best integrate AI into the design process and use it as much as possible, in every step and with the best possible output. I used that learning process to build a product that solves frustrations I have had for years.",
+        "I used AI in more than [[40 different steps]] of this project, from mapping assumptions and applying multi-agent problem lenses to creating the full 133-page clickable prototype in just one day.",
+        "I set clear rules and boundaries to always get high-quality output. The whole process is automatically documented, and **every decision can be traced back to the data behind it**."
+      ],
+      "steps": [
+        {
+          "name": "Framing",
+          "items": [
+            "mapped assumptions",
+            "sorted knowns from unknowns",
+            "wrote research questions",
+            "scoped the research",
+            "scanned competitors",
+            "researched analogous domains"
+          ],
+          "show": 6,
+          "title": "Framing the problem"
+        },
+        {
+          "name": "Research",
+          "items": [
+            "drafted interview guides",
+            "transcribed the interviews",
+            "extracted observations",
+            "built a review tool for every quote",
+            "clustered pain points",
+            "mapped where participants diverge",
+            "audited themes"
+          ],
+          "show": 3,
+          "title": "Learning from travelers"
+        },
+        {
+          "name": "Insight",
+          "items": [
+            "drafted the need statement",
+            "framed five problem statements",
+            "audited each of them",
+            "wrote the persona",
+            "generated ten How-Might-We questions",
+            "compared them"
+          ],
+          "show": 1,
+          "title": "Defining the need"
+        },
+        {
+          "name": "Concepts",
+          "items": [
+            "generated five concepts from five angles",
+            "audited the set for diversity",
+            "rated desirability, viability, feasibility",
+            "described the user flow",
+            "hunted for dead ends",
+            "mapped edge cases",
+            "drew the flow in FigJam"
+          ],
+          "show": 2,
+          "title": "Exploring concepts"
+        },
+        {
+          "name": "Testing",
+          "items": [
+            "built the first working app",
+            "tested place search, research and images",
+            "wrote down the learnings",
+            "merged three sources into one concept"
+          ],
+          "show": 2,
+          "title": "Testing the app"
+        },
+        {
+          "name": "Building",
+          "items": [
+            "built the clickable prototype",
+            "wrote the design rationale",
+            "rendered every artboard",
+            "wrote the handoff",
+            "built the app with Claude Code",
+            "imported KMZ files",
+            "set up login and hosting"
+          ],
+          "show": 2,
+          "title": "Building the product"
+        },
+        {
+          "name": "Evaluation",
+          "items": [
+            "ran the quality tests",
+            "checked 18 documents against their sources",
+            "logged every decision"
+          ],
+          "show": 1,
+          "title": "Checking the output"
+        }
+      ]
+    },
+    {
+      "t": "h3",
+      "text": "Main tools",
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "t": "chips",
+      "items": [
+        {
+          "text": "Claude Code & Claude Design",
+          "logo": "/vayo/img/claude.svg"
+        },
+        {
+          "text": "Figma",
+          "logo": "/vayo/img/figma.svg"
+        }
+      ],
+      "g": [
+        24,
+        24,
+        24,
+        24,
+        24
+      ]
+    },
+    {
+      "t": "divider",
+      "g": [
+        55,
+        55,
+        54,
+        54,
+        55
       ]
     },
     {
@@ -143,9 +258,9 @@
       ],
       "items": [
         {
-          "name": "p1",
-          "title": "Limits for layers and pins per route",
-          "text": "In MyMaps there are only 10 layers available to manage all your pins, routes and collections, which quickly run out. It's not possible to plan trips longer than a week without applying some workarounds."
+          "name": "p3",
+          "title": "Pictures break over time",
+          "text": "Photos on a pin only link to outside sources. When a link changes, the picture is gone, and the pin no longer tells me what it was. In a test on a two-year-old map, more than a third of the images had disappeared."
         },
         {
           "name": "p2",
@@ -153,13 +268,13 @@
           "text": "The time for a leg sits between cryptic driving instructions. With routes for more than one day squeezed into one layer, the relevant times had to be extracted and added up manually."
         },
         {
-          "name": "p3",
-          "title": "Pictures break over time",
-          "text": "Photos on a pin only link to outside sources. When a link changes, the picture is gone, and the pin no longer tells me what it was. In a test on a two-year-old map, more than a third of the images had disappeared."
+          "name": "p1",
+          "title": "Limits for layers and pins per route",
+          "text": "In MyMaps there are only 10 layers available to manage all your pins, routes and collections, which quickly run out. It's not possible to plan trips longer than a week without applying some workarounds."
         },
         {
           "name": "p4",
-          "title": "No research, so every find comes from elsewhere",
+          "title": "No built-in research capabilities. So every find comes from elsewhere",
           "text": "MyMaps can't search for places. Every find had to come in from other apps and be added by hand, one pin at a time."
         }
       ]
@@ -177,7 +292,7 @@
     {
       "t": "h2",
       "eyebrow": "Dual-Track Discovery",
-      "text": "User interviews and building the live app started in parallel",
+      "text": "Started building the live app in parallel with the user interviews",
       "g": [
         37,
         37,
@@ -198,59 +313,39 @@
       ]
     },
     {
-      "t": "h3",
-      "text": "Testing the feasibility of the concept live",
+      "t": "viz",
+      "name": "testapp",
       "g": [
         40,
         40,
         40,
         40,
         40
+      ],
+      "title": "Testing the feasibility of the core features live",
+      "text": "In the first version of the app I tested the riskiest assumptions: how precisely free services place pins, how good the quality of the built-in research could be and where to source the best images.",
+      "eyebrow": "Proof of concept"
+    },
+    {
+      "t": "h3",
+      "text": "Interviews and the persona",
+      "g": [
+        60,
+        60,
+        60,
+        60,
+        60
       ]
     },
     {
       "t": "p",
-      "text": "In the first version of the app I tested the riskiest assumptions: how precisely free services place pins, how good the quality of the built-in research could be and where to source the best images.",
+      "text": "I interviewed travelers aged 40 to 56 who plan their own trips, and I treated my own interviews as one more participant. They covered how people find places, how they decide, and where their tools get in the way. The results hold for experienced, self-organized planners only. From the interview findings I also created a persona. In parallel I built a test app. Its main job was to investigate technical limits: how good built-in travel research is, whether every pin can get exact coordinates, and whether good photos can be found.",
       "g": [
         16,
         16,
         16,
         16,
         16
-      ]
-    },
-    {
-      "t": "viz",
-      "name": "testapp",
-      "wide": true,
-      "g": [
-        40,
-        40,
-        40,
-        40,
-        40
-      ]
-    },
-    {
-      "t": "h2",
-      "text": "Research & Discovery",
-      "g": [
-        64,
-        64,
-        56,
-        64,
-        56
-      ]
-    },
-    {
-      "t": "p",
-      "text": "I interviewed travelers aged 40 to 56 who plan their own trips, and I treated my own interviews as one more participant. They covered how people find places, how they decide, and where their tools get in the way. The results hold for experienced, self-organized planners only. In parallel I built a test app. Its main job was to investigate technical limits: how good built-in travel research is, whether every pin can get exact coordinates, and whether good photos can be found.",
-      "g": [
-        24,
-        24,
-        24.5,
-        24.5,
-        24
       ]
     },
     {
@@ -504,5 +599,6 @@
         54
       ]
     }
-  ]
+  ],
+  "note": "in just 1 month"
 }

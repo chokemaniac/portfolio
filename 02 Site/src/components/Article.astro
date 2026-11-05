@@ -13,10 +13,10 @@ const rel = related.map((k) => projects[k]);
 const tocLabels = {
   "case-study-viessmann": ["Intro", "Project", "Initial problems", "Solution", "Outcome", "Summary"],
   "case-study-encore": ["Intro", "Project", "Challenge", "Concept", "Solution", "Execution", "Outcome"],
-  "case-study-vayo": ["Intro", "Problem", "Research", "Insight", "Making", "Outcome"],
+  "case-study-vayo": ["Intro", "Approach", "Problem", "Discovery", "Insight", "Making", "Outcome"],
 };
 const tocIds = d.page.startsWith("case-study")
-  ? ["s-intro", ...d.blocks.map((b, i) => (b.t === "h2" ? `s-${i}` : null)).filter(Boolean)]
+  ? ["s-intro", ...d.blocks.map((b, i) => (b.t === "h2" || b.t === "how" ? `s-${i}` : null)).filter(Boolean)]
   : [];
 const toc = tocIds.map((id, k) => ({ id, label: tocLabels[d.page]?.[k] ?? id }));
 const hasToc = toc.length > 2;
@@ -58,14 +58,14 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   )}
   <div class="wrap" style={mobileType}>
     <header class="ahd" id={hasToc ? "s-intro" : undefined}>
-      <span class="pill">{d.tag}</span>
-      <h1>{d.title}</h1>
+      <span class={`pill ${d.page === "case-study-vayo" ? "pill-p" : ""}`}>{d.tag}</span>
+      <h1>{d.title}{d.note && <span class="note"><svg viewBox="0 0 96 56" aria-hidden="true"><path d="M92 40C76 52 54 50 48 40C42 30 54 24 59 31C64 38 52 44 42 38C34 33 30 26 28 18"/><path d="M28 18L21 30M28 18L40 25"/></svg><span>{d.note}</span></span>}</h1>
       {d.intro && <p class="intro"><Txt s={d.intro} v={d.variants} /></p>}
     </header>
 
     <article class="article">
       {d.blocks.map((b, i) => (
-        <div class="blk" id={hasToc && b.t === "h2" ? `s-${i}` : undefined} style={bs(b.g)}>
+        <div class="blk" id={hasToc && (b.t === "h2" || b.t === "how") ? `s-${i}` : undefined} style={bs(b.g)}>
           {b.t === "h2" && b.eyebrow && <section class="howw"><span class="how-e">{b.eyebrow}</span><h2><Txt s={b.text} v={d.variants} /></h2></section>}
           {b.t === "h2" && !b.eyebrow && <h2><Txt s={b.text} v={d.variants} /></h2>}
           {b.t === "h3" && <h3><Txt s={b.text} v={d.variants} /></h3>}
@@ -74,12 +74,27 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
           {b.t === "summary" && (
             <dl class="sum">{b.rows.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
           )}
-          {b.t === "viz" && <VayoViz name={b.name} wide={b.wide} />}
+          {b.t === "viz" && <VayoViz name={b.name} wide={b.wide} eyebrow={b.eyebrow} title={b.title} text={b.text} />}
           {b.t === "how" && (
             <section class="howw">
               <span class="how-e">{b.eyebrow}</span>
               <h2>{b.title}</h2>
-              <div class="how-g">
+              {b.paras && b.paras.map((t) => {
+                const rich = t.split(/(\[\[.+?\]\]|\*\*.+?\*\*)/).map((x) => x.startsWith("[[")
+                  ? <button type="button" class="steps-t" aria-expanded="false" aria-controls="steps-pop">{x.slice(2, -2)}</button>
+                  : x.startsWith("**") ? <strong>{x.slice(2, -2)}</strong>
+                  : x);
+                return t.includes("[[") && b.steps ? (
+                  <div class="steps-w">
+                    <p class="how-p">{rich}</p>
+                    <div class="steps-pop" id="steps-pop" role="group" aria-label="The steps where AI helped, by phase">
+                      <div class="steps-side"><span class="steps-lb" id="steps-lb">Project stage</span><div class="steps-tabs" role="tablist" aria-labelledby="steps-lb"><i class="steps-ind" aria-hidden="true"></i>{b.steps.map((g, i) => <button type="button" role="tab" class={i === 0 ? "on" : ""} aria-selected={i === 0 ? "true" : "false"} data-i={i}>{g.name}<small>{g.items.length}</small></button>)}</div></div>
+                      {b.steps.map((g, i) => <div class="steps-panel" role="tabpanel" hidden={i !== 0} data-i={i}><p class="steps-h">{g.title}</p><ul>{g.items.map((it, k) => k < (g.show ?? g.items.length) ? <li>{it}</li> : <li class="blur" aria-hidden="true">{it.replace(/[a-z]/gi, (c) => String.fromCharCode((c <= "Z" ? 65 : 97) + ((c.charCodeAt(0) * 7) % 26)))}</li>)}</ul>{g.items.length > (g.show ?? g.items.length) && <a class="steps-hire" href="#contact"><span class="k">Curious?</span><span class="m">Get in touch</span></a>}</div>)}
+                    </div>
+                  </div>
+                ) : <p class="how-p">{rich}</p>;
+              })}
+              {b.cards && <div class="how-g">
                 {b.cards.map((c) => (
                   <div class="how-c">
                     <span class="how-s">{c.step}</span>
@@ -87,7 +102,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
                     <span class="how-b ai">AI</span><p>{c.ai}</p>
                   </div>
                 ))}
-              </div>
+              </div>}
             </section>
           )}
           {b.t === "problems" && (
@@ -95,10 +110,14 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
               {b.items.map((it) => (
                 <article class="prob">
                   <VayoViz name={it.name} />
-                  <h3>{it.title}</h3>
+                  <h3>{it.title.split(/(\S+-\S+)/).map((x) => (x.includes("-") ? <span class="nb">{x}</span> : x))}</h3>
                   <p>{it.text}</p>
                 </article>
               ))}
+              <div class="probs-nav">
+                <button type="button" class="btn btn-icon" data-dir="-1" aria-label="Previous problem"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+                <button type="button" class="btn btn-icon" data-dir="1" aria-label="Next problem"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+              </div>
             </div>
           )}
           {b.t === "ai" && (
@@ -129,6 +148,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
               <div>{col.map(([src, h, r]) => <img class="media" src={asset(src)} alt="" loading="lazy" style={`${r.map((x, i) => `--a${i}:${x[0]} / ${x[1]}`).join(";")};border-radius:${b.r * 2}px`} />)}</div>
             ))}</div>
           )}
+          {b.t === "chips" && <ul class="chips">{b.items.map((t) => typeof t === "string" ? <li>{t}</li> : <li>{t.logo && <img src={u(t.logo)} alt="" />}{t.text}</li>)}</ul>}
           {b.t === "tools" && (b.flow ? (
             <div class="tools-flow">{b.imgs.map(([src, , , w, h], i) => <img src={asset(src)} alt="" width={w} height={h} style={`--w:${w};--h:${h};--w6:${b.sz?.[i]?.[0][0] ?? w};--h6:${b.sz?.[i]?.[0][1] ?? h};--w3:${b.sz?.[i]?.[1][0] ?? w};--h3:${b.sz?.[i]?.[1][1] ?? h}`} />)}</div>
           ) : (
@@ -192,7 +212,12 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   @media (min-width: 1100px) { .ahd { padding-top: 0; margin-top: -8px; } }
   .article { width: min(100%, 808px); margin-inline: auto; color: var(--ink); }
   .pill { display: inline-block; padding: 4px 7px; border-radius: 6px; background: #9c9bab; color: #fff; font-size: 14px; line-height: 18px; letter-spacing: -.42px; }
+  .pill.pill-p { background: rgba(118, 69, 164, .1); color: #7645a4; } /* Vayo page: same purple tag as the section eyebrows */
   .ahd h1 { font-size: 48px; font-weight: 600; letter-spacing: -1.92px; color: #000; margin-top: 24px; }
+  /* handwritten note after the headline, with a doodle arrow pointing back at it */
+  .ahd h1 .note { display: inline-flex; align-items: flex-end; gap: 4px; margin: 0 0 0 14px; vertical-align: bottom; color: #7645a4; font-family: "Caveat", cursive; font-weight: 600; font-size: 40px; line-height: 1; letter-spacing: -1.6px; transform: rotate(-4deg); transform-origin: left bottom; white-space: nowrap; }
+  @media (min-width: 640px) { .ahd h1 .note { margin-right: -64px; } } /* the headline keeps 64px free on the right; the note may reach into it */
+  .ahd h1 .note svg { width: 84px; height: 49px; margin-bottom: 10px; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
   .ahd .intro { font-size: 22px; line-height: 36px; margin-top: 24px; }
 
   /* every block sits at the exact distance from the previous one that the live site uses (--g0..--g4 per layout block) */
@@ -200,6 +225,8 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   .blk > * { margin: 0; }
   .article h2 { font-size: 36px; line-height: 46px; font-weight: 600; letter-spacing: -1.44px; }
   .article h3 { font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -.96px; }
+  /* headlines keep 64px free on the right, so they wrap to a second line a little sooner (not on phones) */
+  @media (min-width: 640px) { .ahd h1, .article .blk > h2, .article .blk > h3, .howw h2 { padding-right: 64px; } }
   .blk > p { white-space: pre-line; font-family: var(--jakarta); font-size: 18px; line-height: 30px; font-weight: 300; color: #000; }
 
   /* 8px strip of 45deg lines, cut off at both edges of the column so the start and end are filled */
@@ -217,16 +244,62 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   .probs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .prob { padding: 12px 12px 30px; border-radius: 32px; corner-shape: squircle; background: #fff; box-shadow: 0 4px 32px rgba(0, 0, 0, .05); }
   .article .prob h3 { margin: 22px 16px 0; font-size: 20px; line-height: 26px; letter-spacing: -.8px; }
-  .blk > .probs .prob > p { margin: 8px 16px 0; font-family: var(--jakarta); font-size: 16px; line-height: 26px; font-weight: 300; color: #000; white-space: normal; }
+  .article .probs .prob > p { margin: 8px 16px 0; font-family: var(--jakarta); font-size: 16px; line-height: 26px; font-weight: 300; color: #000; white-space: normal; }
   @media (max-width: 639px) { .probs { grid-template-columns: 1fr; } }
   /* four across once the window is wide enough (each card stays about 290px or more), breaking out of the text column like the wide images do */
+  /* problem cards as a carousel (switched on by the script): one card sharp on the left, the rest blurred to its right, two arrow buttons underneath */
+  .prob h3 .nb { white-space: nowrap; } /* hyphenated words like turn-by-turn move to the next line as one piece */
+  .probs-nav { display: none; }
+  .blk > .probs.is-car { --gx: max(var(--pad), calc((100vw - 808px) / 2)); display: block; position: relative; left: 50%; transform: translateX(-50%); width: 100vw; overflow: hidden; }
+  .probs.is-car .prob { position: absolute; top: 44px; left: var(--gx); width: clamp(280px, 23vw, 400px); box-sizing: border-box; cursor: pointer; will-change: transform, filter, opacity; transition: transform .8s cubic-bezier(.2, .7, .2, 1), opacity .8s ease, filter .8s ease; }
+  .probs.is-car .prob.is-focus { cursor: auto; }
+  .probs.is-car .probs-nav { display: flex; gap: 8px; position: absolute; left: var(--gx); }
+  .probs-nav .btn { border: 0; cursor: pointer; font: inherit; } .probs-nav svg { width: 24px; height: 24px; fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke .3s; }
+  @media (hover: hover) { .probs-nav .btn:hover svg { stroke: #7645a4; } } /* same hover as the "Next project" button: purple icon and the soft purple glow */
+  .probs-nav .btn:focus-visible { outline: 2px solid #7645a4; outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { .probs.is-car .prob { transition: none; } }
   @media (min-width: 1400px) { .blk > .probs { grid-template-columns: repeat(4, 1fr); width: calc(100vw - 2 * var(--pad)); position: relative; left: 50%; transform: translateX(-50%); } }
   @media (min-width: 1623px) { .blk > .probs { width: calc(100vw - 2 * var(--edge)); gap: 32px; } }
 
   /* "how I worked": what I did and what AI did, per phase. Two columns by two rows, in the width of the text column */
   .howw { width: 100%; }
   .how-e { display: inline-block; padding: 4px 7px; border-radius: 6px; background: rgba(118, 69, 164, .1); color: #7645a4; font-size: 14px; line-height: 18px; letter-spacing: -.42px; }
-  .article .howw h2 { margin-top: 20px; }
+  .article .howw h2 { margin-top: 20px; } .howw .how-p strong { font-weight: 700; }
+  .howw .how-p { margin: 24px 0 0; font-family: var(--jakarta); font-size: 18px; line-height: 30px; font-weight: 300; color: #000; } .howw h2 + .how-p { margin-top: 20px; }
+  /* the "40 different steps" link: hover, focus or tap opens a card with the steps per phase */
+  .steps-w { position: relative; }
+  .steps-t { all: unset; cursor: pointer; color: #7645a4; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 4px; font-weight: 400; }
+  .steps-t:focus-visible { outline: 2px solid #7645a4; outline-offset: 3px; border-radius: 4px; }
+  .steps-pop { display: none; position: absolute; z-index: 30; width: min(580px, 100%); padding: 0; overflow: hidden; border-radius: 22px; background: #fff; box-shadow: 0 8px 40px rgba(24, 22, 56, .16); font-size: 15px; line-height: 22px; font-weight: 400; }
+  .steps-pop.open { display: grid; grid-template-columns: auto 1fr; align-items: stretch; }
+  .steps-side { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; gap: 16px; padding: 24px 16px; background: rgba(24, 22, 56, .07); }
+  .steps-lb { padding-left: 14px; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .02em; color: #6a677f; }
+  .steps-tabs { position: relative; display: flex; flex-direction: column; gap: 3px; }
+  .steps-tabs::-webkit-scrollbar { display: none; }
+  .steps-ind { position: absolute; left: 0; right: 0; top: 0; height: 0; border-radius: 12px; corner-shape: squircle; background: #fff; box-shadow: 0 1px 6px rgba(24, 22, 56, .14); transition: transform .35s cubic-bezier(.34, 1.3, .64, 1), height .35s cubic-bezier(.34, 1.3, .64, 1); pointer-events: none; }
+  .steps-tabs button { all: unset; cursor: pointer; position: relative; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 22px; padding: 6px 14px; border-radius: 12px; corner-shape: squircle; font-size: 13px; line-height: 18px; color: #6a677f; transition: color .25s; }
+  .steps-tabs button small { font-size: 11px; line-height: 16px; font-variant-numeric: tabular-nums; opacity: .55; } .steps-tabs button.on small { opacity: .8; }
+  .steps-tabs button:hover { color: #3a3752; } .steps-tabs button.on { color: #7645a4; }
+  .steps-tabs button:focus-visible { outline: 2px solid #7645a4; outline-offset: -2px; }
+  .steps-panel { position: relative; grid-column: 2; grid-row: 1; padding: 30px 36px 32px 32px; min-height: 250px; } .steps-panel[hidden] { display: block; visibility: hidden; } /* every panel stays in the same cell, so the card is as tall as the longest one and never jumps */
+  .steps-hire { position: absolute; right: 24px; bottom: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 112px; height: 112px; border-radius: 50%; background: #7645a4; color: #fff; text-align: center; transform: rotate(-9deg); transition: transform .35s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s; }
+  .steps-hire .k { font-size: 12px; line-height: 14px; font-weight: 600; letter-spacing: -.2px; opacity: .85; } .steps-hire .m { margin-top: 3px; font-size: 15px; line-height: 17px; font-weight: 700; letter-spacing: -.45px; }
+  @media (hover: hover) { .steps-hire:hover { transform: rotate(-4deg) scale(1.06); box-shadow: 0 4px 16px rgba(118, 69, 164, .35); } }
+  .steps-hire:focus-visible { outline: 2px solid #7645a4; outline-offset: 2px; }
+  @media (max-width: 639px) {
+    .steps-pop.open { grid-template-columns: minmax(0, 1fr); }
+    .steps-side { grid-column: 1; grid-row: 1; padding: 16px 14px 14px; gap: 10px; }
+    .steps-tabs { flex-direction: row; overflow-x: auto; scrollbar-width: none; } .steps-tabs::-webkit-scrollbar { display: none; }
+    .steps-ind { left: 0; right: auto; top: 0; bottom: 0; width: 0; height: auto !important; }
+    .steps-tabs button { padding: 6px 12px; gap: 8px; }
+    .steps-panel { grid-column: 1; grid-row: 2; padding: 22px 22px 24px; min-height: 240px; }
+    .steps-hire { right: 14px; bottom: 14px; width: 88px; height: 88px; } .steps-hire .k { font-size: 11px; line-height: 12px; } .steps-hire .m { font-size: 12.5px; line-height: 14px; letter-spacing: -.35px; }
+  }
+  .steps-h { margin: 0 0 16px; font-size: 18px; line-height: 24px; font-weight: 700; letter-spacing: -.3px; color: #1c1a3a; }
+  .steps-pop ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px 20px; align-content: start; }
+  .steps-pop ul:has(li:nth-child(10)) { grid-template-columns: 1fr 1fr; grid-auto-flow: column; grid-template-rows: repeat(9, auto); }
+  .steps-pop li.blur { opacity: .4; filter: blur(5px); user-select: none; pointer-events: none; } .steps-pop li { position: relative; padding-left: 14px; color: #000; } .steps-pop li::before { content: ""; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: #7645a4; }
+  @media (max-width: 640px) { .steps-pop ul:has(li:nth-child(10)) { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; } .steps-pop ul { min-height: 0; } }
   .how-g { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(10, auto); column-gap: 16px; margin-top: 32px; }
   .how-c { display: grid; grid-template-rows: subgrid; grid-row: span 5; padding: 28px 28px 32px; border-radius: 32px; background: #fff; box-shadow: 0 4px 32px rgba(0, 0, 0, .05); transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
   .how-c:nth-child(n+3) { margin-top: 16px; }
@@ -251,6 +324,10 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   @media (min-width: 1100px) { .article .media.wide.inset { box-sizing: border-box; padding-inline: 48px; object-fit: contain; } }
   .show-m { display: none; }
 
+  /* text chips for tools without a logo file */
+  .chips { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .chips li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 18px 9px; border-radius: 14px; corner-shape: squircle; background: #fff; box-shadow: 0 4px 32px rgba(0, 0, 0, .05); font-family: var(--jakarta); font-size: 16px; line-height: 24px; font-weight: 500; color: #000; }
+  .chips li img { flex: none; width: auto; height: 18px; margin-top: 2px; }
   .tools-row { position: relative; }
   .tools-row img { position: absolute; max-width: none; }
   .tools-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 28px 32px; }
@@ -345,7 +422,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
     .media { aspect-ratio: var(--a0, var(--a1)); }
     .article .media.wide, .article .masonry { width: calc(100vw - 2 * var(--edge)); }
     .article video.media.wide { width: calc(100vw - 2 * var(--edge) - 240px); }
-    .article .media.wide.inset, .article .media.wide[data-viz="testapp"] { width: 1462px; }
+    .article .media.wide.inset { width: 1462px; }
     .article .masonry, .article .masonry > div { gap: 32px; }
     .article .phones { width: 1201px; gap: 32px; }
     .article .phones video { max-width: 379px; aspect-ratio: 379 / 698; }
@@ -435,6 +512,113 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   @media (max-width: 1099px) { .tocm { display: block; position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); width: 240px; transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .toc *, .tocm *, .tocm-l { transition: none !important; animation: none !important; } }
 </style>
+
+<script>
+  // problem cards: a carousel. One card is sharp on the left, the others wait blurred on its right; the arrows (and a click on a card) bring the next one in, and it wraps around.
+  const probs = document.querySelector<HTMLElement>(".blk > .probs");
+  if (probs) {
+    const cards = [...probs.querySelectorAll<HTMLElement>(".prob")], nav = probs.querySelector<HTMLElement>(".probs-nav")!;
+    const n = cards.length;
+    let active = 0, prev: number[] = [], cw = 0, gapW = 0;
+    const L = (a: number, b: number, t: number) => a + (b - a) * t;
+    const slot = (i: number) => (i - active + n) % n;
+    // x position per slot, so that the VISIBLE gaps are even: the focus card is drawn 6% bigger and the others 6% smaller (both around their centre)
+    const x = (s: number) => (s === 0 ? cw * 0.03 : cw * 1.03 + gapW + (s - 1) * (cw * 0.94 + gapW));
+    const apply = (first = false) => {
+      const now = cards.map((_, i) => slot(i));
+      cards.forEach((c, i) => {
+        const s = now[i], focus = s === 0;
+        const op = focus ? 1 : s === 1 ? .55 : s === 2 ? .45 : .35;
+        const sc = focus ? 1.06 : .94;
+        const jump = !first && prev.length && Math.abs(s - prev[i]) > 1;
+        c.classList.toggle("is-focus", focus);
+        c.setAttribute("aria-current", focus ? "true" : "false");
+        const place = () => {
+          c.style.transform = `translate3d(${x(s).toFixed(1)}px, 0, 0) scale(${sc})`;
+          c.style.filter = focus ? "" : "blur(6px)";
+          c.style.zIndex = String(10 - s);
+        };
+        if (jump) { // a card wrapping around fades in at its new place instead of flying across the others
+          c.style.transition = "none"; c.style.opacity = "0"; place(); void c.offsetWidth;
+          c.style.transition = "transform .8s cubic-bezier(.2,.7,.2,1), opacity .8s ease .2s, filter .8s ease"; c.style.opacity = String(op);
+        } else { c.style.transition = first ? "none" : ""; place(); c.style.opacity = String(op); if (first) { void c.offsetWidth; c.style.transition = ""; } }
+      });
+      prev = now;
+    };
+    const layout = () => {
+      probs.classList.add("is-car");
+      // the sharp card starts exactly at the left edge of the text column; the cards behind it keep an even distance and may run past the right edge
+      // (the scaling would pull both edges inwards or outwards by 3% of a card, so the cards are shifted by that much)
+      const col = probs.parentElement!.getBoundingClientRect(), gap = 56;
+      const w = col.width >= 640 ? (col.width - 32) / 2 : col.width; // card width stays as it was; only the distance between the cards grew
+      cards.forEach((c) => { c.style.width = w + "px"; c.style.left = col.left + "px"; c.style.height = ""; });
+      const h = Math.ceil(Math.max(...cards.map((c) => c.scrollHeight)));
+      cards.forEach((c) => (c.style.height = h + "px"));
+      cw = w; gapW = gap;
+      nav.style.left = col.left + "px";
+      const navTop = 44 + h + 40;
+      nav.style.top = navTop + "px";
+      probs.style.height = navTop + 48 + 32 + "px";
+      apply(true);
+    };
+    const go = (to: number) => { active = (to + n) % n; apply(); };
+    nav.querySelectorAll<HTMLElement>("button").forEach((b) => b.addEventListener("click", () => go(active + Number(b.dataset.dir))));
+    cards.forEach((c, i) => c.addEventListener("click", () => { if (i !== active) go(i); }));
+    layout();
+    window.addEventListener("resize", layout);
+    window.addEventListener("load", layout);
+    document.fonts?.ready.then(layout); // card heights depend on the web fonts
+  }
+</script>
+
+<script>
+  // "40 different steps": a card with the steps per phase, opened by hover, focus or tap
+  const t = document.querySelector<HTMLElement>(".steps-t");
+  const pop = document.querySelector<HTMLElement>(".steps-pop");
+  if (t && pop) {
+    const p = pop.parentElement!;
+    let timer = 0;
+    const place = () => {
+      const r = t.getClientRects(), l = r[r.length - 1], pr = p.getBoundingClientRect();
+      pop.style.top = l.bottom - pr.top + 8 + "px";
+      pop.style.left = Math.max(0, Math.min(l.left - pr.left - 16, pr.width - pop.offsetWidth)) + "px";
+    };
+    const ind = () => {
+      const on = pop.querySelector<HTMLElement>("[role=tab].on"), i = pop.querySelector<HTMLElement>(".steps-ind");
+      if (!on || !i) return;
+      if (getComputedStyle(on.parentElement!).flexDirection === "row") { const bar = on.parentElement!; bar.scrollTo({ left: on.offsetLeft - 12, behavior: "smooth" }); i.style.height = ""; i.style.width = on.offsetWidth + "px"; i.style.transform = `translateX(${on.offsetLeft}px)`; }
+      else { i.style.width = ""; i.style.height = on.offsetHeight + "px"; i.style.transform = `translateY(${on.offsetTop}px)`; }
+    };
+    const select = (b: HTMLElement) => {
+      pop.querySelectorAll<HTMLElement>("[role=tab]").forEach((x) => { x.classList.toggle("on", x === b); x.setAttribute("aria-selected", String(x === b)); });
+      pop.querySelectorAll<HTMLElement>("[role=tabpanel]").forEach((u) => (u.hidden = u.dataset.i !== b.dataset.i));
+    };
+    const show = (on: boolean) => {
+      clearTimeout(timer);
+      if (on && !pop.classList.contains("open")) select(pop.querySelector<HTMLElement>("[role=tab]")!); // every time the card opens, it starts on the first tab
+      pop.classList.toggle("open", on);
+      t.setAttribute("aria-expanded", String(on));
+      if (on) { place(); ind(); }
+    };
+    const later = () => { clearTimeout(timer); timer = window.setTimeout(() => show(false), 200); };
+    for (const e of [t, pop]) { e.addEventListener("pointerenter", (ev) => { if ((ev as PointerEvent).pointerType === "mouse") show(true); }); e.addEventListener("pointerleave", (ev) => { if ((ev as PointerEvent).pointerType === "mouse") later(); }); }
+    pop.addEventListener("click", (e) => {
+      const a = (e.target as HTMLElement).closest(".steps-hire");
+      if (!a) return;
+      e.preventDefault(); show(false);
+      document.querySelector<HTMLElement>("[data-send]")?.click(); // the same move as the paper plane in the side menu: scroll to the contact section and open the contact options
+    });
+    // mouse: hover opens, so a click keeps it open; touch: a tap toggles; keyboard: focus opens it
+    let pt = "";
+    t.addEventListener("pointerdown", (e) => (pt = e.pointerType));
+    t.addEventListener("click", () => show(pt === "mouse" ? true : !pop.classList.contains("open")));
+    t.addEventListener("focus", () => { if (t.matches(":focus-visible")) show(true); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") show(false); });
+    document.addEventListener("pointerdown", (e) => { if (!pop.contains(e.target as Node) && e.target !== t) show(false); });
+    window.addEventListener("resize", () => pop.classList.contains("open") && place());
+    pop.querySelectorAll<HTMLElement>("[role=tab]").forEach((b) => b.addEventListener("click", () => { select(b); ind(); }));
+  }
+</script>
 
 <script>
   // multi-piece tool logos are laid out at a fixed width; shrink them as a unit when the column is narrower

@@ -1,0 +1,473 @@
+{
+  "page": "case-study-vayo",
+  "tag": "Case Study // Vayo",
+  "title": "How i built an AI-Powered travel app that makes research and planning fast and fun",
+  "intro": "Vayo introduces a better way to find places you love, plan your trip with ease and manage all your maps and pins in one place. I owned the whole path alone and did all research, design and building the app with AI in just one month.",
+  "next": "/case-study-viessmann",
+  "variants": {},
+  "gx": {
+    "next": [
+      20,
+      20,
+      21,
+      21,
+      20
+    ],
+    "relH": [
+      80,
+      80,
+      80,
+      80,
+      136
+    ],
+    "rel": [
+      24,
+      24,
+      23.5,
+      23.5,
+      24
+    ],
+    "cta": [
+      146,
+      126,
+      106,
+      106.98,
+      88.3
+    ]
+  },
+  "blocks": [
+    {
+      "t": "img",
+      "src": "vayo-key-vis",
+      "kind": "wide",
+      "h": 661,
+      "r": [
+        [
+          2160,
+          1252
+        ],
+        [
+          1140,
+          661
+        ],
+        [
+          820,
+          475
+        ],
+        [
+          620,
+          575
+        ],
+        [
+          452,
+          616
+        ]
+      ],
+      "pos": [
+        22,
+        22
+      ],
+      "g": [
+        80,
+        80,
+        64,
+        60,
+        40
+      ]
+    },
+    {
+      "t": "how",
+      "eyebrow": "How I worked",
+      "title": "AI did the legwork and the audits. Every pick was mine.",
+      "cards": [
+        {
+          "step": "01 Discover",
+          "me": "Planned and ran interviews with travelers who plan their own trips, and set the questions that mattered",
+          "ai": "Mapped my assumptions and turned them into interview questions, transcribed the talks, and pulled out more than 130 observations in minutes. I checked every one against the transcript and kept 99. It also researched competitors and similar problems in other fields."
+        },
+        {
+          "step": "02 Define",
+          "me": "Chose the need and the problem to design for, and cut the insights down to the strong ones by hand",
+          "ai": "Grouped the observations into themes and drafted a need statement. It wrote five problem statements from five different angles at once, then audited them. When I changed direction, it rebuilt the whole synthesis, including the persona, in a day."
+        },
+        {
+          "step": "03 Develop",
+          "me": "Chose the concept and decided what is in scope",
+          "ai": "Generated five concepts from five angles in parallel and rated each for desirability, viability and feasibility, with evidence. It mapped the user flow, then hunted for dead ends, missing steps and edge cases. It also built a prototype so I could test whether AI-driven research is good enough to rely on."
+        },
+        {
+          "step": "04 Deliver",
+          "me": "Directed the design, reviewed every screen and signed off the documents",
+          "ai": "Built the prototype in Claude Design, wrote the handoff and built the app with Claude Code. It also checked 18 project documents against their sources before I approved them."
+        }
+      ],
+      "g": [
+        80,
+        80,
+        64,
+        64,
+        48
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "The problem",
+      "g": [
+        80,
+        80,
+        64,
+        80,
+        64
+      ]
+    },
+    {
+      "t": "p",
+      "text": "After using Google's MyMaps to plan all my trip for years, i was very frustrated with its limitations. So i wanted to build my own app that lifts the limitations and adds AI-Powered research capabilities.",
+      "g": [
+        24,
+        24,
+        24.5,
+        24.5,
+        24
+      ]
+    },
+    {
+      "t": "problems",
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ],
+      "items": [
+        {
+          "name": "p1",
+          "title": "Limits for layers and pins per route",
+          "text": "In MyMaps there are only 10 layers available to manage all your pins, routes and collections, which quickly run out. It's not possible to plan trips longer than a week without applying some workarounds."
+        },
+        {
+          "name": "p2",
+          "title": "Drive times are buried in turn-by-turn directions",
+          "text": "The time for a leg sits between cryptic driving instructions. With routes for more than one day squeezed into one layer, the relevant times had to be extracted and added up manually."
+        },
+        {
+          "name": "p3",
+          "title": "Pictures break over time",
+          "text": "Photos on a pin only link to outside sources. When a link changes, the picture is gone, and the pin no longer tells me what it was. In a test on a two-year-old map, more than a third of the images had disappeared."
+        },
+        {
+          "name": "p4",
+          "title": "No research, so every find comes from elsewhere",
+          "text": "MyMaps can't search for places. Every find had to come in from other apps and be added by hand, one pin at a time."
+        }
+      ]
+    },
+    {
+      "t": "divider",
+      "g": [
+        55,
+        55,
+        54,
+        54,
+        55
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "Research & Discovery",
+      "g": [
+        37,
+        37,
+        37,
+        37,
+        37
+      ]
+    },
+    {
+      "t": "p",
+      "text": "I interviewed travelers aged 40 to 56 who plan their own trips, and I treated my own interviews as one more participant. They covered how people find places, how they decide, and where their tools get in the way. The results hold for experienced, self-organized planners only. In parallel I built a test app. Its main job was to investigate technical limits: how good built-in travel research is, whether every pin can get exact coordinates, and whether good photos can be found.",
+      "g": [
+        24,
+        24,
+        24.5,
+        24.5,
+        24
+      ]
+    },
+    {
+      "t": "ai",
+      "label": "How AI was involved",
+      "text": "AI mapped the assumptions and drafted research questions geared to turn them into knowns, after we identified the knowns, unknowns and assumptions of the project. I decided each assumption and approved every question.",
+      "g": [
+        24,
+        24,
+        24,
+        24,
+        24
+      ]
+    },
+    {
+      "t": "viz",
+      "name": "testapp",
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "t": "divider",
+      "g": [
+        55,
+        55,
+        54,
+        54,
+        55
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "The insight",
+      "g": [
+        37,
+        37,
+        37,
+        37,
+        37
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Planning is a funnel from many finds to a shortlist to day-sized routes, and each step lives in a different tool.",
+      "g": [
+        24,
+        24,
+        24.5,
+        24.5,
+        24
+      ]
+    },
+    {
+      "t": "viz",
+      "name": "funnel",
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "t": "divider",
+      "g": [
+        55,
+        55,
+        54,
+        54,
+        55
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "What was made and why",
+      "g": [
+        37,
+        37,
+        37,
+        37,
+        37
+      ]
+    },
+    {
+      "t": "p",
+      "text": "I built Vayo along that funnel: find, shortlist, plan the days.",
+      "g": [
+        24,
+        24,
+        24.5,
+        24.5,
+        24
+      ]
+    },
+    {
+      "t": "h3",
+      "text": "Finding: free questions instead of fixed categories",
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "t": "p",
+      "text": "I started with a batch tool that searches fixed categories by region. On paper it made sense. In the test app I saw that choosing from fixed categories can make you miss good spots, and in the interviews nobody described searching from a fixed list. So I built the research as free questions to the AI. The results land on the map right away, and I decide on each one.",
+      "g": [
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "t": "viz",
+      "name": "finding",
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "t": "h3",
+      "text": "Shortlisting: keep or skip first, ratings later",
+      "g": [
+        60,
+        60,
+        60,
+        60,
+        60
+      ]
+    },
+    {
+      "t": "p",
+      "text": "In the interviews, one traveler said he wanted to go through spots quickly, like swiping: like or dislike. So every find gets a fast keep or skip first, and ratings come later, once a shortlist exists. The alternative was rating every place the moment it appeared. Rating pins at all is a big step up from MyMaps, which has nothing like it, and it turns the kept finds into a shortlist I can build days from.",
+      "g": [
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "t": "viz",
+      "name": "shortlist",
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "t": "h3",
+      "text": "Planning the days: from a list of stops to a day that adds up",
+      "g": [
+        60,
+        60,
+        60,
+        60,
+        60
+      ]
+    },
+    {
+      "t": "p",
+      "text": "In MyMaps, a route was a list of stops. In Vayo, drive times between places show instantly and add up per day and for the whole trip. I added a start time for each day, so I can see whether a day can be done while the sun is still up. For that I needed the time spent at each place. Google's API has it, but it costs extra. Then I had the idea to ask the AI that was already connected to the app. It finds the time at no extra cost, and I can still change it.",
+      "g": [
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "t": "viz",
+      "name": "planning",
+      "wide": true,
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "t": "viz",
+      "name": "system",
+      "wide": true,
+      "g": [
+        32,
+        32,
+        32,
+        32,
+        32
+      ]
+    },
+    {
+      "t": "divider",
+      "g": [
+        55,
+        55,
+        54,
+        54,
+        55
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "Outcome",
+      "g": [
+        37,
+        37,
+        37,
+        37,
+        37
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Planning a trip like this used to take me 2 to 3 months. With Vayo it took 2 to 3 weeks, and I planned a full 4-week trip with it. So far only I have used it, so I can't yet say how it works for anyone else.",
+      "g": [
+        24,
+        24,
+        24.5,
+        24.5,
+        24
+      ]
+    },
+    {
+      "t": "viz",
+      "name": "outcome",
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "t": "p",
+      "text": "If I did it again, I would start discovery from what I already knew. I had years of my own trips and years of conversations with friends about how they plan, and none of that went into the research. I treated the topic as unknown, so the discovery phase repeated things I could have started from.",
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "t": "divider",
+      "g": [
+        55,
+        55,
+        54,
+        55,
+        54
+      ]
+    }
+  ]
+}

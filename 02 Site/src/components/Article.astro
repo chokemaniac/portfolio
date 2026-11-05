@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Cta from "./Cta.astro";
 import Txt from "./Txt.astro";
 import Roll from "./Roll.astro";
+import VayoViz from "./VayoViz.astro";
 import { asset, u } from "../data/asset";
 import { GH, projects } from "../data/projects";
 
@@ -12,6 +13,7 @@ const rel = related.map((k) => projects[k]);
 const tocLabels = {
   "case-study-viessmann": ["Intro", "Project", "Initial problems", "Solution", "Outcome", "Summary"],
   "case-study-encore": ["Intro", "Project", "Challenge", "Concept", "Solution", "Execution", "Outcome"],
+  "case-study-vayo": ["Intro", "Problem", "Research", "Insight", "Making", "Outcome"],
 };
 const tocIds = d.page.startsWith("case-study")
   ? ["s-intro", ...d.blocks.map((b, i) => (b.t === "h2" ? `s-${i}` : null)).filter(Boolean)]
@@ -58,7 +60,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
     <header class="ahd" id={hasToc ? "s-intro" : undefined}>
       <span class="pill">{d.tag}</span>
       <h1>{d.title}</h1>
-      <p class="intro"><Txt s={d.intro} v={d.variants} /></p>
+      {d.intro && <p class="intro"><Txt s={d.intro} v={d.variants} /></p>}
     </header>
 
     <article class="article">
@@ -68,6 +70,42 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
           {b.t === "h3" && <h3><Txt s={b.text} v={d.variants} /></h3>}
           {b.t === "p" && <p><Txt s={b.text} v={d.variants} /></p>}
           {b.t === "divider" && <div class="divider" aria-hidden="true"></div>}
+          {b.t === "summary" && (
+            <dl class="sum">{b.rows.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+          )}
+          {b.t === "viz" && <VayoViz name={b.name} wide={b.wide} />}
+          {b.t === "how" && (
+            <section class="howw">
+              <span class="how-e">{b.eyebrow}</span>
+              <h2>{b.title}</h2>
+              <div class="how-g">
+                {b.cards.map((c) => (
+                  <div class="how-c">
+                    <span class="how-s">{c.step}</span>
+                    <span class="how-b me">ME</span><p>{c.me}</p>
+                    <span class="how-b ai">AI</span><p>{c.ai}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+          {b.t === "problems" && (
+            <div class="probs">
+              {b.items.map((it) => (
+                <article class="prob">
+                  <VayoViz name={it.name} />
+                  <h3>{it.title}</h3>
+                  <p>{it.text}</p>
+                </article>
+              ))}
+            </div>
+          )}
+          {b.t === "ai" && (
+            <aside class="aibox">
+              <span class="aibox-p">AI</span>
+              <p>{b.text}</p>
+            </aside>
+          )}
           {b.t === "img" && (
             <>
               <img class={`media ${b.kind} ${b.alt ? "show-d" : ""} ${b.hideMobile ? "hide-m" : ""} ${b.inset ? "inset" : ""}`} src={asset(b.src)} alt=""
@@ -164,7 +202,43 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   .blk > p { white-space: pre-line; font-family: var(--jakarta); font-size: 18px; line-height: 30px; font-weight: 300; color: #000; }
 
   /* 8px strip of 45deg lines, cut off at both edges of the column so the start and end are filled */
-  .blk > .divider { height: 8px; background: repeating-linear-gradient(135deg, #bac3d1 0 1px, transparent 1px 3.465px); }
+  .blk > .divider { height: 8px; background: url("/assets/divider-hatch.svg") 3px 0 / 6px 6px repeat; }
+
+  /* executive summary: label on the left, answer on the right, hairlines between the rows */
+  .blk > .sum { display: grid; }
+  .sum > div { display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 18px 0; border-top: 1px solid rgba(24, 22, 56, .12); }
+  .sum > div:last-child { border-bottom: 1px solid rgba(24, 22, 56, .12); }
+  .sum dt { font-size: 14px; line-height: 30px; letter-spacing: -.28px; color: var(--muted); }
+  .sum dd { margin: 0; font-family: var(--jakarta); font-size: 18px; line-height: 30px; font-weight: 300; color: #000; }
+  @media (max-width: 639px) { .sum > div { grid-template-columns: 1fr; gap: 4px; } .sum dt { line-height: 20px; } }
+
+  /* the four problem cards */
+  .probs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .prob { padding: 12px 12px 30px; border-radius: 32px; corner-shape: squircle; background: #fff; }
+  .article .prob h3 { margin: 22px 16px 0; font-size: 20px; line-height: 26px; letter-spacing: -.8px; }
+  .blk > .probs .prob > p { margin: 8px 16px 0; font-family: var(--jakarta); font-size: 16px; line-height: 26px; font-weight: 300; color: #000; white-space: normal; }
+  @media (max-width: 639px) { .probs { grid-template-columns: 1fr; } }
+
+  /* "how I worked": what I did and what AI did, per phase. Two columns by two rows, in the width of the text column */
+  .howw { width: 100%; }
+  .how-e { display: inline-block; padding: 4px 7px; border-radius: 6px; background: rgba(118, 69, 164, .1); color: #7645a4; font-size: 14px; line-height: 18px; letter-spacing: -.42px; }
+  .article .howw h2 { margin-top: 20px; }
+  .how-g { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(10, auto); column-gap: 16px; margin-top: 32px; }
+  .how-c { display: grid; grid-template-rows: subgrid; grid-row: span 5; padding: 28px 28px 32px; border-radius: 32px; background: #fff; transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
+  .how-c:nth-child(n+3) { margin-top: 16px; }
+  .how-s { display: block; font-size: 14px; line-height: 22px; letter-spacing: -.28px; color: #7645a4; }
+  .how-b { display: block; width: max-content; align-self: start; justify-self: start; margin-top: 20px; padding: 3px 12px; border-radius: 999px; font-size: 12px; line-height: 18px; font-weight: 600; letter-spacing: .04em; }
+  .how-b.me { background: rgba(24, 22, 56, .08); color: var(--ink); } .how-b.ai { background: rgba(118, 69, 164, .12); color: #7645a4; }
+  .blk > .howw .how-c p { margin: 12px 0 0; font-family: var(--jakarta); font-size: 16px; line-height: 26px; font-weight: 300; color: #000; white-space: normal; }
+  @media (hover: hover) { .how-c:hover { transform: translateY(-4px); } }
+  @media (max-width: 639px) { .how-g { grid-template-columns: 1fr; grid-template-rows: none; gap: 16px; } .how-c { display: block; grid-row: auto; padding: 24px 24px 28px; } .how-c:nth-child(n+3) { margin-top: 0; } }
+  @media (prefers-reduced-motion: reduce) { .how-c { transition: none; } }
+
+  /* "how AI was involved" callout: a flat tinted bar with a purple edge on the left, an AI pill and the text */
+  .aibox { display: flex; gap: 16px; align-items: flex-start; padding: 18px 24px 18px 22px; border-left: 3px solid #7645a4; border-radius: 0 14px 14px 0; background: #efe7f8; color: #000; }
+  .aibox-p { flex: none; margin-top: 2px; padding: 3px 14px; border: 1.5px solid rgba(118, 69, 164, .55); border-radius: 999px; background: rgba(118, 69, 164, .1); color: #7645a4; font-size: 12px; line-height: 18px; font-weight: 600; letter-spacing: .04em; }
+  .blk > .aibox p { margin: 0; font-family: var(--jakarta); font-size: 17px; line-height: 28px; font-weight: 400; color: #000; white-space: normal; }
+  @media (max-width: 639px) { .aibox { flex-direction: column; gap: 10px; padding: 18px 20px; } }
 
   /* media: aspect ratio per layout block via --a0 (1623+), --a1 (1100), --a2 (800), --a3 (640), --a4 (<640) */
   .media { display: block; width: 100%; object-fit: cover; aspect-ratio: var(--a1); object-position: 50% 50%; }
@@ -234,10 +308,12 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   :is(.go, .live) .rl > .b { position: absolute; left: 0; top: 0; }
   :is(.go, .live) .rl i { display: inline-block; font-style: normal; transition: transform .2s cubic-bezier(.645, .045, .355, 1) calc(var(--o) * 18.1ms); }
   :is(.go, .live) .rl .b i { transform: translateY(100%); }
+  /* "roll through": the arrow leaves to the right and comes back in from the left, with the same swift ease as the letters rolling; it starts as the letters finish */
   @keyframes go-nudge {
-    0% { transform: translateX(0); animation-timing-function: cubic-bezier(.45, 0, .55, 1); }
-    75% { transform: translateX(7px); animation-timing-function: cubic-bezier(.45, 0, .55, 1); }
-    100% { transform: translateX(0); }
+    0% { transform: none; opacity: 1; animation-timing-function: cubic-bezier(.645, .045, .355, 1); }
+    12% { transform: translateX(16px); opacity: 0; }
+    12.01% { transform: translateX(-16px); opacity: 0; animation-timing-function: cubic-bezier(.22, 1, .36, 1); }
+    30%, 100% { transform: none; opacity: 1; }
   }
   @media (hover: hover) {
     .live:hover .rl .a i { transform: translateY(-100%); transition-delay: calc(var(--c) * 18.1ms); }
@@ -245,7 +321,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
     .related a:has(:is(.rel-hit, .go):hover) .go .rl .a i { transform: translateY(-100%); transition-delay: calc(var(--c) * 18.1ms); }
     .related a:has(:is(.rel-hit, .go):hover) .go .rl .b i { transform: none; transition-delay: calc(var(--c) * 18.1ms); }
     /* while hovering, the arrow keeps moving: a slow glide to the right, then a quick smooth return, and again */
-    .related a:has(:is(.rel-hit, .go):hover) .go > img { animation: go-nudge 1.4s infinite; }
+    .related a:has(:is(.rel-hit, .go):hover) .go > img { animation: go-nudge 1.6s .15s infinite; }
     .related a:has(:is(.rel-hit, .go):hover) .thumb > img, .related a:has(:is(.rel-hit, .go):hover) .thumb > video { transform: scale(1.05); }
   }
   @media (prefers-reduced-motion: reduce) { .live:hover .arr, .related .go > img { animation: none !important; } :is(.go, .live) .rl i, .go > img, .related .thumb > img, .related .thumb > video { transition: none; } }

@@ -12,8 +12,9 @@ const ar = (r) => r.map((x, i) => `--a${i}:${x[0]} / ${x[1]}`).join(";");
 const RW = ar([[2160, 1100], [1140, 640], [820, 520], [620, 620], [452, 540]]);
 const RS = ar([[2160, 1368], [1140, 722], [820, 520], [620, 1690], [452, 1233]]);
 const RC = ar([[808, 525], [808, 525], [808, 525], [620, 430], [452, 400]]);
+const RT = ar([[1140, 404], [1140, 404], [1140, 404], [1140, 404], [1140, 404]]);
 const isCard = /^p[1-4]$/.test(name); // the four problem cards: small stages inside white cards
-const dims = { hero: [1200, 680], planning: [1200, 680], system: [1200, 760] };
+const dims = { hero: [1200, 680], planning: [1200, 680], system: [1200, 760], testapp: [1140, 404] };
 const [W, H] = isCard ? [400, 300] : dims[name] ?? [800, 520];
 const steps = { hero: "5600,5600,5600", finding: "3600,8000,2200", funnel: "4800,5800" }[name] ?? "";
 
@@ -101,7 +102,7 @@ const letters = "ABCDEFGHIJ".split("");
 // turn-by-turn lines as MyMaps shows them: the time and distance of a leg sit between the instructions
 const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国道161号", "17.4 km"], ["Take the Wani IC exit", "473 m"], ["Turn left towards 県道311号", "138 m"], ["Turn right onto 県道311号", "3.15 km"], ["Turn right onto レインボーロード/国道477号", "1.74 km"], ["Turn left onto 国道367号", "2.3 km"]];
 ---
-<div class:list={isCard ? ["viz", "pv"] : ["media", wide ? "wide" : "col", "viz"]} data-viz={name} data-w={W} data-h={H} data-align={{ hero: "left", planning: "left", finding: "left" }[name]} style={isCard ? undefined : name === "system" ? RS : wide ? RW : RC} role={name === "system" ? "group" : "img"}
+<div class:list={isCard ? ["viz", "pv"] : ["media", wide ? "wide" : "col", "viz"]} data-viz={name} data-w={W} data-h={H} data-align={{ hero: "left", planning: "left", finding: "left" }[name]} style={isCard ? undefined : name === "system" ? RS : name === "testapp" ? RT : wide ? RW : RC} role={name === "system" ? "group" : "img"}
   aria-label={{ hero: "Animated preview of the Vayo app: browsing pins, researching, planning a route", problem: "Animation of Google MyMaps running into its limits", testapp: "Animation of the test app checking research, coordinates and photos", funnel: "Animation of planning as a funnel from many finds to a shortlist to routes, merging separate tools into one", finding: "Animation of fixed categories giving way to free research questions whose results land on the map", shortlist: "Animation of keeping or skipping places like swiping, then rating the shortlist", planning: "Animation of a day plan with drive times, a start time and a sunset check", system: "Interactive playground with the Vayo app's own elements: the tabs, the three-dot menu, a pin card, the colors, the plus menu and a filter, in light and dark mode", outcome: "Animation comparing 2 to 3 months of planning with 2 to 3 weeks", p1: "Animation of a MyMaps layer list filling up until MyMaps shows an error that the maximum number of layers is reached", p2: "Animation of a MyMaps directions list where the drive time is buried between turn-by-turn instructions", p3: "Animation of a MyMaps pin photo that breaks because its link no longer works", p4: "Animation of places being copied by hand from other apps onto an empty MyMaps map" }[name]}>
   <div class="stage vz" data-theme="light" data-scene="1" data-steps={steps} style={`--W:${W}px;--H:${H}px`}>
 
@@ -172,13 +173,13 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
 
     {name === "testapp" && (
       <div class="v-test">
-        <div class="v-tc"><span class="v-pl">Built-in research</span>
-          <div class="v-rs">{places.slice(0, 5).map(([n, s, f], i) => <div class="v-rr" style={`--i:${i}`}><i class="v-th xs" style={`background-image:url(${im(f)})`}></i><div><b>{n}</b><small>{s}</small></div><span class={`v-yn ${i === 2 || i === 4 ? "no" : "ok"}`} set:html={i === 2 || i === 4 ? NO : OK}></span></div>)}</div></div>
-        <div class="v-tc"><span class="v-pl">Exact coordinates</span>
+        <div class="v-tc"><span class="v-pl">Quality of the built-in research</span>
+          <div class="v-rs">{places.slice(0, 4).map(([n, s, f], i) => <div class="v-rr" style={`--i:${i}`}><i class="v-th xs" style={`background-image:url(${im(f)})`}></i><div><b>{n}</b><small>{s}</small></div><span class={`v-yn ${i === 2 ? "no" : "ok"}`} set:html={i === 2 ? NO : OK}></span></div>)}</div></div>
+        <div class="v-tc"><span class="v-pl">Precision of the pin coordinates</span>
           <div class="v-cm"><Fragment set:html={MAP} /><i class="v-cx"></i><i class="v-ring"></i><i class="vp big" set:html={PIN}></i></div>
-          <div class="v-rd"><span style="--k:0">34.8394, 134.6939</span><span style="--k:1">35.5698, 135.1943</span><span style="--k:2">34.9511, 135.8218</span></div></div>
-        <div class="v-tc"><span class="v-pl">Good photos</span>
-          <div class="v-pg">{["a1", "u3", "a4", "u4", "u2", "a2"].map((f, i) => <span class={i === 3 || i === 5 ? "rej" : ""} style={`--i:${i};background-image:url(${im(f)})`}><b set:html={NO}></b></span>)}</div></div>
+          <div class="v-rd"><span style="--k:0">34.8394, 134.6939<i class="v-yn ok" set:html={OK}></i></span><span style="--k:1">35.5698, 135.1943<i class="v-yn no" set:html={NO}></i></span><span style="--k:2">34.9511, 135.8218<i class="v-yn ok" set:html={OK}></i></span></div></div>
+        <div class="v-tc"><span class="v-pl">Quality of the sourced images</span>
+          <div class="v-pg">{["a1", "u3", "a4", "u4", "u2", "a2", "u1", "u5", "a3"].map((f, i) => <span class={i === 3 || i === 5 || i === 7 ? "rej" : ""} style={`--i:${i};background-image:url(${im(f)})`}><b class={i === 3 || i === 5 || i === 7 ? "" : "ok"} set:html={i === 3 || i === 5 || i === 7 ? NO : OK}></b></span>)}</div></div>
       </div>
     )}
 
@@ -494,21 +495,23 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
 
   /* test app */
   .v-test { position: absolute; inset: 26px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .v-tc { position: relative; overflow: hidden; border-radius: 28px; padding: 22px; background: var(--bg); }
-  .v-rs { margin-top: 20px; display: grid; gap: 14px; } .v-rr { display: flex; align-items: center; gap: 10px; padding: 12px 10px; border-radius: 14px; background: var(--bg-soft); animation: rin 9s infinite var(--spring); animation-delay: calc(var(--i) * .5s); } .v-rr > div { flex: 1; min-width: 0; } .v-rr b { display: block; font-size: 12px; line-height: 1.25; } .v-rr small { font-size: 10.5px; }
+  .viz[data-viz="testapp"] { border-radius: 56px; }
+  .v-tc { position: relative; overflow: hidden; border-radius: 20px; padding: 22px; background: var(--bg); }
+  .v-rs { margin-top: 16px; display: grid; gap: 10px; } .v-rr { display: flex; align-items: center; gap: 10px; padding: 12px 10px; border-radius: 14px; background: var(--bg-soft); animation: rin 9s infinite var(--spring); animation-delay: calc(var(--i) * .5s); } .v-rr > div { flex: 1; min-width: 0; } .v-rr b { display: block; font-size: 12px; line-height: 1.25; } .v-rr small { font-size: 10.5px; }
   .v-rr .v-yn { animation: yn 9s infinite; animation-delay: calc(var(--i) * .5s); }
+  .v-rr .v-yn.no, .v-rd .v-yn.no { background: var(--danger); color: #fff; outline: 0; } .v-rd .v-yn { display: inline-grid; width: 20px; height: 20px; margin-left: 10px; vertical-align: middle; } .v-rr .v-yn.no svg, .v-rd .v-yn.no svg { width: 11px; height: 11px; }
   @keyframes rin { 0% { opacity: 0; transform: translateX(-26px); } 7% { opacity: 1; transform: none; } 88% { opacity: 1; } 96%, 100% { opacity: 0; } } @keyframes yn { 0%, 14% { transform: scale(0); } 22% { transform: scale(1.25); } 28%, 100% { transform: none; } }
-  .v-cm { position: relative; height: 330px; margin-top: 18px; border-radius: 20px; overflow: hidden; } .v-cm .v-bg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .v-cm { position: relative; height: 228px; margin-top: 16px; border-radius: 20px; overflow: hidden; } .v-cm .v-bg { position: absolute; inset: 0; width: 100%; height: 100%; }
   .v-cx { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: linear-gradient(var(--rust), var(--rust)) 30% 0 / 1px 100% no-repeat, linear-gradient(var(--rust), var(--rust)) 0 62% / 100% 1px no-repeat; opacity: .5; animation: cross 6s infinite; }
   @keyframes cross { 0%, 28% { background-position: 30% 0, 0 62%; } 33.3%, 61% { background-position: 58% 0, 0 36%; } 66.6%, 94% { background-position: 72% 0, 0 70%; } 100% { background-position: 30% 0, 0 62%; } }
   .v-ring { position: absolute; left: 30%; top: 62%; width: 22px; height: 22px; margin: -11px; border-radius: 50%; border: 2px solid var(--rust); animation: ring 2s infinite, pinpos 6s infinite; }
   @keyframes ring { 0%, 30% { transform: scale(.3); opacity: 0; } 40% { opacity: 1; } 100% { transform: scale(3.4); opacity: 0; } }
   .v-rd { position: relative; height: 22px; margin-top: 16px; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; } .v-rd span { position: absolute; left: 0; opacity: 0; animation: swap 6s infinite; animation-delay: calc(var(--k) * 2s); }
   @keyframes swap { 0%, 3% { opacity: 0; transform: translateY(8px); } 8%, 30% { opacity: 1; transform: none; } 36%, 100% { opacity: 0; transform: translateY(-8px); } }
-  .v-pg { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .v-pg span { position: relative; aspect-ratio: 1; border-radius: 16px; background: var(--bg-soft) center / cover; animation: sharp 7s infinite; animation-delay: calc(var(--i) * .55s); }
+  .v-pg { margin-top: 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .v-pg span { position: relative; aspect-ratio: 1.18; border-radius: 16px; background: var(--bg-soft) center / cover; animation: sharp 7s infinite; animation-delay: calc(var(--i) * .55s); }
   .v-pg span b { position: absolute; right: 8px; top: 8px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--danger); color: #fff; opacity: 0; } .v-pg span b svg { width: 11px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
-  .v-pg span.rej b { animation: rej 7s infinite; animation-delay: calc(var(--i) * .55s); }
+  .v-pg span b.ok { background: color-mix(in srgb, var(--moss) 85%, #fff); } .v-pg span b { animation: rej 7s infinite; animation-delay: calc(var(--i) * .55s); }
   @keyframes sharp { 0% { filter: blur(16px); opacity: .4; transform: scale(.94); } 14%, 80% { filter: none; opacity: 1; transform: none; } 96%, 100% { filter: blur(16px); opacity: .4; transform: scale(.94); } }
   @keyframes rej { 0%, 40% { opacity: 0; transform: scale(0); } 48% { opacity: 1; transform: scale(1.2); } 54%, 80% { opacity: 1; transform: none; } 90%, 100% { opacity: 0; } }
 
@@ -672,6 +675,7 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   .sy-cd { display: inline-flex; color: var(--pc, #ed6d2d); transition: color .3s; }
   .viz.m .sy-t { left: 28px; width: 504px; } .viz.m .sy-t.t1 { top: 28px; } .viz.m .sy-t.t3 { top: 184px; height: 252px; } .viz.m .sy-sws { grid-template-columns: repeat(4, 1fr); } .viz.m .sy-t.t2 { top: 452px; } .viz.m .sy-card.pop.pincard { margin-left: auto; margin-right: auto; } .viz.m .sy-t.t4 { top: 868px; } .viz.m .sy-t.t5 { top: 1172px; height: 376px; }
   .viz.m .sy-bar .seg { position: relative; left: auto; transform: none; margin-left: 10px; }
+  .viz.m .v-test { grid-template-columns: 1fr; grid-auto-rows: 1fr; }
   .viz.m .v-out { inset: 24px 24px; gap: 14px; }
   .sy .pin { corner-shape: round; }
   .sy i svg { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -779,7 +783,7 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
     let W = +el.dataset.w!, H = +el.dataset.h!;
     const w = el.clientWidth, h = el.clientHeight, stage = el.querySelector<HTMLElement>(".stage")!;
     // the playground has to stay usable on a phone, so it stacks into one tall column instead of being cropped
-    const mob = ({ system: [560, 1580], outcome: [480, 400] } as Record<string, number[]>)[el.dataset.viz!];
+    const mob = ({ system: [560, 1580], outcome: [480, 400], testapp: [400, 1128] } as Record<string, number[]>)[el.dataset.viz!];
     const stack = !!mob && w < 800;
     if (stack) [W, H] = mob;
     el.classList.toggle("m", stack);

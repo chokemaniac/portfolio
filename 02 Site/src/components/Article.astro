@@ -66,7 +66,8 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
     <article class="article">
       {d.blocks.map((b, i) => (
         <div class="blk" id={hasToc && b.t === "h2" ? `s-${i}` : undefined} style={bs(b.g)}>
-          {b.t === "h2" && <h2><Txt s={b.text} v={d.variants} /></h2>}
+          {b.t === "h2" && b.eyebrow && <section class="howw"><span class="how-e">{b.eyebrow}</span><h2><Txt s={b.text} v={d.variants} /></h2></section>}
+          {b.t === "h2" && !b.eyebrow && <h2><Txt s={b.text} v={d.variants} /></h2>}
           {b.t === "h3" && <h3><Txt s={b.text} v={d.variants} /></h3>}
           {b.t === "p" && <p><Txt s={b.text} v={d.variants} /></p>}
           {b.t === "divider" && <div class="divider" aria-hidden="true"></div>}

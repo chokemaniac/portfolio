@@ -111,7 +111,8 @@
     },
     {
       "t": "h2",
-      "text": "The problem",
+      "eyebrow": "The Problem",
+      "text": "Frustrations with Google MyMaps",
       "g": [
         80,
         80,
@@ -175,13 +176,70 @@
     },
     {
       "t": "h2",
-      "text": "Research & Discovery",
+      "eyebrow": "Dual-Track Discovery",
+      "text": "User interviews and building the live app started in parallel",
       "g": [
         37,
         37,
         37,
         37,
         37
+      ]
+    },
+    {
+      "t": "p",
+      "text": "Along with the traditional user interviews I started building the app itself, beginning with a brain-dumped concept of what an MVP needs. Its first versions tested the riskiest assumptions: how precisely free services place pins, how good the research results are and how good the image sources are. I wrote down what I learned. Later I combined the interview insights, those learnings and the initial concept into a new concept. The clickable prototype grew out of it, and the app now catches up with what the prototype added.",
+      "g": [
+        24,
+        24,
+        24.5,
+        24.5,
+        24
+      ]
+    },
+    {
+      "t": "h3",
+      "text": "Testing the feasibility of the concept live",
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "t": "p",
+      "text": "In the first version of the app I tested the riskiest assumptions: how precisely free services place pins, how good the quality of the built-in research could be and where to source the best images.",
+      "g": [
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "t": "viz",
+      "name": "testapp",
+      "wide": true,
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "t": "h2",
+      "text": "Research & Discovery",
+      "g": [
+        64,
+        64,
+        56,
+        64,
+        56
       ]
     },
     {
@@ -205,17 +263,6 @@
         24,
         24,
         24
-      ]
-    },
-    {
-      "t": "viz",
-      "name": "testapp",
-      "g": [
-        40,
-        40,
-        40,
-        40,
-        40
       ]
     },
     {

@@ -11,7 +11,7 @@ const im = (f) => u(`/vayo/img/${f}.jpg`);
 // aspect ratio per layout block (1623+ / 1100 / 800 / 640 / <640), same variables the image blocks use
 const ar = (r) => r.map((x, i) => `--a${i}:${x[0]} / ${x[1]}`).join(";");
 const RW = ar([[2160, 1100], [1140, 640], [820, 520], [620, 620], [452, 540]]);
-const RS = ar([[2160, 1368], [1140, 722], [820, 520], [620, 660], [452, 600]]);
+const RS = ar([[2160, 1368], [1140, 722], [820, 520], [620, 1690], [452, 1233]]);
 const RC = ar([[808, 525], [808, 525], [808, 525], [620, 430], [452, 400]]);
 const isCard = /^p[1-4]$/.test(name); // the four problem cards: small stages inside white cards
 const dims = { hero: [1200, 680], planning: [1200, 680], system: [1200, 760] };
@@ -102,7 +102,7 @@ const letters = "ABCDEFGHIJ".split("");
 // turn-by-turn lines as MyMaps shows them: the time and distance of a leg sit between the instructions
 const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国道161号", "17.4 km"], ["Take the Wani IC exit", "473 m"], ["Turn left towards 県道311号", "138 m"], ["Turn right onto 県道311号", "3.15 km"], ["Turn right onto レインボーロード/国道477号", "1.74 km"], ["Turn left onto 国道367号", "2.3 km"]];
 ---
-<div class:list={isCard ? ["viz", "pv"] : ["media", wide ? "wide" : "col", "viz"]} data-viz={name} data-w={W} data-h={H} data-align={{ hero: "left", planning: "left" }[name]} style={isCard ? undefined : name === "system" ? RS : wide ? RW : RC} role="img"
+<div class:list={isCard ? ["viz", "pv"] : ["media", wide ? "wide" : "col", "viz"]} data-viz={name} data-w={W} data-h={H} data-align={{ hero: "left", planning: "left", finding: "left" }[name]} style={isCard ? undefined : name === "system" ? RS : wide ? RW : RC} role={name === "system" ? "group" : "img"}
   aria-label={{ hero: "Animated preview of the Vayo app: browsing pins, researching, planning a route", problem: "Animation of Google MyMaps running into its limits", testapp: "Animation of the test app checking research, coordinates and photos", funnel: "Animation of planning as a funnel from many finds to a shortlist to routes, merging separate tools into one", finding: "Animation of fixed categories giving way to free research questions whose results land on the map", shortlist: "Animation of keeping or skipping places like swiping, then rating the shortlist", planning: "Animation of a day plan with drive times, a start time and a sunset check", system: "Interactive playground with the Vayo app's own elements: the tabs, the three-dot menu, a pin card, the colors, the plus menu and a filter, in light and dark mode", outcome: "Animation comparing 2 to 3 months of planning with 2 to 3 weeks", p1: "Animation of a MyMaps layer list filling up until MyMaps shows an error that the maximum number of layers is reached", p2: "Animation of a MyMaps directions list where the drive time is buried between turn-by-turn instructions", p3: "Animation of a MyMaps pin photo that breaks because its link no longer works", p4: "Animation of places being copied by hand from other apps onto an empty MyMaps map" }[name]}>
   <div class="stage vz" data-theme="light" data-scene="1" data-steps={steps} style={`--W:${W}px;--H:${H}px`}>
 
@@ -660,7 +660,7 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   .sy { position: absolute; inset: 0; padding: 28px; background: var(--page); color: var(--fg); font-family: var(--font-sans); transition: background .5s, color .5s; }
   .sy button { font-family: inherit; }
   .sy-t { position: absolute; padding: 16px 20px 20px; border-radius: 28px; background: var(--side); outline: 1px solid var(--line); outline-offset: -1px; transition: background .5s; }
-  .sy-t.t1 { left: 28px; top: 28px; width: 700px; height: 140px; z-index: 5; } .sy-t.t2 { left: 744px; top: 28px; width: 428px; height: 400px; } .sy-t.t3 { left: 28px; top: 184px; width: 700px; height: 156px; } .sy-t.t5 { left: 28px; top: 356px; width: 700px; height: 330px; } .sy-t.t4 { left: 744px; top: 444px; width: 428px; height: 288px; }
+  .sy-t.t1 { left: 28px; top: 28px; width: 700px; height: 140px; z-index: 5; } .sy-t.t2 { left: 744px; top: 28px; width: 428px; height: 400px; } .sy-t.t3 { left: 28px; top: 184px; width: 700px; height: 156px; } .sy-t.t5 { left: 28px; top: 356px; width: 700px; height: 376px; } .sy-t.t4 { left: 744px; top: 444px; width: 428px; height: 288px; }
   .sy-l { display: block; font-size: 11.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--hint); }
   .sy-bar { position: relative; display: flex; align-items: center; margin-top: 14px; }
   .sy-bar .seg { position: absolute; left: 50%; transform: translateX(-50%); }
@@ -671,6 +671,9 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   .sy-card.pop.pincard { margin-top: 14px; font-family: var(--font-sans); background: var(--bg); border-radius: 24px; outline: 1px solid var(--line); outline-offset: -1px; box-shadow: var(--menu-shadow); }
   .sy-card .panel-head { display: flex; align-items: center; justify-content: flex-start; gap: 10px; } .sy-card .panel-title { flex: 1; text-align: left; padding-right: 36px; } .sy .sy-pin { --c: var(--pc, #ed6d2d); flex: none; transition: background .3s; } .sy-pin.bump { animation: sybump .5s var(--spring); } @keyframes sybump { 40% { transform: scale(1.3) rotate(-8deg); } }
   .sy-cd { display: inline-flex; color: var(--pc, #ed6d2d); transition: color .3s; }
+  .viz.m .sy-t { left: 28px; width: 504px; } .viz.m .sy-t.t1 { top: 28px; } .viz.m .sy-t.t3 { top: 184px; height: 252px; } .viz.m .sy-sws { grid-template-columns: repeat(4, 1fr); } .viz.m .sy-t.t2 { top: 452px; } .viz.m .sy-card.pop.pincard { margin-left: auto; margin-right: auto; } .viz.m .sy-t.t4 { top: 868px; } .viz.m .sy-t.t5 { top: 1172px; height: 376px; }
+  .viz.m .sy-bar .seg { position: relative; left: auto; transform: none; margin-left: 10px; }
+  .viz.m .v-out { inset: 24px 24px; gap: 14px; }
   .sy .pin { corner-shape: round; }
   .sy i svg { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .sy-sws { display: grid; grid-template-columns: repeat(7, 1fr); gap: 14px; margin-top: 14px; }
@@ -774,9 +777,16 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
     t.style.setProperty("--tw", Math.ceil(ctx.measureText(t.textContent || "").width) + 2 + "px");
   });
   const fit = (el: HTMLElement) => {
-    const W = +el.dataset.w!, H = +el.dataset.h!, w = el.clientWidth, h = el.clientHeight;
-    const s = w >= 800 ? Math.min(w / W, h / H) : Math.max(w / W, h / H);
-    const stage = el.querySelector<HTMLElement>(".stage")!;
+    let W = +el.dataset.w!, H = +el.dataset.h!;
+    const w = el.clientWidth, h = el.clientHeight, stage = el.querySelector<HTMLElement>(".stage")!;
+    // the playground has to stay usable on a phone, so it stacks into one tall column instead of being cropped
+    const mob = ({ system: [560, 1580], outcome: [480, 400] } as Record<string, number[]>)[el.dataset.viz!];
+    const stack = !!mob && w < 800;
+    if (stack) [W, H] = mob;
+    el.classList.toggle("m", stack);
+    el.style.aspectRatio = stack ? `${W} / ${H}` : "";
+    stage.style.setProperty("--W", W + "px"); stage.style.setProperty("--H", H + "px");
+    const s = stack ? w / W : w >= 800 ? Math.min(w / W, h / H) : Math.max(w / W, h / H);
     stage.style.setProperty("--s", String(s));
     // on phones the stage is cropped: the hero and the day plan keep their left side, where the panel is
     const spare = Math.max(0, (W * s - w) / 2), side = el.dataset.align;

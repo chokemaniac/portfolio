@@ -337,6 +337,58 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
       </div>
     )}
 
+    {name === "p1" && (
+      <div class="pv-s">
+        <div class="pv-map"><Fragment set:html={MAP} /></div>
+        <div class="pv-panel">
+          <div class="pv-ph"><b>Japan 2026</b><small>32 views</small></div>
+          <div class="pv-addl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5zM4.5 12.2 2 13.5l10 5 10-5-2.5-1.3L12 16z"/></svg><span>Add layer</span></div>
+          <div class="pv-lays">{Array.from({ length: 10 }).map((_, i) => <span class="pv-l" style={`--i:${i}`}><i></i><b style={`width:${[78, 64, 84, 58, 72, 68, 80, 60, 74, 66][i]}%`}></b></span>)}</div>
+        </div>
+        <div class="pv-dim"></div>
+        <div class="pv-dlg"><b>Error adding a layer</b><p>The maximum number of layers for this map has been reached.</p><span>OK</span></div>
+      </div>
+    )}
+
+    {name === "p2" && (
+      <div class="pv-s">
+        <div class="pv-map"><Fragment set:html={MAP} /></div>
+        <div class="pv-dirs">
+          <div class="pv-dh"><i>B</i><b>Shirahige Shrine Torii</b></div>
+          <div class="pv-dt"><span>29.5 km, 33 minutes</span></div>
+          <div class="pv-scroll"><div class="pv-track">{[0, 1].map(() => steps2.map(([t, d]) => (
+            <Fragment><p>{t}</p><div class="pv-dist"><span>{d}</span></div></Fragment>
+          )))}</div></div>
+        </div>
+      </div>
+    )}
+
+    {name === "p3" && (
+      <div class="pv-s">
+        <div class="pv-map"><Fragment set:html={MAP} /></div>
+        <div class="pv-card">
+          <div class="pv-ch"><b>Tomonoura</b><span set:html={NO}></span></div>
+          <div class="pv-img"><img src={im("u4")} alt="" /><em><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7H7a5 5 0 0 0 0 10h2"/><path d="M15 7h2a5 5 0 0 1 0 10h-2"/><path d="m10.6 4.4.8 2.2"/><path d="m13.4 19.6-.8-2.2"/></svg></em></div>
+          <div class="pv-cap">1 of 1</div>
+          <div class="pv-url"><span>https://example.com/photo.jpg</span></div>
+        </div>
+      </div>
+    )}
+
+    {name === "p4" && (
+      <div class="pv-s">
+        <div class="pv-src a"><div class="nl">{[86, 62, 78, 50].map((w) => <i style={`width:${w}%`}></i>)}</div></div>
+        <div class="pv-src b"><div class="tab"><i></i><i></i><i></i></div><div class="gr">{Array.from({ length: 9 }).map(() => <i></i>)}</div></div>
+        <div class="pv-src c"><div class="sh">{Array.from({ length: 12 }).map((_, i) => <i class={i % 4 === 1 ? "h" : ""}></i>)}</div></div>
+        <div class="pv-mm"><div class="pv-sb">Search Google Maps<span></span></div><div class="pv-mapi"><Fragment set:html={MAP} />{[[22, 56], [46, 36], [70, 62]].map(([x, y], i) => <i class={`vp pvp l${i}`} style={`left:${x}%;top:${y}%`} set:html={PIN}></i>)}</div></div>
+        <div class="pv-hw">
+          <i class="pv-carry" set:html={PIN}></i>
+          <svg class="pv-ho" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.4" y="11.5" width="3" height="7.5" rx="1.5" transform="rotate(-32 3.9 15.2)"/><rect x="6.6" y="3.4" width="2.9" height="12" rx="1.45"/><rect x="9.8" y="1.6" width="2.9" height="13" rx="1.45"/><rect x="13" y="2.2" width="2.9" height="12.4" rx="1.45"/><rect x="16.2" y="4.4" width="2.9" height="11" rx="1.45"/><rect x="6" y="11" width="13.2" height="10.5" rx="4.5"/></svg>
+          <svg class="pv-hc" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.5" y="10" width="14.5" height="11.5" rx="5"/><circle cx="8.4" cy="9.6" r="2.6"/><circle cx="11.9" cy="8.6" r="2.6"/><circle cx="15.4" cy="8.8" r="2.6"/><circle cx="18.4" cy="10.4" r="2.3"/><rect x="5.5" y="12" width="14.5" height="9.5" rx="4.5" class="cover"/></svg>
+        </div>
+      </div>
+    )}
+
     {name === "outcome" && (
       <div class="v-out">
         <div class="v-ob old"><div class="hd"><span class="v-pl">MyMaps</span><b>2 to 3 months</b></div>

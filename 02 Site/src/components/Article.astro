@@ -345,7 +345,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
     .media { aspect-ratio: var(--a0, var(--a1)); }
     .article .media.wide, .article .masonry { width: calc(100vw - 2 * var(--edge)); }
     .article video.media.wide { width: calc(100vw - 2 * var(--edge) - 240px); }
-    .article .media.wide.inset { width: 1462px; }
+    .article .media.wide.inset, .article .media.wide[data-viz="testapp"] { width: 1462px; }
     .article .masonry, .article .masonry > div { gap: 32px; }
     .article .phones { width: 1201px; gap: 32px; }
     .article .phones video { max-width: 379px; aspect-ratio: 379 / 698; }

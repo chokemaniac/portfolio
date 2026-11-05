@@ -16,7 +16,7 @@ const RT = ar([[1140, 404], [1140, 404], [1140, 404], [1140, 404], [1140, 404]])
 const isCard = /^p[1-4]$/.test(name); // the four problem cards: small stages inside white cards
 const dims = { hero: [1200, 680], planning: [1200, 680], system: [1200, 760], testapp: [1140, 404] };
 const [W, H] = isCard ? [400, 300] : dims[name] ?? [800, 520];
-const steps = { hero: "5600,5600,5600", finding: "3600,8000,2200", funnel: "4800,5800" }[name] ?? "";
+const steps = { hero: "5600,5600,5600", finding: "3600,8000,2200", funnel: "" }[name] ?? "";
 
 const PIN = `<svg viewBox="0 0 24 30" aria-hidden="true"><path d="M12 29C5 20 2 15.5 2 11a10 10 0 0 1 20 0c0 4.5-3 9-10 18z"/><circle cx="12" cy="11" r="3.6" fill="#fff"/></svg>`;
 const CH = `<span class="tp-i" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span>`;
@@ -190,8 +190,6 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
         <div class="v-tool t1"><div class="v-nl">{[88, 70, 94, 60, 80, 52, 90].map((w) => <i style={`width:${w}%`}></i>)}</div></div>
         <div class="v-tool t2"><div class="v-gr">{Array.from({ length: 18 }).map((_, i) => <i class={i % 6 === 5 ? "h" : ""}></i>)}</div></div>
         <div class="v-tool t3"><Fragment set:html={MAP} />{[[30, 40], [62, 30], [52, 66], [78, 58]].map(([x, y], i) => <i class="vp sm" style={`left:${x}%;top:${y}%;--i:${i}`} set:html={PIN}></i>)}</div>
-        <div class="v-one"><span class="v-pl">Vayo</span>
-          <div class="v-cols"><div>{[0, 1, 2, 3, 4, 5].map((i) => <i class="vp sm" style={`position:relative;--i:${i};left:auto;top:auto;margin:0`} set:html={PIN}></i>)}</div><div>{[0, 1, 2].map((i) => <span class="v-mini" style={`--i:${i}`}><i style={`background-image:url(${im(["a1", "a4", "a2"][i])})`}></i><b></b></span>)}</div><div><span class="v-day"><b>Day 1</b><i></i><i></i><i></i></span></div></div></div>
         <span class="v-lb l1">Many finds</span><span class="v-lb l2">A shortlist</span><span class="v-lb l3">Day-sized routes</span>
       </div>
     )}
@@ -522,16 +520,9 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   @keyframes flow { 0% { opacity: 0; transform: translate(0, var(--y)); } 10% { opacity: .9; } 50% { transform: translate(340px, calc(var(--y) * .45)); } 90% { opacity: .9; } 100% { opacity: 0; transform: translate(730px, calc(var(--y) * .1)); } }
   .v-tool { position: absolute; background: var(--bg); border-radius: 26px; box-shadow: 0 10px 30px rgba(24, 22, 56, .1); overflow: hidden; transition: transform .9s var(--ease), opacity .6s; padding: 18px; }
   .v-tool.t1 { left: 40px; top: 130px; width: 210px; height: 260px; } .v-tool.t2 { left: 300px; top: 160px; width: 200px; height: 200px; } .v-tool.t3 { left: 560px; top: 190px; width: 190px; height: 140px; padding: 0; }
-  .stage[data-scene="2"] .v-tool.t1 { transform: translate(190px, 20px) scale(.5); opacity: 0; } .stage[data-scene="2"] .v-tool.t2 { transform: translate(60px, 0) scale(.5); opacity: 0; } .stage[data-scene="2"] .v-tool.t3 { transform: translate(-190px, -20px) scale(.5); opacity: 0; }
   .v-nl { display: grid; gap: 14px; } .v-nl i { display: block; height: 8px; border-radius: 4px; background: var(--line); animation: nl 3s infinite ease-in-out; } .v-nl i:nth-child(even) { animation-delay: .5s; background: color-mix(in srgb, var(--rust) 30%, var(--line)); } @keyframes nl { 50% { transform: scaleX(.8); transform-origin: left; } }
   .v-gr { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; } .v-gr i { height: 18px; border-radius: 4px; background: var(--bg-soft); } .v-gr i.h { background: var(--star); animation: nl 2.4s infinite; }
-  .v-one { position: absolute; left: 110px; top: 130px; width: 580px; height: 260px; padding: 20px 24px; border-radius: 32px; background: var(--bg); box-shadow: 0 20px 50px rgba(24, 22, 56, .16); opacity: 0; transform: scale(.7); transition: opacity .5s, transform .9s var(--spring); }
-  .stage[data-scene="2"] .v-one { opacity: 1; transform: none; transition-delay: .5s; }
-  .v-cols { display: grid; grid-template-columns: 1.1fr 1fr .9fr; gap: 18px; margin-top: 18px; } .v-cols > div { display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
-  .v-cols .vp { animation: bobp 2.4s infinite ease-in-out; animation-delay: calc(var(--i) * .2s); } @keyframes bobp { 50% { transform: translateY(-5px); } }
-  .v-mini { display: flex; width: 100%; gap: 8px; align-items: center; } .v-mini i { width: 38px; height: 30px; border-radius: 8px; background: center / cover; } .v-mini b { flex: 1; height: 8px; border-radius: 4px; background: var(--line); }
-  .v-day { display: grid; gap: 7px; width: 100%; padding: 10px; border-radius: 14px; background: var(--bg-soft); } .v-day i { height: 8px; border-radius: 4px; background: var(--rust); transform-origin: left; animation: grow 3s infinite var(--ease); } .v-day i:nth-child(3) { width: 70%; opacity: .6; } .v-day i:nth-child(4) { width: 45%; opacity: .35; } @keyframes grow { 0% { transform: scaleX(0); } 40%, 100% { transform: none; } }
-  .v-lb { position: absolute; bottom: 52px; font-size: 14px; font-weight: 600; color: var(--muted); } .v-lb.l1 { left: 60px; } .v-lb.l2 { left: 345px; } .v-lb.l3 { left: 590px; }
+  .v-lb { position: absolute; bottom: 52px; font-size: 14px; font-weight: 600; color: var(--muted); } .v-lb { transform: translateX(-50%); white-space: nowrap; } .v-lb.l1 { left: 145px; } .v-lb.l2 { left: 400px; } .v-lb.l3 { left: 655px; }
 
   /* finding: the Research tab as a chat. A question goes in, the answer comes back structured, and the places it names are highlighted and fly onto the map */
   .vc-win { position: absolute; inset: 20px; border-radius: 20px; overflow: hidden; background: var(--page); box-shadow: 0 30px 70px rgba(24, 22, 56, .2), 0 0 0 1px rgba(24, 22, 56, .06); }
@@ -602,15 +593,15 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
 
   /* shortlist */
   .v-sl { position: absolute; inset: 0; }
-  .v-deck { position: absolute; left: 70px; top: 0; width: 360px; height: 100%; }
-  .v-sc { --p: 0; position: absolute; left: 30px; top: 50%; width: 300px; height: 390px; margin-top: -215px; border-radius: 28px; overflow: hidden; background: var(--bg); box-shadow: 0 16px 40px rgba(24, 22, 56, .16); z-index: calc(10 - var(--p)); opacity: calc(4 - var(--p)); transform: translateY(calc(var(--p) * 16px)) scale(calc(1 - var(--p) * .05)); transition: transform .6s var(--spring), opacity .4s; }
-  .v-sc.nt { transition: none; } .v-sc .ph { display: block; height: 268px; background: center / cover; } .v-sc .tx { padding: 14px 18px; } .v-sc .tx b { display: block; font-size: 17px; letter-spacing: -.02em; }
+  .v-deck { position: absolute; left: 50px; top: 0; width: 300px; height: 100%; }
+  .v-sc { --p: 0; position: absolute; left: 30px; top: 50%; width: 240px; height: 310px; margin-top: -180px; border-radius: 28px; overflow: hidden; background: var(--bg); box-shadow: 0 16px 40px rgba(24, 22, 56, .16); z-index: calc(10 - var(--p)); opacity: calc(4 - var(--p)); transform: translateY(calc(var(--p) * 16px)) scale(calc(1 - var(--p) * .05)); transition: transform .6s var(--spring), opacity .4s; }
+  .v-sc.nt { transition: none; } .v-sc .ph { display: block; height: 208px; background: center / cover; } .v-sc .tx { padding: 14px 18px; } .v-sc .tx b { display: block; font-size: 17px; letter-spacing: -.02em; }
   .v-sc.r { transform: translate(480px, -30px) rotate(16deg); opacity: 0; transition: transform .55s var(--ease), opacity .5s; } .v-sc.l { transform: translate(-480px, 20px) rotate(-16deg); opacity: 0; transition: transform .55s var(--ease), opacity .5s; }
   .v-sc .st { position: absolute; top: 20px; padding: 2px 12px; border: 3px solid; border-radius: 10px; font-size: 18px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; opacity: 0; transition: opacity .15s; } .v-sc .st.keep { left: 20px; color: var(--moss); transform: rotate(-10deg); background: #ffffffcc; } .v-sc .st.skip { right: 20px; color: var(--muted); transform: rotate(10deg); background: #ffffffcc; }
   .v-sc.r .keep, .v-sc.l .skip { opacity: 1; }
-  .v-bt { position: absolute; left: 0; right: 0; bottom: 18px; display: flex; justify-content: center; gap: 28px; z-index: 20; } .v-bt .tp-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .v-bt { position: absolute; left: 0; right: 0; bottom: 80px; display: flex; justify-content: center; gap: 28px; z-index: 20; } .v-bt .tp-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .v-bt .kp { animation: none; } .v-sl.keepnow .kp { animation: press .4s var(--spring); } .v-sl.skipnow .sk { animation: press .4s var(--spring); } @keyframes press { 40% { transform: scale(1.3); } }
-  .v-rail { position: absolute; left: 480px; top: 56px; width: 290px; display: grid; gap: 12px; align-content: start; }
+  .v-rail { position: absolute; left: 400px; top: 80px; width: 336px; display: grid; gap: 12px; align-content: start; }
   .v-rl { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 20px; background: var(--bg); box-shadow: 0 6px 18px rgba(24, 22, 56, .08); opacity: 0; transform: translateX(30px) scale(.9); transition: opacity .3s, transform .5s var(--spring); } .v-rl.show { opacity: 1; transform: none; }
   .v-rl .th { flex: none; width: 56px; height: 46px; border-radius: 12px; background: var(--bg-soft) center / cover; } .v-rl b { display: block; font-size: 13px; } .v-rl .v-st { margin: 4px 0 0; } .v-rl .v-st i { background: var(--line); transition: background .3s, transform .4s var(--spring); } .v-rl .v-st i.f { background: var(--star); }
   .v-rl.pop { animation: rlpop .6s var(--spring); } @keyframes rlpop { from { transform: translateX(-160px) scale(.6); opacity: 0; } }

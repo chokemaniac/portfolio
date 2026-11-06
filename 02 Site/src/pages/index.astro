@@ -57,7 +57,7 @@ const services = [
         </div>
       </div>
       <h1>AI-native Product Designer specialising in complex user interfaces.</h1>
-      <p class="lead">Strong passion for clean and intelligent interfaces. Fintech friendly. Innovation hungry. Digital native.</p>
+      <p class="lead">Strong passion for clean and intelligent interfaces.<br />20+ years of experience. 200+ projects delivered.</p>
       <div class="clients">
         {clients.map(([f, alt, d, t, m]) => <img src={asset(f)} alt={alt} width={d[0]} height={d[1]} style={`--w:${d[0]};--h:${d[1]};--tw:${t[0]};--th:${t[1]};--mw:${m[0]};--mh:${m[1]}`} />)}
       </div>
@@ -102,8 +102,10 @@ const services = [
         <h2 class="label">About</h2>
         <h2 class="h2">I love bringing clear, consistent structure and a polished UI to everyday digital products.</h2>
         <div class="stats">
-          <div><b>10+</b><span>Years of experience</span></div>
-          <div><b>200+</b><span>Projects delivered</span></div>
+          <svg width="0" height="0" aria-hidden="true" style="position:absolute"><filter id="mb4" x="-10%" y="-5%" width="120%" height="110%"><feGaussianBlur stdDeviation="0 7" /></filter><filter id="mb2" x="-10%" y="-5%" width="120%" height="110%"><feGaussianBlur stdDeviation="0 3.5" /></filter><filter id="mb1" x="-10%" y="-5%" width="120%" height="110%"><feGaussianBlur stdDeviation="0 1.5" /></filter></svg>
+          {(() => { let g = 0; const mix = [..."+3+7+1+9+5+2+8+4+6+0+3+7+1+9+5+2+8+4"].slice(0, 20); return [["20+", "Years of experience"], ["200+", "Projects delivered"]].map(([num, label]) => (
+            <div><b aria-label={num}>{[...num].map((c) => { const isD = /\d/.test(c), d = isD ? +c : 0, seq = isD ? [...Array(20).keys(), ...Array(d + 2).keys()].map((v) => v % 10) : [...mix, c, c]; return <i class="reel" aria-hidden="true" style={`--n:${20 + d};--g:${g++}`}><i class="fin">{c}</i><i class="st">{seq.map((v) => <em>{v}</em>)}</i></i>; })}</b><span>{label}</span></div>
+          )); })()}
         </div>
         <div class="actions">
           <a class="btn" href={u("/about")}>More about me</a>
@@ -186,6 +188,17 @@ const services = [
   .about .h2 { max-width: 589px; }
   .stats { display: flex; gap: 24px; margin-top: 24px; }
   .stats b { display: block; font-size: 56px; line-height: 56px; font-weight: 700; letter-spacing: -3.36px; color: var(--ink-2); }
+  /* the numbers spin like a slot machine and stop one after another, left to right (same effect as the stats on the case study pages) */
+  .stats b i, .stats b em { font-style: normal; }
+  .stats .reel { position: relative; display: inline-block; height: 1lh; clip-path: inset(0 -.1em); vertical-align: top; }
+  .stats .fin { visibility: hidden; }
+  .stats .st { position: absolute; left: 0; top: 0; display: block; transform: translateY(calc(var(--n) * -1lh)); }
+  .stats .st em { display: block; height: 1lh; }
+  @keyframes reel-h { 0% { transform: translateY(0); filter: url(#mb4); animation-timing-function: cubic-bezier(.3, .05, .35, 1); } 45% { filter: url(#mb4); } 60% { filter: url(#mb2); } 72% { filter: url(#mb1); } 80% { filter: none; } 82% { transform: translateY(calc(var(--n) * -1lh - .16em)); animation-timing-function: cubic-bezier(.3, 0, .4, 1); } 100% { transform: translateY(calc(var(--n) * -1lh)); filter: none; } }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .stats .st { transform: none; }
+    .js .about > div.rv-in .stats .st { animation: reel-h calc(1.2s + var(--g) * .35s) .2s both; }
+  }
   .stats span { display: block; font-size: 18px; font-weight: 600; letter-spacing: -.36px; color: var(--ink-2); margin-top: 4px; }
   .about .actions .btn:first-child { width: 172px; padding: 0; }
   .tools { --s: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 12.5px; }

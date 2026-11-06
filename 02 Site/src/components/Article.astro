@@ -13,7 +13,7 @@ const rel = related.map((k) => projects[k]);
 const tocLabels = {
   "case-study-viessmann": ["Intro", "Project", "Initial problems", "Solution", "Outcome", "Summary"],
   "case-study-encore": ["Intro", "Project", "Challenge", "Concept", "Solution", "Execution", "Outcome"],
-  "case-study-vayo": ["Intro", "Approach", "Problem", "Discovery", "Insight", "Making", "Outcome"],
+  "case-study-vayo": ["Intro", "Approach", "Problem", "Discovery", "Insight", "Design", "Outcome"],
 };
 const tocIds = d.page.startsWith("case-study")
   ? ["s-intro", ...d.blocks.map((b, i) => (b.t === "h2" || b.t === "how" ? `s-${i}` : null)).filter(Boolean)]
@@ -74,6 +74,26 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
           {b.t === "summary" && (
             <dl class="sum">{b.rows.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
           )}
+          {b.t === "gallery" && (
+            <div class="gal" aria-label="Screenshots of the finished app">
+              <div class="gal-track">{[0, 1].map((n) => b.items.map((src) => <figure class="gal-i"><img src={src} alt="" width="1800" height="1004" draggable="false" loading="lazy" decoding="async" aria-hidden={n ? "true" : undefined} /><button type="button" class="gal-z" data-full={src.replace("/gallery/", "/gallery/full/")} aria-label="View screenshot full size" tabindex={n ? -1 : undefined} aria-hidden={n ? "true" : undefined}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" /></svg></button></figure>))}</div>
+            </div>
+          )}
+          {b.t === "stats" && (() => { let g = 0; return <dl class="kpis"><svg width="0" height="0" aria-hidden="true" style="position:absolute"><filter id="mb4" x="-10%" y="-5%" width="120%" height="110%"><feGaussianBlur stdDeviation="0 7" /></filter><filter id="mb2" x="-10%" y="-5%" width="120%" height="110%"><feGaussianBlur stdDeviation="0 3.5" /></filter><filter id="mb1" x="-10%" y="-5%" width="120%" height="110%"><feGaussianBlur stdDeviation="0 1.5" /></filter></svg>{b.items.map((x) => <div><dd aria-label={x.n}>{[...x.n].map((c) => { const d = +c, seq = [...Array(20).keys(), ...Array(d + 2).keys()].map((v) => v % 10); return <span class="reel" aria-hidden="true" style={`--n:${20 + d};--g:${g++}`}><span class="fin">{d}</span><span class="st">{seq.map((v) => <i>{v}</i>)}</span></span>; })}</dd><dt>{x.l}</dt></div>)}</dl>; })()}
+          {b.t === "kwins" && (
+            <div class="kwins">{b.items.map((w) => (
+              <figure class="kwin">
+                <figcaption>{w.title}</figcaption>
+                {w.rows.map((r, n) => (
+                  <div class={`wrow ${r.vayo ? "vayo" : ""}`}>
+                    <span class="wl">{r.label}</span>
+                    <span class="wt"><i class="ext" style={`width:${(r.to / w.max) * 100}%;--n:${n}`}></i><i class="fill" style={`width:${(r.from / w.max) * 100}%;--n:${n}`}></i></span>
+                    <b class="wv">{r.text}</b>
+                  </div>
+                ))}
+              </figure>
+            ))}</div>
+          )}
           {b.t === "viz" && <VayoViz name={b.name} wide={b.wide} eyebrow={b.eyebrow} title={b.title} text={b.text} />}
           {b.t === "how" && (
             <section class="howw">
@@ -116,14 +136,13 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
               ))}
               <div class="probs-nav">
                 <button type="button" class="btn btn-icon" data-dir="-1" aria-label="Previous problem"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-                <button type="button" class="btn btn-icon" data-dir="1" aria-label="Next problem"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+                <button type="button" class="btn btn-icon" data-dir="1" aria-label="Next problem"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg class="ring" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" /></svg></button>
               </div>
             </div>
           )}
           {b.t === "ai" && (
             <aside class="aibox">
-              <span class="aibox-p">AI</span>
-              <p>{b.text}</p>
+              <p><strong>{b.label}:</strong> {b.text.split(/(\*\*[^*]+\*\*)/).map((x) => x.startsWith("**") ? <b>{x.slice(2, -2)}</b> : x)}</p>
             </aside>
           )}
           {b.t === "img" && (
@@ -230,6 +249,62 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   .blk > p { white-space: pre-line; font-family: var(--jakarta); font-size: 18px; line-height: 30px; font-weight: 300; color: #000; }
 
   /* 8px strip of 45deg lines, cut off at both edges of the column so the start and end are filled */
+  /* full-width screenshot strip: moved by script (auto-roll, drag, trackpad, scroll parallax) */
+  .blk > .gal { position: relative; left: 50%; transform: translateX(-50%); width: 100vw; overflow: hidden; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+  .gal.drag { cursor: grabbing; }
+  .gal-track { display: flex; gap: 24px; width: max-content; will-change: transform; }
+  .gal-i { position: relative; flex: none; margin: 0; }
+  .gal-track img { display: block; height: clamp(200px, 26vw, 420px); width: auto; aspect-ratio: 2944 / 1642; pointer-events: none; }
+  .gal-z { position: absolute; right: 16px; bottom: 16px; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: #fff; color: var(--ink); box-shadow: 0 2px 10px rgba(24, 22, 56, .18); cursor: pointer; opacity: 0; transform: scale(.85); transition: opacity .25s, transform .25s, color .25s; }
+  .gal-z svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .gal-i:hover .gal-z, .gal-z:focus-visible { opacity: 1; transform: none; }
+  .gal-z:hover { color: #7645a4; }
+  @media (hover: none) { .gal-z { opacity: 1; transform: none; } }
+  .gal-box { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 40px; background: rgba(255, 255, 255, .72); -webkit-backdrop-filter: blur(28px); backdrop-filter: blur(28px); opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; cursor: zoom-out; }
+  .gal-box.open { opacity: 1; visibility: visible; }
+  .gal-box img { grid-area: 1 / 1; max-width: calc(100vw - 80px); max-height: calc(100vh - 80px); max-height: calc(100dvh - 80px); width: auto; height: auto; filter: drop-shadow(0 24px 60px rgba(24, 22, 56, .25)) drop-shadow(0 4px 14px rgba(24, 22, 56, .12)); transform: scale(.96); transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
+  .gal-box.open img { transform: none; }
+  .gal-box .btn { position: absolute; z-index: 1; }
+  .gal-box .gal-x { top: 20px; right: 20px; } .gal-box .gal-p { left: 20px; top: 50%; margin-top: -24px; } .gal-box .gal-n { right: 20px; top: 50%; margin-top: -24px; }
+  .gal-box .btn svg { width: 24px; height: 24px; fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke .3s; }
+  @media (hover: hover) { .gal-box .btn:hover svg { stroke: #7645a4; } }
+  /* close icon: Font Awesome Free 6.7.2 "xmark" (https://fontawesome.com/license/free), a filled shape */
+  .gal-box .gal-x svg { width: auto; height: 20px; fill: var(--ink); stroke: none; transition: fill .3s; }
+  @media (hover: hover) { .gal-box .gal-x:hover svg { fill: #7645a4; } }
+  .gal-box .btn:focus-visible { outline: 2px solid #7645a4; outline-offset: 2px; }
+  /* key wins: each diagram compares MyMaps with Vayo. The solid bar runs to the lower number, the light part to the upper number of the range */
+  .kwins { display: grid; gap: 16px; }
+  .kwin { margin: 0; padding: 24px 28px 26px; border-radius: 28px; background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .07); }
+  .kwin figcaption { margin-bottom: 18px; font-size: 16px; line-height: 22px; font-weight: 600; letter-spacing: -.64px; color: var(--ink); }
+  .wrow { display: grid; grid-template-columns: 76px minmax(0, 1fr) 124px; align-items: center; gap: 16px; }
+  .wrow + .wrow { margin-top: 12px; }
+  .wl { font-size: 14px; line-height: 20px; color: rgba(24, 22, 56, .6); }
+  .wv { font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -.36px; color: var(--ink); text-align: right; white-space: nowrap; }
+  .wrow.vayo .wv { color: #7645a4; }
+  .wt { position: relative; height: 28px; border-radius: 999px; background: rgba(24, 22, 56, .05); overflow: hidden; }
+  .wt i { position: absolute; left: 0; top: 0; height: 100%; border-radius: 999px; transform-origin: left; }
+  .wt .ext { background: rgba(24, 22, 56, .12); } .wt .fill { background: rgba(24, 22, 56, .32); }
+  .wrow.vayo .ext { background: rgba(118, 69, 164, .22); } .wrow.vayo .fill { background: #7645a4; }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .wt i { transform: scaleX(0); transition: transform 1.2s cubic-bezier(.2, .7, .2, 1) calc(.2s + var(--n) * .25s); }
+    .js .rv-in .wt i { transform: none; }
+  }
+  @media (max-width: 639px) { .kwin { padding: 20px 20px 22px; } .wrow { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; } .wrow .wl { grid-column: 1; } .wrow .wv { grid-column: 2; grid-row: 1; } .wrow .wt { grid-column: 1 / -1; } }
+  .kpis { display: flex; flex-wrap: wrap; gap: 24px 56px; }
+  .kpis div { display: flex; flex-direction: column; }
+  .kpis dd { margin: 0; font-size: 56px; line-height: 56px; font-weight: 700; letter-spacing: -3.36px; color: var(--ink); }
+  .kpis dt { margin-top: 4px; font-size: 18px; line-height: 26px; font-weight: 600; letter-spacing: -.36px; color: var(--ink); }
+  /* slot machine: each digit is a reel that spins fast and stops on its number with a small bounce; the six reels stop one after another, left to right */
+  .kpis .reel { position: relative; display: inline-block; height: 1em; clip-path: inset(0 -.1em); vertical-align: top; } /* clips top and bottom to the line, but leaves room left and right, where the tight letter spacing would cut the digits */
+  .kpis .fin { visibility: hidden; } /* sizes the reel to the digit it stops on */
+  .kpis .st { position: absolute; left: 0; top: 0; display: block; transform: translateY(calc(var(--n) * -1em)); }
+  .kpis i { display: block; height: 1em; font-style: normal; }
+  @keyframes reel { 0% { transform: translateY(0); filter: url(#mb4); animation-timing-function: cubic-bezier(.3, .05, .35, 1); } 45% { filter: url(#mb4); } 60% { filter: url(#mb2); } 72% { filter: url(#mb1); } 80% { filter: none; } 82% { transform: translateY(calc(var(--n) * -1em - .16em)); animation-timing-function: cubic-bezier(.3, 0, .4, 1); } 100% { transform: translateY(calc(var(--n) * -1em)); filter: none; } } /* motion blur: up and down only, in steps that get weaker as the reel slows down */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .kpis .st { transform: none; }
+    .js .rv-in .kpis .st { animation: reel calc(1.2s + var(--g) * .35s) .2s both; }
+  }
+  @media (max-width: 639px) { .kpis { gap: 20px 36px; } .kpis dd { font-size: 44px; line-height: 44px; letter-spacing: -2.64px; } .kpis dt { font-size: 16px; } }
   .blk > .divider { height: 8px; background: url("/assets/divider-hatch.svg") 3px 0 / 6px 6px repeat; }
 
   /* executive summary: label on the left, answer on the right, hairlines between the rows */
@@ -256,6 +331,11 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   .probs.is-car .probs-nav { display: flex; gap: 8px; position: absolute; left: var(--gx); }
   .probs-nav .btn { border: 0; cursor: pointer; font: inherit; } .probs-nav svg { width: 24px; height: 24px; fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke .3s; }
   @media (hover: hover) { .probs-nav .btn:hover svg { stroke: #7645a4; } } /* same hover as the "Next project" button: purple icon and the soft purple glow */
+  /* the ring inside the next button fills clockwise while the cards advance by themselves: 2px line, 2px gap to the button's edge */
+  .probs-nav .btn[data-dir="1"] { position: relative; }
+  .probs-nav svg.ring { position: absolute; left: 0; top: 0; width: 48px; height: 48px; transform: rotate(-90deg); pointer-events: none; overflow: visible; }
+  .probs-nav svg.ring circle { fill: none; stroke: rgba(24, 22, 56, .12); stroke-width: 2; }
+  @media (prefers-reduced-motion: reduce) { .probs-nav svg.ring { display: none; } }
   .probs-nav .btn:focus-visible { outline: 2px solid #7645a4; outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { .probs.is-car .prob { transition: none; } }
   @media (min-width: 1400px) { .blk > .probs { grid-template-columns: repeat(4, 1fr); width: calc(100vw - 2 * var(--pad)); position: relative; left: 50%; transform: translateX(-50%); } }
@@ -311,11 +391,10 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   @media (max-width: 639px) { .how-g { grid-template-columns: 1fr; grid-template-rows: none; gap: 16px; } .how-c { display: block; grid-row: auto; padding: 24px 24px 28px; } .how-c:nth-child(n+3) { margin-top: 0; } }
   @media (prefers-reduced-motion: reduce) { .how-c { transition: none; } }
 
-  /* "how AI was involved" callout: a flat tinted bar with a purple edge on the left, an AI pill and the text */
-  .aibox { display: flex; gap: 16px; align-items: flex-start; padding: 18px 24px 18px 22px; border-left: 3px solid #7645a4; border-radius: 0 14px 14px 0; background: #efe7f8; color: #000; }
-  .aibox-p { flex: none; margin-top: 2px; padding: 3px 14px; border: 1.5px solid rgba(118, 69, 164, .55); border-radius: 999px; background: rgba(118, 69, 164, .1); color: #7645a4; font-size: 12px; line-height: 18px; font-weight: 600; letter-spacing: .04em; }
+  /* "how AI was involved" callout: purple line on the left, as tall as the text, bold purple lead-in */
+  .aibox { border-left: 3px solid #7645a4; padding-left: 20px; }
   .blk > .aibox p { margin: 0; font-family: var(--jakarta); font-size: 17px; line-height: 28px; font-weight: 400; color: #000; white-space: normal; }
-  @media (max-width: 639px) { .aibox { flex-direction: column; gap: 10px; padding: 18px 20px; } }
+  .aibox strong { font-weight: 700; color: #7645a4; } .aibox p b { font-weight: 700; }
 
   /* media: aspect ratio per layout block via --a0 (1623+), --a1 (1100), --a2 (800), --a3 (640), --a4 (<640) */
   .media { display: block; width: 100%; object-fit: cover; aspect-ratio: var(--a1); object-position: 50% 50%; }
@@ -422,7 +501,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
     .media { aspect-ratio: var(--a0, var(--a1)); }
     .article .media.wide, .article .masonry { width: calc(100vw - 2 * var(--edge)); }
     .article video.media.wide { width: calc(100vw - 2 * var(--edge) - 240px); }
-    .article .media.wide.inset { width: 1462px; }
+    .article .media.wide.inset, .article .media.wide.viz.row, .article .media.wide.viz[data-viz="planning"], .article .media.wide.viz[data-viz="finding"] { width: 1462px; }
     .article .masonry, .article .masonry > div { gap: 32px; }
     .article .phones { width: 1201px; gap: 32px; }
     .article .phones video { max-width: 379px; aspect-ratio: 379 / 698; }
@@ -561,9 +640,27 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
       probs.style.height = navTop + 48 + 32 + "px";
       apply(true);
     };
-    const go = (to: number) => { active = (to + n) % n; apply(); };
+    let prog = 0; // how far the ring around the next arrow has come (0 to 1); at 1 the next card comes up
+    const go = (to: number) => { active = (to + n) % n; apply(); prog = 0; };
     nav.querySelectorAll<HTMLElement>("button").forEach((b) => b.addEventListener("click", () => go(active + Number(b.dataset.dir))));
     cards.forEach((c, i) => c.addEventListener("click", () => { if (i !== active) go(i); }));
+    // automatic advance: the ring fills clockwise and stops while the pointer (or keyboard focus) is on the next button, or the cards are off screen
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const next = nav.querySelector<HTMLElement>('[data-dir="1"]')!, ring = next.querySelector<SVGCircleElement>("circle")!;
+      const C = 2 * Math.PI * 21, SECONDS = 7;
+      ring.style.strokeDasharray = String(C);
+      let hold = false, seen = false, last = 0;
+      next.addEventListener("pointerenter", () => (hold = true)); next.addEventListener("pointerleave", () => (hold = false));
+      next.addEventListener("focus", () => (hold = true)); next.addEventListener("blur", () => (hold = false));
+      new IntersectionObserver(([e]) => (seen = e.isIntersecting), { threshold: 0.4 }).observe(probs);
+      const tick = (t: number) => {
+        const dt = Math.min(100, t - (last || t)); last = t;
+        if (seen && !hold && !document.hidden) { prog += dt / (SECONDS * 1000); if (prog >= 1) go(active + 1); }
+        ring.style.strokeDashoffset = String(C * (1 - prog));
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
     layout();
     window.addEventListener("resize", layout);
     window.addEventListener("load", layout);
@@ -721,4 +818,74 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
     update();
   }
+</script>
+
+<script>
+  // lightbox: white blurred overlay with the full-size screenshot
+  const box = document.createElement("div");
+  box.className = "gal-box"; box.setAttribute("role", "dialog"); box.setAttribute("aria-modal", "true"); box.setAttribute("aria-label", "Screenshot, full size");
+  box.innerHTML = '<img alt="" /><button type="button" class="btn btn-icon gal-x" aria-label="Close"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" /></svg></button><button type="button" class="btn btn-icon gal-p" data-dir="-1" aria-label="Previous screenshot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg></button><button type="button" class="btn btn-icon gal-n" data-dir="1" aria-label="Next screenshot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button>';
+  document.body.append(box);
+  let from: HTMLElement | null = null;
+  const closeBox = () => { box.classList.remove("open"); document.body.style.overflow = ""; from?.focus(); };
+  const openBox = (src: string) => { from = document.activeElement as HTMLElement; box.querySelector("img")!.src = src; box.classList.add("open"); document.body.style.overflow = "hidden"; box.querySelector<HTMLElement>(".gal-x")!.focus(); };
+  const step = (d: number) => {
+    const all = [...document.querySelectorAll<HTMLElement>(".gal-z:not([aria-hidden])")].map((z) => z.dataset.full!);
+    box.querySelectorAll("img:not(:last-of-type)").forEach((x) => x.remove()); // finish a slide that is still running
+    const old = box.querySelector("img")!, i = all.findIndex((u) => old.src.endsWith(u));
+    const img = old.cloneNode() as HTMLImageElement;
+    img.src = all[(i + d + all.length) % all.length];
+    old.after(img);
+    const o = { duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 600, easing: "cubic-bezier(.2,.7,.2,1)" }, dx = innerWidth * d;
+    img.animate([{ transform: `translateX(${dx}px)` }, { transform: "none" }], o);
+    old.animate([{ transform: "none" }, { transform: `translateX(${-dx}px)` }], { ...o, fill: "forwards" }).onfinish = () => old.remove();
+  };
+  box.addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLElement>("[data-dir]");
+    if (b) step(+b.dataset.dir!); else closeBox();
+  });
+  addEventListener("keydown", (e) => {
+    if (!box.classList.contains("open")) return;
+    if (e.key === "Escape") closeBox(); else if (e.key === "ArrowRight") step(1); else if (e.key === "ArrowLeft") step(-1);
+  });
+  document.querySelectorAll<HTMLElement>(".gal").forEach((el) => {
+    const track = el.querySelector<HTMLElement>(".gal-track")!;
+    const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let pos = 0, vel = 0, set = 0, par = 0, last = 0, raf = 0, down = false, sx = 0, sp = 0, lx = 0, lt = 0;
+    const measure = () => { set = track.scrollWidth / 2; };
+    const draw = () => {
+      if (!set) return;
+      const x = (((pos + par) % set) + set) % set; // wraps: the second copy of the strip follows the first
+      track.style.transform = `translate3d(${-x}px,0,0)`;
+    };
+    const tick = (t: number) => {
+      const dt = Math.min(50, t - (last || t)) / 1000; last = t;
+      if (!down) { pos += ((calm ? 0 : 28) + vel) * dt; vel *= Math.pow(0.04, dt); }
+      draw(); raf = requestAnimationFrame(tick);
+    };
+    const parallax = () => { if (!calm) par = el.getBoundingClientRect().top * -0.6; draw(); };
+    el.addEventListener("pointerdown", (e) => { if (e.pointerType === "touch" || e.button || (e.target as HTMLElement).closest(".gal-z")) return; down = true; sx = e.clientX; sp = pos; lx = e.clientX; lt = e.timeStamp; vel = 0; el.classList.add("drag"); el.setPointerCapture(e.pointerId); });
+    el.addEventListener("pointermove", (e) => { if (!down) return; pos = sp - (e.clientX - sx); const dt = e.timeStamp - lt; if (dt > 0) vel = vel * 0.5 + (-(e.clientX - lx) / dt * 1000) * 0.5; lx = e.clientX; lt = e.timeStamp; });
+    const up = () => { down = false; el.classList.remove("drag"); };
+    el.addEventListener("pointerup", up); el.addEventListener("pointercancel", up);
+    el.addEventListener("wheel", (e) => { const dx = e.deltaX || (e.shiftKey ? e.deltaY : 0); if (!dx || Math.abs(e.deltaY) > Math.abs(e.deltaX) && !e.shiftKey) return; e.preventDefault(); pos += dx; }, { passive: false });
+    // touch: let the browser keep vertical scrolling, and follow horizontal swipes ourselves
+    let tx = 0, tp = 0;
+    el.addEventListener("touchstart", (e) => { tx = e.touches[0].clientX; tp = pos; vel = 0; down = true; }, { passive: true });
+    el.addEventListener("touchmove", (e) => { pos = tp - (e.touches[0].clientX - tx); }, { passive: true });
+    el.addEventListener("touchend", () => { down = false; });
+    new IntersectionObserver(([en]) => {
+      cancelAnimationFrame(raf); last = 0;
+      if (en.isIntersecting) { measure(); raf = requestAnimationFrame(tick); addEventListener("scroll", parallax, { passive: true }); parallax(); }
+      else removeEventListener("scroll", parallax);
+    }, { rootMargin: "200px 0px" }).observe(el);
+    // a drag must not count as a click on the zoom button
+    let moved = 0; el.addEventListener("pointerdown", (e) => { moved = e.clientX; }); 
+    track.addEventListener("click", (e) => {
+      const z = (e.target as HTMLElement).closest<HTMLElement>(".gal-z");
+      if (z && Math.abs(e.clientX - moved) < 6) openBox(z.dataset.full!);
+    });
+    addEventListener("resize", measure);
+    track.querySelectorAll("img").forEach((i) => i.addEventListener("load", measure));
+  });
 </script>

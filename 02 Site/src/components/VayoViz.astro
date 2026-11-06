@@ -16,7 +16,7 @@ const RT = ar([[808, 856], [808, 856], [808, 856], [808, 856], [808, 856]]);
 const isCard = /^p[1-4]$/.test(name); // the four problem cards: small stages inside white cards
 const dims = { hero: [1200, 680], planning: [1200, 680], system: [1200, 760], testapp: [808, 856] };
 const [W, H] = isCard ? [400, 300] : dims[name] ?? [800, 520];
-const steps = { hero: "5600,5600,5600", finding: "3600,8000,2200", funnel: "", testapp: "9500,9500,18500" }[name] ?? "";
+const steps = { hero: "5600,5600,5600", finding: "3600,8000,2200", funnel: "", }[name] ?? "";
 
 const PIN = `<svg viewBox="0 0 24 30" aria-hidden="true"><path d="M12 29C5 20 2 15.5 2 11a10 10 0 0 1 20 0c0 4.5-3 9-10 18z"/><circle cx="12" cy="11" r="3.6" fill="#fff"/></svg>`;
 const CH = `<span class="tp-i" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 4.5 6 7.5 9 4.5"/></svg></span>`;
@@ -71,11 +71,12 @@ const heroPins = [[44, 30], [56, 18], [64, 44], [48, 56], [74, 34], [82, 60], [9
 const colorOf = (i) => (i === 3 || i === 8 ? "var(--pin-green)" : i === 11 ? "var(--pin-gone)" : "var(--rust)");
 const newPins = [[58, 28], [66, 58], [80, 47], [50, 70], [86, 36]];
 const routePts = [[44, 30], [64, 44], [74, 34], [82, 60]];
+// the place glyphs (hotel, landmark, torii gate, binoculars) are the app's own pin symbols, Font Awesome Free 6.7.2 (https://fontawesome.com/license/free)
 const IC = {
-  hotel: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18V8M3 14h18v4M21 14v-2.5A2.5 2.5 0 0 0 18.5 9H12v5"/><circle cx="7.5" cy="11" r="1.6"/></svg>',
-  castle: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8h3v2.5h2V8h2V5h2v3h2v2.5h2V8h3v12zM10 20v-4h4v4"/></svg>',
-  torii: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 7c3 1.2 16 1.2 19 0M5 10.5h14M7.5 7.5V20M16.5 7.5V20"/></svg>',
-  bino: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7" cy="16" r="3.8"/><circle cx="17" cy="16" r="3.8"/><path d="M7.5 12.2 9 5h2.5l.5 3 .5-3H15l1.5 7.2"/></svg>',
+  hotel: '<svg class="g" viewBox="0 0 512 512" aria-hidden="true"><path d="M0 32C0 14.3 14.3 0 32 0L480 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l0 384c17.7 0 32 14.3 32 32s-14.3 32-32 32l-176 0 0-48c0-26.5-21.5-48-48-48s-48 21.5-48 48l0 48L32 512c-17.7 0-32-14.3-32-32s14.3-32 32-32L32 64C14.3 64 0 49.7 0 32zm96 80l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zM240 96c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0zm112 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zM112 192c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0zm112 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16l0 32c0 8.8 7.2 16 16 16l32 0c8.8 0 16-7.2 16-16l0-32c0-8.8-7.2-16-16-16l-32 0zM328 384c13.3 0 24.3-10.9 21-23.8c-10.6-41.5-48.2-72.2-93-72.2s-82.5 30.7-93 72.2c-3.3 12.8 7.8 23.8 21 23.8l144 0z"/></svg>',
+  castle: '<svg class="g" viewBox="0 0 512 512" aria-hidden="true"><path d="M240.1 4.2c9.8-5.6 21.9-5.6 31.8 0l171.8 98.1L448 104l0 .9 47.9 27.4c12.6 7.2 18.8 22 15.1 36s-16.4 23.8-30.9 23.8L32 192c-14.5 0-27.2-9.8-30.9-23.8s2.5-28.8 15.1-36L64 104.9l0-.9 4.4-1.6L240.1 4.2zM64 224l64 0 0 192 40 0 0-192 64 0 0 192 48 0 0-192 64 0 0 192 40 0 0-192 64 0 0 196.3c.6 .3 1.2 .7 1.8 1.1l48 32c11.7 7.8 17 22.4 12.9 35.9S494.1 512 480 512L32 512c-14.1 0-26.5-9.2-30.6-22.7s1.1-28.1 12.9-35.9l48-32c.6-.4 1.2-.7 1.8-1.1L64 224z"/></svg>',
+  torii: '<svg class="g" viewBox="0 0 512 512" aria-hidden="true"><path d="M0 80c0 26.5 21.5 48 48 48l16 0 0 64 64 0 0-64 96 0 0 64 64 0 0-64 96 0 0 64 64 0 0-64 16 0c26.5 0 48-21.5 48-48l0-66.6C512 6 506 0 498.6 0c-1.7 0-3.4 .3-5 1l-49 19.6C425.7 28.1 405.5 32 385.2 32L126.8 32c-20.4 0-40.5-3.9-59.4-11.4L18.4 1c-1.6-.6-3.3-1-5-1C6 0 0 6 0 13.4L0 80zM64 288l0 192c0 17.7 14.3 32 32 32s32-14.3 32-32l0-192 256 0 0 192c0 17.7 14.3 32 32 32s32-14.3 32-32l0-192 32 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l32 0z"/></svg>',
+  bino: '<svg class="g" viewBox="0 0 512 512" aria-hidden="true"><path d="M128 32l32 0c17.7 0 32 14.3 32 32l0 32L96 96l0-32c0-17.7 14.3-32 32-32zm64 96l0 320c0 17.7-14.3 32-32 32L32 480c-17.7 0-32-14.3-32-32l0-59.1c0-34.6 9.4-68.6 27.2-98.3C40.9 267.8 49.7 242.4 53 216L60.5 156c2-16 15.6-28 31.8-28l99.8 0zm227.8 0c16.1 0 29.8 12 31.8 28L459 216c3.3 26.4 12.1 51.8 25.8 74.6c17.8 29.7 27.2 63.7 27.2 98.3l0 59.1c0 17.7-14.3 32-32 32l-128 0c-17.7 0-32-14.3-32-32l0-320 99.8 0zM320 64c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 32-96 0 0-32zm-32 64l0 160-64 0 0-160 64 0z"/></svg>',
   car: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16v-5l2-5h10l2 5v5M3 16h18M7 19v-3M17 19v-3"/></svg>',
   chat: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11h-8.5L7 19.5V16H4z"/><path d="M9 10.5h.01M12 10.5h.01M15 10.5h.01"/></svg>',
   clock: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5.2l3 1.8"/></svg>',
@@ -195,11 +196,15 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
     {name === "funnel" && (
       <div class="v-fn">
         <svg class="v-fsh" viewBox="0 0 800 520" aria-hidden="true"><path d="M0 70C300 100 470 190 800 220V300C470 330 300 420 0 450Z"/></svg>
-        {Array.from({ length: 26 }).map((_, i) => <i class="v-d" style={`--y:${((i * 53) % 260) - 130}px;--dl:${(i * 0.31).toFixed(2)}s;--sz:${6 + (i % 3) * 2}px`}></i>)}
-        <div class="v-tool t1"><div class="v-nl">{[88, 70, 94, 60, 80, 52, 90].map((w) => <i style={`width:${w}%`}></i>)}</div></div>
-        <div class="v-tool t2"><div class="v-gr">{Array.from({ length: 18 }).map((_, i) => <i class={i % 6 === 5 ? "h" : ""}></i>)}</div></div>
-        <div class="v-tool t3"><Fragment set:html={MAP} />{[[30, 40], [62, 30], [52, 66], [78, 58]].map(([x, y], i) => <i class="vp sm" style={`left:${x}%;top:${y}%;--i:${i}`} set:html={PIN}></i>)}</div>
-        <span class="v-lb l1">Many finds</span><span class="v-lb l2">A shortlist</span><span class="v-lb l3">Day-sized routes</span>
+        <div class="v-stream" aria-hidden="true"><i class="v-d" style="--y:-175px;--sz:5px;--du:6.0s;--dl:-0.0s;--bl:0px;--o:0.90"></i><i class="v-d" style="--y:-114px;--sz:8px;--du:9.7s;--dl:-1.3s;--bl:0px;--o:0.80"></i><i class="v-d" style="--y:-53px;--sz:12px;--du:8.4s;--dl:-2.6s;--bl:3px;--o:0.60"></i><i class="v-d sq" style="--y:8px;--sz:6px;--du:7.1s;--dl:-3.9s;--bl:0px;--o:0.90"></i><i class="v-d" style="--y:69px;--sz:16px;--du:10.8s;--dl:-5.2s;--bl:6px;--o:0.35"></i><i class="v-d" style="--y:130px;--sz:9px;--du:9.5s;--dl:-6.5s;--bl:0px;--o:0.85"></i><i class="v-d" style="--y:-159px;--sz:20px;--du:8.2s;--dl:-7.8s;--bl:2px;--o:0.30"></i><i class="v-d" style="--y:-98px;--sz:7px;--du:6.9s;--dl:-9.1s;--bl:0px;--o:0.80"></i><i class="v-d sq" style="--y:-37px;--sz:11px;--du:10.6s;--dl:-10.4s;--bl:8px;--o:0.50"></i><i class="v-d" style="--y:24px;--sz:14px;--du:9.3s;--dl:-0.7s;--bl:0px;--o:0.70"></i><i class="v-d" style="--y:85px;--sz:5px;--du:8.0s;--dl:-2.0s;--bl:0px;--o:0.90"></i><i class="v-d" style="--y:146px;--sz:8px;--du:6.7s;--dl:-3.3s;--bl:0px;--o:0.80"></i><i class="v-d" style="--y:-143px;--sz:12px;--du:10.4s;--dl:-4.6s;--bl:3px;--o:0.60"></i><i class="v-d sq" style="--y:-82px;--sz:6px;--du:9.1s;--dl:-5.9s;--bl:0px;--o:0.90"></i><i class="v-d" style="--y:-21px;--sz:16px;--du:7.8s;--dl:-7.2s;--bl:6px;--o:0.35"></i><i class="v-d" style="--y:40px;--sz:9px;--du:6.5s;--dl:-8.5s;--bl:0px;--o:0.85"></i><i class="v-d" style="--y:101px;--sz:20px;--du:10.2s;--dl:-9.8s;--bl:2px;--o:0.30"></i><i class="v-d" style="--y:162px;--sz:7px;--du:8.9s;--dl:-0.1s;--bl:0px;--o:0.80"></i><i class="v-d sq" style="--y:-127px;--sz:11px;--du:7.6s;--dl:-1.4s;--bl:8px;--o:0.50"></i><i class="v-d" style="--y:-66px;--sz:14px;--du:6.3s;--dl:-2.7s;--bl:0px;--o:0.70"></i><i class="v-d" style="--y:-5px;--sz:5px;--du:10.0s;--dl:-4.0s;--bl:0px;--o:0.90"></i><i class="v-d" style="--y:56px;--sz:8px;--du:8.7s;--dl:-5.3s;--bl:0px;--o:0.80"></i><i class="v-d" style="--y:117px;--sz:12px;--du:7.4s;--dl:-6.6s;--bl:3px;--o:0.60"></i><i class="v-d sq" style="--y:-172px;--sz:6px;--du:6.1s;--dl:-7.9s;--bl:0px;--o:0.90"></i><i class="v-d" style="--y:-111px;--sz:16px;--du:9.8s;--dl:-9.2s;--bl:6px;--o:0.35"></i><i class="v-d" style="--y:-50px;--sz:9px;--du:8.5s;--dl:-10.5s;--bl:0px;--o:0.85"></i><i class="v-d" style="--y:11px;--sz:20px;--du:7.2s;--dl:-0.8s;--bl:2px;--o:0.30"></i><i class="v-d" style="--y:72px;--sz:7px;--du:10.9s;--dl:-2.1s;--bl:0px;--o:0.80"></i><i class="v-d sq" style="--y:133px;--sz:11px;--du:9.6s;--dl:-3.4s;--bl:8px;--o:0.50"></i><i class="v-d" style="--y:-156px;--sz:14px;--du:8.3s;--dl:-4.7s;--bl:0px;--o:0.70"></i><i class="v-d" style="--y:-95px;--sz:5px;--du:7.0s;--dl:-6.0s;--bl:0px;--o:0.90"></i><i class="v-d" style="--y:-34px;--sz:8px;--du:10.7s;--dl:-7.3s;--bl:0px;--o:0.80"></i><i class="v-d" style="--y:27px;--sz:12px;--du:9.4s;--dl:-8.6s;--bl:3px;--o:0.60"></i><i class="v-d sq" style="--y:88px;--sz:6px;--du:8.1s;--dl:-9.9s;--bl:0px;--o:0.90"></i><i class="v-d" style="--y:149px;--sz:16px;--du:6.8s;--dl:-0.2s;--bl:6px;--o:0.35"></i><i class="v-d" style="--y:-140px;--sz:9px;--du:10.5s;--dl:-1.5s;--bl:0px;--o:0.85"></i><i class="v-d" style="--y:-79px;--sz:20px;--du:9.2s;--dl:-2.8s;--bl:2px;--o:0.30"></i><i class="v-d" style="--y:-18px;--sz:7px;--du:7.9s;--dl:-4.1s;--bl:0px;--o:0.80"></i><i class="v-d sq" style="--y:43px;--sz:11px;--du:6.6s;--dl:-5.4s;--bl:8px;--o:0.50"></i><i class="v-d" style="--y:104px;--sz:14px;--du:10.3s;--dl:-6.7s;--bl:0px;--o:0.70"></i><i class="v-d" style="--y:165px;--sz:5px;--du:9.0s;--dl:-8.0s;--bl:0px;--o:0.90"></i><i class="v-d" style="--y:-124px;--sz:8px;--du:7.7s;--dl:-9.3s;--bl:0px;--o:0.80"></i><i class="v-d" style="--y:-63px;--sz:12px;--du:6.4s;--dl:-10.6s;--bl:3px;--o:0.60"></i><i class="v-d sq" style="--y:-2px;--sz:6px;--du:10.1s;--dl:-0.9s;--bl:0px;--o:0.90"></i></div>
+        <div class="v-fw">
+          <div class="v-tool t1"></div>
+          <div class="v-tool t2"><div class="fr r0"><span class="th"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M0 80c0 26.5 21.5 48 48 48l16 0 0 64 64 0 0-64 96 0 0 64 64 0 0-64 96 0 0 64 64 0 0-64 16 0c26.5 0 48-21.5 48-48l0-66.6C512 6 506 0 498.6 0c-1.7 0-3.4 .3-5 1l-49 19.6C425.7 28.1 405.5 32 385.2 32L126.8 32c-20.4 0-40.5-3.9-59.4-11.4L18.4 1c-1.6-.6-3.3-1-5-1C6 0 0 6 0 13.4L0 80zM64 288l0 192c0 17.7 14.3 32 32 32s32-14.3 32-32l0-192 256 0 0 192c0 17.7 14.3 32 32 32s32-14.3 32-32l0-192 32 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l32 0z"/></svg></span><span class="ls"><i></i><i></i></span><b></b></div><div class="fr r1"><span class="th"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M416 0C400 0 288 32 288 176l0 112c0 35.3 28.7 64 64 64l32 0 0 128c0 17.7 14.3 32 32 32s32-14.3 32-32l0-128 0-112 0-208c0-17.7-14.3-32-32-32zM64 16C64 7.8 57.9 1 49.7 .1S34.2 4.6 32.4 12.5L2.1 148.8C.7 155.1 0 161.5 0 167.9c0 45.9 35.1 83.6 80 87.7L80 480c0 17.7 14.3 32 32 32s32-14.3 32-32l0-224.4c44.9-4.1 80-41.8 80-87.7c0-6.4-.7-12.8-2.1-19.1L191.6 12.5c-1.8-8-9.3-13.3-17.4-12.4S160 7.8 160 16l0 134.2c0 5.4-4.4 9.8-9.8 9.8c-5.1 0-9.3-3.9-9.8-9L127.9 14.6C127.2 6.3 120.3 0 112 0s-15.2 6.3-15.9 14.6L83.7 151c-.5 5.1-4.7 9-9.8 9c-5.4 0-9.8-4.4-9.8-9.8L64 16zm48.3 152l-.3 0-.3 0 .3-.7 .3 .7z"/></svg></span><span class="ls"><i></i><i></i></span><b></b></div><div class="fr r2"><span class="th"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M32 32c17.7 0 32 14.3 32 32l0 256 224 0 0-160c0-17.7 14.3-32 32-32l224 0c53 0 96 43 96 96l0 224c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-32-224 0-32 0L64 416l0 32c0 17.7-14.3 32-32 32s-32-14.3-32-32L0 64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z"/></svg></span><span class="ls"><i></i><i></i></span><b></b></div><div class="fr r3"><span class="th"><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M128 32l32 0c17.7 0 32 14.3 32 32l0 32L96 96l0-32c0-17.7 14.3-32 32-32zm64 96l0 320c0 17.7-14.3 32-32 32L32 480c-17.7 0-32-14.3-32-32l0-59.1c0-34.6 9.4-68.6 27.2-98.3C40.9 267.8 49.7 242.4 53 216L60.5 156c2-16 15.6-28 31.8-28l99.8 0zm227.8 0c16.1 0 29.8 12 31.8 28L459 216c3.3 26.4 12.1 51.8 25.8 74.6c17.8 29.7 27.2 63.7 27.2 98.3l0 59.1c0 17.7-14.3 32-32 32l-128 0c-17.7 0-32-14.3-32-32l0-320 99.8 0zM320 64c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 32-96 0 0-32zm-32 64l0 160-64 0 0-160 64 0z"/></svg></span><span class="ls"><i></i><i></i></span><b></b></div></div>
+          <div class="v-tool t3"><Fragment set:html={MAP} /><svg class="fr-route" viewBox="0 0 190 140" aria-hidden="true"><polyline pathLength="1" points="57,56 118,42 148,81 99,92" /></svg><i class="vp sm p0" style="left:30%;top:40%" set:html={PIN}></i><i class="vp sm p1" style="left:62%;top:30%" set:html={PIN}></i><i class="vp sm p2" style="left:52%;top:66%" set:html={PIN}></i><i class="vp sm p3" style="left:78%;top:58%" set:html={PIN}></i></div>
+          <div class="fd img" style="left:58px;top:150px;width:74px;height:52px;--n:0"><div class="fb"><svg viewBox="0 0 40 28" aria-hidden="true"><circle cx="30" cy="8" r="4"/><path d="M0 28 12 12l9 11 6-7 13 12z"/></svg></div></div><div class="fd txt" style="left:146px;top:156px;width:80px;height:46px;--n:1"><div class="fb"><i></i><i></i><i></i></div></div><div class="fd vid" style="left:58px;top:222px;width:78px;height:50px;--n:2"><div class="fb"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M9.5 7.5v9l7-4.5z"/></svg></div></div><div class="fl vid g1" style="left:58px;top:222px;width:78px;height:50px;--n:2" aria-hidden="true"><div class="fb"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M9.5 7.5v9l7-4.5z"/></svg></div></div><div class="fd txt" style="left:150px;top:228px;width:78px;height:46px;--n:3"><div class="fb"><i></i><i></i><i></i></div></div><div class="fl txt g2" style="left:150px;top:228px;width:78px;height:46px;--n:3" aria-hidden="true"><div class="fb"><i></i><i></i><i></i></div></div><div class="fd img" style="left:58px;top:296px;width:64px;height:48px;--n:4"><div class="fb"><svg viewBox="0 0 40 28" aria-hidden="true"><circle cx="30" cy="8" r="4"/><path d="M0 28 12 12l9 11 6-7 13 12z"/></svg></div></div><div class="fd vid" style="left:132px;top:300px;width:80px;height:50px;--n:5"><div class="fb"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M9.5 7.5v9l7-4.5z"/></svg></div></div><div class="fl vid g3" style="left:132px;top:300px;width:80px;height:50px;--n:5" aria-hidden="true"><div class="fb"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M9.5 7.5v9l7-4.5z"/></svg></div></div><div class="fd txt" style="left:60px;top:356px;width:150px;height:22px;--n:6"><div class="fb"><i></i><i></i><i></i></div></div>
+          <i class="fx x0"></i><i class="fx x1"></i><i class="fx x2"></i><i class="fx x3"></i>
+          <span class="v-lb l1">Many finds</span><span class="v-lb l2">A shortlist</span><span class="v-lb l3">Day-sized routes</span>
+        </div>
       </div>
     )}
 
@@ -274,10 +279,10 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
           <section class="pn-tl">
             <div class="tl-h"><b>Dec 7, Monday</b><span class="tl-st ok"><i set:html={OK}></i><em>Everything before sunset</em></span></div>
             <div class="tl-ax">{[6, 8, 10, 12, 14, 16, 18, 20, 22].map((h) => <span style={`left:${((h * 60 - 360) / 960) * 100}%`}>{String(h).padStart(2, "0")}:00</span>)}</div>
-            <div class="tl-trk">
-              <i class="tl-night"></i><i class="tl-sr"><em>Sunrise 06:55</em></i><i class="tl-ss"><em>Sunset 16:55</em></i>
+            <div class="tl-wrap"><div class="tl-trk">
+              <i class="tl-night"></i><i class="tl-sr"><em>Sunrise 06:55</em></i><i class="tl-sv"></i><i class="tl-ss"><em>Sunset 16:55</em></i>
               {[["leg", ""], ["stay", "castle"], ["leg", ""], ["stay", "torii"], ["leg", ""], ["stay", "bino"], ["leg", ""], ["stay", "hotel"]].map(([k, ic], i) => <b class={`tl-seg ${k}`} data-k={i}>{ic && <Fragment set:html={IC[ic]} />}</b>)}
-            </div>
+            </div><span class="tl-svl">Start 09:00</span></div>
             <div class="tl-stats"><div><small>Drive time</small><b class="t-drive">3 h 40 min</b></div><div><small>Time at places</small><b class="t-stay">5 h 30 min</b></div><div><small>At the hotel</small><b class="t-hotel">≈16:45</b></div></div>
           </section>
           <aside class="pn-panel">
@@ -531,23 +536,23 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   .v-rd { position: relative; height: 22px; margin-top: 24px; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; } .v-rd span { position: absolute; left: 0; top: 0; display: flex; align-items: center; height: 22px; opacity: 0; } .v-rd .v-yn { }
   @keyframes swap { 0%, 6% { opacity: 0; transform: translateY(8px); } 11%, 30% { opacity: 1; transform: none; } 34%, 100% { opacity: 0; transform: translateY(-8px); } }
   @keyframes ynp { 0%, 15% { transform: scale(0); } 19% { transform: scale(1.25); } 23%, 100% { transform: none; } }
-  /* test app: one card plays at a time. Scene 1 = research list, 2 = images, 3 = pin coordinates. The other cards rest on their finished frame. */
+  /* test app: a script gives the class .play to one card at a time (sometimes two for a moment, in a random order); the cards that are not playing rest on their finished frame */
   .v-test .v-rd span:nth-child(3) { opacity: 1; }
-  .stage[data-scene="1"] .v-test .v-rr { animation: tr-row 3s backwards; animation-delay: calc(1.2s + var(--i) * .35s); }
-  .stage[data-scene="1"] .v-test .v-rr .v-yn { animation: tr-yn 3s backwards; animation-delay: calc(1.2s + var(--i) * .35s); }
+  .v-test .v-tc.play .v-rr { animation: tr-row 3s backwards; animation-delay: calc(1.2s + var(--i) * .35s); }
+  .v-test .v-tc.play .v-rr .v-yn { animation: tr-yn 3s backwards; animation-delay: calc(1.2s + var(--i) * .35s); }
   @keyframes tr-row { 0% { opacity: 1; transform: none; } 12% { opacity: 0; transform: translateX(-26px); } 24% { opacity: 0; transform: translateX(-26px); } 40% { opacity: 1; transform: none; } }
   @keyframes tr-yn { 0%, 30% { transform: scale(1); } 34% { transform: scale(0); } 46% { transform: scale(1.25); } 56%, 100% { transform: none; } }
-  .stage[data-scene="2"] .v-test .v-pg span { animation: tr-img 4s backwards; animation-delay: calc(1s + var(--i) * .4s); }
-  .stage[data-scene="2"] .v-test .v-pg span b { animation: tr-badge 4s backwards; animation-delay: calc(1s + var(--i) * .4s); }
+  .v-test .v-tc.play .v-pg span { animation: tr-img 4s backwards; animation-delay: calc(1s + var(--i) * .4s); }
+  .v-test .v-tc.play .v-pg span b { animation: tr-badge 4s backwards; animation-delay: calc(1s + var(--i) * .4s); }
   @keyframes tr-img { 0% { filter: none; opacity: 1; transform: none; } 10%, 22% { filter: blur(16px); opacity: .4; transform: scale(.94); } 45%, 100% { filter: none; opacity: 1; transform: none; } }
   @keyframes tr-badge { 0%, 8% { opacity: 1; transform: none; } 12%, 52% { opacity: 0; transform: scale(0); } 60% { opacity: 1; transform: scale(1.2); } 68%, 100% { opacity: 1; transform: none; } }
-  .stage[data-scene="3"] .v-test .vp.big { animation: pinpos 16.5s var(--ease); }
-  .stage[data-scene="3"] .v-test .vp.big svg { animation: hop 16.5s; }
-  .stage[data-scene="3"] .v-test .v-cx { animation: cross 16.5s var(--ease); }
-  .stage[data-scene="3"] .v-test .v-ring { animation: ring 16.5s, pinpos 16.5s var(--ease); }
-  .stage[data-scene="3"] .v-test .v-rd span { animation: swap-t 5.5s backwards; animation-delay: calc(var(--k) * 5.5s); }
-  .stage[data-scene="3"] .v-test .v-rd span:nth-child(3) { animation-name: swap-last; }
-  .stage[data-scene="3"] .v-test .v-rd .v-yn { animation: ynp-t 5.5s backwards; animation-delay: calc(var(--k) * 5.5s); }
+  .v-test .v-tc.play .vp.big { animation: pinpos 16.5s var(--ease); }
+  .v-test .v-tc.play .vp.big svg { animation: hop 16.5s; }
+  .v-test .v-tc.play .v-cx { animation: cross 16.5s var(--ease); }
+  .v-test .v-tc.play .v-ring { animation: ring 16.5s, pinpos 16.5s var(--ease); }
+  .v-test .v-tc.play .v-rd span { animation: swap-t 5.5s backwards; animation-delay: calc(var(--k) * 5.5s); }
+  .v-test .v-tc.play .v-rd span:nth-child(3) { animation-name: swap-last; }
+  .v-test .v-tc.play .v-rd .v-yn { animation: ynp-t 5.5s backwards; animation-delay: calc(var(--k) * 5.5s); }
   @keyframes swap-t { 0%, 25% { opacity: 0; transform: translateY(8px); } 33%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-8px); } }
   @keyframes swap-last { 0%, 25% { opacity: 0; transform: translateY(8px); } 33%, 100% { opacity: 1; transform: none; } }
   @keyframes ynp-t { 0%, 40% { transform: scale(0); } 52% { transform: scale(1.25); } 62%, 100% { transform: none; } }
@@ -558,19 +563,55 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   @keyframes sharp { 0% { filter: blur(16px); opacity: .4; transform: scale(.94); } 10%, 88% { filter: none; opacity: 1; transform: none; } 96%, 100% { filter: blur(16px); opacity: .4; transform: scale(.94); } }
   @keyframes rej { 0%, 13% { opacity: 0; transform: scale(0); } 17% { opacity: 1; transform: scale(1.2); } 21%, 88% { opacity: 1; transform: none; } 94%, 100% { opacity: 0; } }
 
-  /* funnel */
+  /* funnel: many finds (images, videos, text) fly into a structured shortlist, then drop onto the map as pins and get a route. One 11s loop, timed per item. */
   .v-fn { position: absolute; inset: 0; }
   .v-fsh { position: absolute; inset: 0; width: 100%; height: 100%; } .v-fsh path { fill: var(--accent-tint); animation: fshape 8s infinite ease-in-out; transform-origin: 400px 260px; } @keyframes fshape { 50% { transform: scaleY(.94); } }
-  .v-d { position: absolute; left: 30px; top: 260px; width: var(--sz); height: var(--sz); border-radius: 50%; background: var(--rust); opacity: 0; animation: flow 5s infinite linear; animation-delay: var(--dl); }
-  @keyframes flow { 0% { opacity: 0; transform: translate(0, var(--y)); } 10% { opacity: .9; } 50% { transform: translate(340px, calc(var(--y) * .45)); } 90% { opacity: .9; } 100% { opacity: 0; transform: translate(730px, calc(var(--y) * .1)); } }
-  .v-tool { position: absolute; background: var(--bg); border-radius: 26px; box-shadow: 0 10px 30px rgba(24, 22, 56, .1); overflow: hidden; transition: transform .9s var(--ease), opacity .6s; padding: 18px; }
-  .v-tool.t1 { left: 40px; top: 130px; width: 210px; height: 260px; } .v-tool.t2 { left: 300px; top: 160px; width: 200px; height: 200px; } .v-tool.t3 { left: 560px; top: 190px; width: 190px; height: 140px; padding: 0; }
-  .v-nl { display: grid; gap: 14px; } .v-nl i { display: block; height: 8px; border-radius: 4px; background: var(--line); animation: nl 3s infinite ease-in-out; } .v-nl i:nth-child(even) { animation-delay: .5s; background: color-mix(in srgb, var(--rust) 30%, var(--line)); } @keyframes nl { 50% { transform: scaleX(.8); transform-origin: left; } }
-  .v-gr { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; } .v-gr i { height: 18px; border-radius: 4px; background: var(--bg-soft); } .v-gr i.h { background: var(--star); animation: nl 2.4s infinite; }
-  .v-lb { position: absolute; bottom: 52px; font-size: 14px; font-weight: 600; color: var(--muted); } .v-lb { transform: translateX(-50%); white-space: nowrap; } .v-lb.l1 { left: 145px; } .v-lb.l2 { left: 400px; } .v-lb.l3 { left: 655px; }
+  .v-fw { position: absolute; inset: 0; animation: fwrap 11s infinite; }
+  /* the stream behind the cards: things of different sizes and speeds, some blurred, drift through the funnel from left to right */
+  .v-stream { position: absolute; inset: 0; }
+  .v-d { position: absolute; left: -20px; top: 260px; width: var(--sz); height: var(--sz); border-radius: 50%; background: var(--rust); opacity: 0; filter: blur(var(--bl)); animation: flow var(--du) infinite linear; animation-delay: var(--dl); } .v-d.sq { border-radius: 28%; }
+  @keyframes flow { 0% { opacity: 0; transform: translate(0, var(--y)); } 8% { opacity: var(--o); } 50% { transform: translate(420px, calc(var(--y) * .45)); } 92% { opacity: var(--o); } 100% { opacity: 0; transform: translate(840px, calc(var(--y) * .2)); } } /* follows the funnel over its whole width: wide on the left, narrow on the right */
+  .v-tool { position: absolute; background: var(--bg); border-radius: 26px; box-shadow: 0 10px 30px rgba(24, 22, 56, .1); overflow: hidden; padding: 18px; }
+  .v-tool.t1 { left: 40px; top: 130px; width: 210px; height: 260px; } .v-tool.t2 { left: 300px; top: 160px; width: 200px; height: 200px; display: grid; align-content: start; gap: 6px; } .v-tool.t3 { left: 560px; top: 190px; width: 190px; height: 140px; padding: 0; }
+  .fd, .fl { position: absolute; } :is(.fd, .fl) .fb { position: relative; width: 100%; height: 100%; border-radius: 10px; overflow: hidden; animation: bob 3.2s ease-in-out infinite alternate; animation-delay: calc(var(--n) * -.55s); }
+  :is(.fd, .fl).img .fb { background: var(--bg-soft); } :is(.fd, .fl).img svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: var(--line); }
+  :is(.fd, .fl).vid .fb { background: color-mix(in srgb, var(--rust) 16%, var(--line)); display: grid; place-items: center; } :is(.fd, .fl).vid svg { width: 42%; max-height: 70%; } :is(.fd, .fl).vid svg circle { fill: #fff; } :is(.fd, .fl).vid svg path { fill: var(--rust); }
+  :is(.fd, .fl).txt .fb { display: grid; align-content: center; gap: 7px; padding: 0 2px; } :is(.fd, .fl).txt i { display: block; height: 6px; border-radius: 3px; background: var(--line); } :is(.fd, .fl).txt i:nth-child(1) { width: 92%; background: color-mix(in srgb, var(--rust) 30%, var(--line)); } :is(.fd, .fl).txt i:nth-child(2) { width: 100%; } :is(.fd, .fl).txt i:nth-child(3) { width: 62%; }
+  .fr { display: flex; align-items: center; gap: 8px; height: 36px; padding: 4px 8px 4px 4px; border-radius: 12px; background: var(--bg-soft); }
+  /* category glyphs from the app's pin symbols (Font Awesome Free 6.7.2, https://fontawesome.com/license/free) */
+  .fr .th { flex: none; width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: color-mix(in srgb, var(--rust) 14%, var(--bg)); } .fr .th svg { width: 15px; height: 15px; fill: var(--rust); }
+  .fr .ls { flex: 1; display: grid; gap: 5px; } .fr .ls i { display: block; height: 6px; border-radius: 3px; background: var(--line); } .fr .ls i:nth-child(1) { width: 78%; background: color-mix(in srgb, var(--hint) 45%, var(--line)); } .fr .ls i:nth-child(2) { width: 48%; }
+  .fr b { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--rust); opacity: .85; }
+  .fx { position: absolute; left: 0; top: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--rust); opacity: 0; box-shadow: 0 0 0 4px color-mix(in srgb, var(--rust) 20%, transparent); }
+  .fr-route { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; } .fr-route polyline { fill: none; stroke: var(--rust); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; animation: route 11s infinite; }
+  .v-fn .vp { animation: none; }
+  .fl.g1 { animation: fly1 11s infinite; } .fr.r1 { animation: row1 11s infinite, rowf1 11s infinite; } .fx.x1 { animation: dot1 11s infinite; } .vp.p1 { animation: pin1 11s infinite; }
+  .fl.g2 { animation: fly2 11s infinite; } .fr.r2 { animation: row2 11s infinite, rowf2 11s infinite; } .fx.x2 { animation: dot2 11s infinite; } .vp.p2 { animation: pin2 11s infinite; }
+  .fl.g3 { animation: fly3 11s infinite; } .fr.r3 { animation: row3 11s infinite, rowf3 11s infinite; } .fx.x3 { animation: dot3 11s infinite; } .vp.p3 { animation: pin3 11s infinite; }
+  
+  @keyframes fwrap { 0.000% { opacity:0 } 4.545% { opacity:1 } 87.273% { opacity:1 } 96.364% { opacity:0 } 100.000% { opacity:0 } }
+  @keyframes fly1 { 0.000% { transform:none;opacity:1 } 18.182% { transform:none;opacity:1;animation-timing-function:cubic-bezier(.55,0,.25,1) } 24.773% { transform:translate(119.5px,-34.5px) scale(0.680) rotate(-4deg);opacity:1;animation-timing-function:cubic-bezier(.55,0,.25,1) } 31.364% { transform:translate(239px,-9px) scale(0.36);opacity:1 } 33.182% { transform:translate(239px,-9px) scale(0.36);opacity:0 } 100.000% { transform:translate(239px,-9px) scale(0.36);opacity:0 } }
+  @keyframes row1 { 0.000% { opacity:0;transform:translateX(-8px) } 30.000% { opacity:0;transform:translateX(-8px) } 33.636% { opacity:1;transform:none } }
+  @keyframes rowf1 { 0.000% { background-color:var(--bg-soft) } 39.091% { background-color:var(--bg-soft) } 41.364% { background-color:color-mix(in srgb,var(--rust) 20%,var(--bg-soft)) } 48.182% { background-color:var(--bg-soft) } }
+  @keyframes dot1 { 0.000% { opacity:0 } 39.091% { opacity:0;transform:translate(476px,238px) scale(.5) } 40.182% { opacity:1;transform:translate(496.2px,226.0px) scale(1);animation-timing-function:cubic-bezier(.55,0,.25,1) } 44.091% { opacity:1;transform:translate(576.9px,198px) scale(1);animation-timing-function:cubic-bezier(.55,0,.25,1) } 49.091% { opacity:1;transform:translate(677.8px,224px) scale(.8) } 50.182% { opacity:0;transform:translate(677.8px,224px) scale(.2) } 100.000% { opacity:0 } }
+  @keyframes pin1 { 0.000% { opacity:0;transform:translateY(-26px) scale(.4) } 47.273% { opacity:0;transform:translateY(-26px) scale(.4);animation-timing-function:cubic-bezier(.34,1.56,.64,1) } 52.273% { opacity:1;transform:none } }
+  @keyframes fly2 { 0.000% { transform:none;opacity:1 } 23.182% { transform:none;opacity:1;animation-timing-function:cubic-bezier(.55,0,.25,1) } 29.773% { transform:translate(73.5px,-15.5px) scale(0.680) rotate(-4deg);opacity:1;animation-timing-function:cubic-bezier(.55,0,.25,1) } 36.364% { transform:translate(147px,29px) scale(0.36);opacity:1 } 38.182% { transform:translate(147px,29px) scale(0.36);opacity:0 } 100.000% { transform:translate(147px,29px) scale(0.36);opacity:0 } }
+  @keyframes row2 { 0.000% { opacity:0;transform:translateX(-8px) } 35.000% { opacity:0;transform:translateX(-8px) } 38.636% { opacity:1;transform:none } }
+  @keyframes rowf2 { 0.000% { background-color:var(--bg-soft) } 43.636% { background-color:var(--bg-soft) } 45.909% { background-color:color-mix(in srgb,var(--rust) 20%,var(--bg-soft)) } 52.727% { background-color:var(--bg-soft) } }
+  @keyframes dot2 { 0.000% { opacity:0 } 43.636% { opacity:0;transform:translate(476px,280px) scale(.5) } 44.727% { opacity:1;transform:translate(494.3px,269.8px) scale(1);animation-timing-function:cubic-bezier(.55,0,.25,1) } 48.636% { opacity:1;transform:translate(567.4px,246px) scale(1);animation-timing-function:cubic-bezier(.55,0,.25,1) } 53.636% { opacity:1;transform:translate(658.8px,274.4px) scale(.8) } 54.727% { opacity:0;transform:translate(658.8px,274.4px) scale(.2) } 100.000% { opacity:0 } }
+  @keyframes pin2 { 0.000% { opacity:0;transform:translateY(-26px) scale(.4) } 51.818% { opacity:0;transform:translateY(-26px) scale(.4);animation-timing-function:cubic-bezier(.34,1.56,.64,1) } 56.818% { opacity:1;transform:none } }
+  @keyframes fly3 { 0.000% { transform:none;opacity:1 } 28.182% { transform:none;opacity:1;animation-timing-function:cubic-bezier(.55,0,.25,1) } 34.773% { transform:translate(82.0px,-31.5px) scale(0.675) rotate(-4deg);opacity:1;animation-timing-function:cubic-bezier(.55,0,.25,1) } 41.364% { transform:translate(164px,-3px) scale(0.35);opacity:1 } 43.182% { transform:translate(164px,-3px) scale(0.35);opacity:0 } 100.000% { transform:translate(164px,-3px) scale(0.35);opacity:0 } }
+  @keyframes row3 { 0.000% { opacity:0;transform:translateX(-8px) } 40.000% { opacity:0;transform:translateX(-8px) } 43.636% { opacity:1;transform:none } }
+  @keyframes rowf3 { 0.000% { background-color:var(--bg-soft) } 48.182% { background-color:var(--bg-soft) } 50.455% { background-color:color-mix(in srgb,var(--rust) 20%,var(--bg-soft)) } 57.273% { background-color:var(--bg-soft) } }
+  @keyframes dot3 { 0.000% { opacity:0 } 48.182% { opacity:0;transform:translate(476px,322px) scale(.5) } 49.273% { opacity:1;transform:translate(499.2px,296.6px) scale(1);animation-timing-function:cubic-bezier(.55,0,.25,1) } 53.182% { opacity:1;transform:translate(592.1px,237.2px) scale(1);animation-timing-function:cubic-bezier(.55,0,.25,1) } 58.182% { opacity:1;transform:translate(708.2px,263.2px) scale(.8) } 59.273% { opacity:0;transform:translate(708.2px,263.2px) scale(.2) } 100.000% { opacity:0 } }
+  @keyframes pin3 { 0.000% { opacity:0;transform:translateY(-26px) scale(.4) } 56.364% { opacity:0;transform:translateY(-26px) scale(.4);animation-timing-function:cubic-bezier(.34,1.56,.64,1) } 61.364% { opacity:1;transform:none } }
+  @keyframes route { 0.000% { stroke-dashoffset:1 } 60.909% { stroke-dashoffset:1 } 74.545% { stroke-dashoffset:0 } }
+  @keyframes bob { from { transform: translateY(-3px) rotate(-1.2deg); } to { transform: translateY(3px) rotate(1.2deg); } }
+  .v-lb { position: absolute; bottom: 52px; font-size: 14px; font-weight: 600; color: var(--muted); transform: translateX(-50%); white-space: nowrap; } .v-lb.l1 { left: 145px; } .v-lb.l2 { left: 400px; } .v-lb.l3 { left: 655px; }
 
   /* finding: the Research tab as a chat. A question goes in, the answer comes back structured, and the places it names are highlighted and fly onto the map */
   .vc-win { position: absolute; inset: 20px; border-radius: 20px; overflow: hidden; background: var(--page); box-shadow: 0 30px 70px rgba(24, 22, 56, .2), 0 0 0 1px rgba(24, 22, 56, .06); }
+  .viz.fw .vc-win { inset: 20px 146px; }
   .vc-bar { position: absolute; inset: 0 0 auto 0; height: 46px; z-index: 6; display: flex; align-items: center; gap: 12px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--line); }
   .vc-title { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; } .vc-title .tp-i { width: 1em; }
   /* the selected tab is as wide as in the real app: its label plus about a quarter of the label's width on each side */
@@ -657,7 +698,7 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   .pn-win .vc-bar { gap: 10px; }
   .pn-route { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; } .pn-route path { fill: none; stroke: var(--rust); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
   .pn-mp { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; animation: none; }
-  .ico { display: grid; place-items: center; border-radius: 9px; corner-shape: squircle; background: var(--rust); } .ico.blue { background: var(--pin-blue); } .ico svg { width: 60%; height: 60%; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ico { display: grid; place-items: center; border-radius: 9px; corner-shape: squircle; background: var(--rust); } .ico.blue { background: var(--pin-blue); } .ico svg.g { fill: #fff; stroke: none; } .tl-seg svg.g { fill: #fff; stroke: none; } .pn-link svg.g { fill: currentColor; stroke: none; } .ico svg { width: 60%; height: 60%; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .pn-tl { position: absolute; left: 506px; right: 14px; top: 14px; z-index: 4; padding: 16px 20px 18px; border-radius: 20px; corner-shape: squircle; background: var(--bg); box-shadow: var(--side-shadow); outline: 1px solid var(--line); outline-offset: -1px; }
   .tl-h { display: flex; align-items: center; justify-content: space-between; } .tl-h > b { font-size: 15px; letter-spacing: -.02em; }
   .tl-st { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px; border-radius: 10px; corner-shape: squircle; font-size: 12px; font-weight: 600; background: color-mix(in srgb, var(--moss) 16%, transparent); color: var(--moss); transition: background .4s, color .4s; } .tl-st i { width: 13px; height: 13px; display: grid; place-items: center; } .tl-st svg { width: 12px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; } .tl-st em { font-style: normal; } .tl-st.late { background: color-mix(in srgb, var(--sunset) 16%, transparent); color: var(--sunset); }
@@ -665,10 +706,14 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   .tl-trk { position: relative; height: 66px; margin-top: 4px; border-radius: 14px; corner-shape: squircle; background: var(--bg-soft); overflow: hidden; }
   .tl-night { position: absolute; top: 0; bottom: 0; right: 0; background: color-mix(in srgb, var(--sunset) 14%, transparent); transition: left .9s var(--ease); }
   .tl-sr, .tl-ss { position: absolute; top: 0; bottom: 0; width: 2px; z-index: 3; } .tl-sr { background: var(--fav); } .tl-ss { background: var(--sunset); transition: left .9s var(--ease); }
+  .tl-wrap { position: relative; } .tl-sv { position: absolute; top: 0; bottom: 0; width: 2px; z-index: 3; background: var(--fg); opacity: .15; transition: left .9s var(--ease); }
+  .tl-svl { position: absolute; top: calc(100% + 11px); transform: translateX(-50%); font-size: 10px; line-height: 12px; font-weight: 600; white-space: nowrap; color: var(--fg); transition: left .9s var(--ease); } /* sits in the middle of the gap below the track, which is as tall as the space above the track */
   .tl-sr em, .tl-ss em { position: absolute; top: 5px; left: 6px; font-size: 10px; font-style: normal; font-weight: 600; white-space: nowrap; color: var(--muted); } .tl-ss em { color: var(--sunset); }
   .tl-seg { position: absolute; top: 22px; height: 34px; border-radius: 10px; corner-shape: squircle; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: left .9s var(--ease), width .9s var(--ease); }
+  /* sizes and gaps are set by the script (render): every place at least as wide as its glyph, every drive at least a sliver, 3px between all neighbors */
+  .tl-seg.leg { border-radius: 7px; } .tl-seg.empty { opacity: 0; }
   .tl-seg.leg { background: color-mix(in srgb, var(--rust) 42%, var(--bg)); } .tl-seg.stay { background: var(--rust); } .tl-seg svg { width: 18px; height: 18px; flex: none; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  .tl-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; } .tl-stats > div { padding: 9px 14px; border-radius: 12px; corner-shape: squircle; background: var(--bg-soft); } .tl-stats small { font-size: 10.5px; } .tl-stats b { display: block; margin-top: 2px; font-size: 16px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .tl-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 34px; } .tl-stats > div { padding: 9px 14px; border-radius: 12px; corner-shape: squircle; background: var(--bg-soft); } .tl-stats small { font-size: 10.5px; } .tl-stats b { display: block; margin-top: 2px; font-size: 16px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
   /* the pointer, and the clean view: a click on Drive times hides the drive rows, the sun row, the rail and the day card */
   .pn-cur { position: absolute; left: 0; top: 0; z-index: 30; width: 18px; height: 24px; pointer-events: none; transition: transform .95s cubic-bezier(.45, 0, .2, 1); } .pn-cur svg { width: 18px; height: 24px; fill: #fff; stroke: #202124; stroke-width: 1.1; stroke-linejoin: round; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .35)); transform-origin: 1px 1px; transition: transform .15s; }
   .pn-cur::after { content: ""; position: absolute; left: -14px; top: -14px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--rust); opacity: 0; } .pn-cur.click svg { transform: scale(.85); } .pn-cur.click::after { animation: pnclick .5s ease-out; } @keyframes pnclick { 0% { opacity: .9; transform: scale(.3); } 100% { opacity: 0; transform: scale(1.5); } }
@@ -676,6 +721,7 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   .pn-sr { overflow: hidden; transition: height .45s var(--ease), opacity .3s; }
   .pn-rail, .pn-dark, .pn-clk, .pn-sun { transition: opacity .3s, transform .9s var(--ease), top .9s var(--ease), height .9s var(--ease); }
   .pn-tl { transition: opacity .5s, transform .6s var(--ease); }
+  .pn-st { transition: border-radius .45s var(--ease); } .pn-win.clean .pn-st { border-radius: 0; } .pn-win.clean .pn-st[data-s="0"] { border-radius: 12px 12px 0 0; } .pn-win.clean .pn-st[data-s="4"] { border-radius: 0 0 12px 12px; } /* once the drive rows are gone the places fuse into one block: straight where they touch, round only at the very top and bottom */
   .pn-win.clean .pn-dr, .pn-win.clean .pn-sr { height: 0; opacity: 0; } .pn-win.clean .pn-rail, .pn-win.clean .pn-dark, .pn-win.clean .pn-clk, .pn-win.clean .pn-sun { opacity: 0; } .pn-win.clean .pn-tl { opacity: 0; transform: translateY(-10px) scale(.98); pointer-events: none; }
   .pn-panel { position: absolute; left: 14px; top: 14px; bottom: 14px; width: 478px; z-index: 5; display: flex; flex-direction: column; padding: 16px 18px 14px; border-radius: 20px; background: var(--bg); box-shadow: var(--side-shadow); outline: 1px solid var(--line); outline-offset: -1px; overflow: hidden; }
   .pn-top { display: flex; align-items: center; gap: 10px; } .pn-sel { flex: 1; display: flex; align-items: center; justify-content: space-between; height: 36px; padding: 0 14px; border-radius: 14px; corner-shape: squircle; background: var(--bg); outline: 1px solid var(--line); outline-offset: -1px; font-size: 13px; font-weight: 500; } .pn-sel .tp-i { width: 1em; }
@@ -711,6 +757,7 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   .sy-cd { display: inline-flex; color: var(--pc, #ed6d2d); transition: color .3s; }
   .viz.m .sy-t { left: 28px; width: 504px; } .viz.m .sy-t.t1 { top: 28px; } .viz.m .sy-t.t3 { top: 184px; height: 252px; } .viz.m .sy-sws { grid-template-columns: repeat(4, 1fr); } .viz.m .sy-t.t2 { top: 452px; } .viz.m .sy-card.pop.pincard { margin-left: auto; margin-right: auto; } .viz.m .sy-t.t4 { top: 868px; } .viz.m .sy-t.t5 { top: 1172px; height: 376px; }
   .viz.m .sy-bar .seg { position: relative; left: auto; transform: none; margin-left: 10px; }
+  .viz.row .v-test { height: auto; bottom: 26px; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr; } .viz.row .v-tt { padding: 0 16px 0 14px; } .viz.row .v-cm { height: 200px; } /* the coordinates line up with the last item of the research list */
   .viz.m .v-test { grid-template-columns: 1fr; grid-auto-rows: 1fr; inset: 26px; height: auto; }
   .viz.m .v-out { inset: 24px 24px; gap: 14px; }
   .sy .pin { corner-shape: round; }
@@ -760,11 +807,11 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   .pv-img { position: relative; margin-top: 10px; height: 158px; background: #202124; display: grid; place-items: center; overflow: hidden; }
   .pv-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: pvimg 8s infinite; }
   .pv-img em { display: grid; place-items: center; width: 100%; height: 100%; background: #202124; opacity: 0; animation: pvbroken 8s infinite; } .pv-img em svg { width: 58px; fill: none; stroke: #bdc1c6; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transform: rotate(-45deg); }
-  @keyframes pvimg { 0%, 42% { opacity: 1; filter: none; } 50% { opacity: .6; filter: blur(5px) grayscale(1); } 58%, 90% { opacity: 0; } 100% { opacity: 1; filter: none; } }
-  @keyframes pvbroken { 0%, 50% { opacity: 0; } 58%, 90% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes pvimg { 0%, 42% { opacity: 1; filter: none; } 50% { opacity: .6; filter: blur(5px) grayscale(1); } 58%, 72% { opacity: 0; } 80%, 100% { opacity: 1; filter: none; } }
+  @keyframes pvbroken { 0%, 50% { opacity: 0; } 58%, 72% { opacity: 1; } 80%, 100% { opacity: 0; } }
   .pv-cap { margin-top: -22px; position: relative; text-align: center; font-size: 11px; color: #fff; background: #202124; padding: 3px 0; }
   .pv-url { margin-top: 20px; font-size: 11px; color: #1a73e8; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; } .pv-url span { animation: pvurl 8s infinite; }
-  @keyframes pvurl { 0%, 52% { color: #1a73e8; } 62%, 90% { color: #d93025; } 100% { color: #1a73e8; } }
+  @keyframes pvurl { 0%, 52% { color: #1a73e8; } 60%, 72% { color: #d93025; } 80%, 100% { color: #1a73e8; } }
 
   .pv-src { position: absolute; left: 16px; width: 118px; padding: 10px; background: #fff; border-radius: 10px; box-shadow: 0 1px 6px rgba(60, 64, 67, .25); }
   .pv-src.a { top: 20px; height: 64px; } .pv-src.b { top: 98px; height: 78px; } .pv-src.c { top: 190px; height: 90px; }
@@ -817,6 +864,14 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
   });
   const fit = (el: HTMLElement) => {
     let W = +el.dataset.w!, H = +el.dataset.h!;
+    // the proof-of-concept visual lays everything out in one row on wide screens (a wide box), and two by two below that
+    const row = el.dataset.viz === "testapp" && innerWidth >= 1400; // below this the one-row stage would shrink the text too much
+    if (el.dataset.viz === "testapp") { el.classList.toggle("row", row); el.classList.toggle("wide", row); el.classList.toggle("col", !row); }
+    if (row) [W, H] = [1440, 432];
+    // the research visual is a wide box like the day planner on big screens: the app window keeps its size and gets more room left and right
+    const fw = el.dataset.viz === "finding" && el.clientWidth >= 1000;
+    el.classList.toggle("fw", fw);
+    if (fw) [W, H] = [1100, 525];
     const w = el.clientWidth, h = el.clientHeight, stage = el.querySelector<HTMLElement>(".stage")!;
     // the playground has to stay usable on a phone, so it stacks into one tall column instead of being cropped
     const mob = ({ system: [560, 1580], outcome: [480, 400], testapp: [400, 1676] } as Record<string, number[]>)[el.dataset.viz!];
@@ -824,7 +879,7 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
     const stack = !!mob && w < (el.dataset.viz === "testapp" ? 560 : 800);
     if (stack) [W, H] = mob;
     el.classList.toggle("m", stack);
-    el.style.aspectRatio = stack ? `${W} / ${H}` : "";
+    el.style.aspectRatio = stack || row || fw ? `${W} / ${H}` : "";
     stage.style.setProperty("--W", W + "px"); stage.style.setProperty("--H", H + "px");
     const s = stack ? w / W : w >= 800 ? Math.min(w / W, h / H) : Math.max(w / W, h / H);
     stage.style.setProperty("--s", String(s));
@@ -909,9 +964,21 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
       const x = (t: number) => ((t - 360) / 960) * 100;
       const legEnd = legs.map((m, i) => dep[i] + m);
       const segs = [...viz.querySelectorAll<HTMLElement>(".tl-seg")];
-      const spans: [number, number][] = [[dep[0], legEnd[0]], [arr[1], arr[1] + stay[1]], [dep[1], legEnd[1]], [arr[2], arr[2] + stay[2]], [dep[2], legEnd[2]], [arr[3], arr[3] + stay[3]], [dep[3], legEnd[3]], [arr[4], arr[4] + stay[4]]];
-      segs.forEach((el, k) => { const [a, b] = spans[k]; el.style.left = x(a) + "%"; el.style.width = Math.max(0, x(b) - x(a)) + "%"; });
-      const trk = viz.querySelector<HTMLElement>(".tl-trk")!;
+      const spans: [number, number][] = [[dep[0], arr[1]], [arr[1], arr[1] + stay[1]], [dep[1], arr[2]], [arr[2], arr[2] + stay[2]], [dep[2], arr[3]], [arr[3], arr[3] + stay[3]], [dep[3], arr[4]], [arr[4], arr[4] + stay[4]]]; // a drive runs until the arrival (which is rounded up), so drives and stays touch and every gap is the same
+      // every block gets the same 3px gap to its neighbors (drives and stays alike): they are laid out one after the other in pixels, and a block that has to be wider than its time span (a place is at least as wide as its glyph) pushes the next ones to the right instead of covering them
+      const trk = viz.querySelector<HTMLElement>(".tl-trk")!, TW = trk.offsetWidth, GAP = 3;
+      let edge = -1e9;
+      segs.forEach((el, k) => {
+        const [a, b] = spans[k], nl = (x(a) / 100) * TW, nw = ((x(b) - x(a)) / 100) * TW, empty = nw <= 0;
+        el.classList.toggle("empty", empty);
+        if (empty) { el.style.width = "0px"; el.style.left = nl + "px"; return; }
+        const w = Math.max(nw - GAP, el.classList.contains("stay") ? 34 : 7), l = Math.max(nl + GAP / 2, edge + GAP);
+        el.style.left = l + "px"; el.style.width = w + "px"; edge = l + w;
+      });
+      const sv = viz.querySelector<HTMLElement>(".tl-sv");
+      if (sv) sv.style.left = x(state.start) + "%";
+      const svl = viz.querySelector<HTMLElement>(".tl-svl");
+      if (svl) { svl.style.left = x(state.start) + "%"; svl.textContent = "Start " + T(state.start); }
       (trk.querySelector(".tl-sr") as HTMLElement).style.left = x(6 * 60 + 55) + "%"; (trk.querySelector(".tl-ss") as HTMLElement).style.left = x(sunset) + "%"; (trk.querySelector(".tl-night") as HTMLElement).style.left = x(sunset) + "%";
       const late = arr[4] > sunset, st2 = viz.querySelector<HTMLElement>(".tl-st")!;
       st2.classList.toggle("late", late); st2.classList.toggle("ok", !late);
@@ -1011,7 +1078,29 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
     return () => ac.abort();
   };
 
-  const runners: Record<string, (v: HTMLElement) => () => void> = { shortlist, planning };
+  // proof of concept: always one card is moving, never more than two, and the order is random so it does not feel scripted
+  const testapp = (viz: HTMLElement) => {
+    if (reduce) return () => {};
+    const cards = [...viz.querySelectorAll<HTMLElement>(".v-tc")];
+    const dur = [5400, 16500, 8000]; // research list, pin coordinates, images: how long each card's own motion lasts
+    const playing = new Set<number>(), timers: number[] = [];
+    let last = -1, alive = true;
+    const rand = (a: number, b: number) => a + Math.random() * (b - a);
+    const later = (f: () => void, ms: number) => { timers.push(window.setTimeout(() => alive && f(), ms)); };
+    const next = () => {
+      const free = cards.map((_, i) => i).filter((i) => !playing.has(i) && i !== last);
+      if (playing.size >= 2 || !free.length) return later(next, 600);
+      const i = free[Math.floor(Math.random() * free.length)];
+      last = i; playing.add(i);
+      cards[i].classList.remove("play"); void cards[i].offsetWidth; cards[i].classList.add("play");
+      later(() => { cards[i].classList.remove("play"); playing.delete(i); }, dur[i]);
+      // the next card starts before this one is finished (a short overlap, never a pause), at a random moment
+      later(next, dur[i] * rand(0.78, 0.97));
+    };
+    later(next, 900);
+    return () => { alive = false; timers.forEach(clearTimeout); cards.forEach((c) => c.classList.remove("play")); };
+  };
+  const runners: Record<string, (v: HTMLElement) => () => void> = { shortlist, planning, testapp };
   // the playground is interactive from the start, it does not wait for the scroll observer
   document.querySelectorAll<HTMLElement>(".viz[data-viz=system]").forEach((v) => system(v));
   const io = new IntersectionObserver((es) => es.forEach((e) => {
@@ -1025,6 +1114,8 @@ const steps2 = [["Start southwest on 小松拡幅/琵琶湖西縦貫道路/国�
 
   document.querySelectorAll<HTMLElement>(".viz").forEach((v) => {
     new ResizeObserver(() => fit(v)).observe(v);
+    // the proof-of-concept box switches layout with the window width, which the observer alone does not see (its own width can stay the same)
+    if (v.dataset.viz === "testapp") addEventListener("resize", () => fit(v));
     fit(v);
     io.observe(v);
   });

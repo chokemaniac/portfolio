@@ -44,15 +44,15 @@
       "r": [
         [
           2160,
-          1252
+          1090
         ],
         [
           1140,
-          661
+          575
         ],
         [
           820,
-          475
+          414
         ],
         [
           620,
@@ -129,7 +129,7 @@
             "generated ten How-Might-We questions",
             "compared them"
           ],
-          "show": 1,
+          "show": 2,
           "title": "Defining the need"
         },
         {
@@ -328,7 +328,7 @@
     },
     {
       "t": "h3",
-      "text": "Interviews and the persona",
+      "text": "From interviews to insights",
       "g": [
         60,
         60,
@@ -339,7 +339,7 @@
     },
     {
       "t": "p",
-      "text": "I interviewed travelers aged 40 to 56 who plan their own trips, and I treated my own interviews as one more participant. They covered how people find places, how they decide, and where their tools get in the way. The results hold for experienced, self-organized planners only. From the interview findings I also created a persona. In parallel I built a test app. Its main job was to investigate technical limits: how good built-in travel research is, whether every pin can get exact coordinates, and whether good photos can be found.",
+      "text": "I ran six interviews about how people plan trips and broke the transcripts down into 134 individual observations, each tied to the participant’s own words. I sorted these on an affinity map into motivation clusters and pain-point clusters. Every cluster had to hold up across at least two different people, otherwise it counted as a single voice, not a pattern. From the surviving clusters I drew about twenty insights and cut each one back to the part the quotes actually support. They merged into 18 insights, which became the basis for the need statement and the problem statement.",
       "g": [
         16,
         16,
@@ -349,15 +349,39 @@
       ]
     },
     {
+      "t": "stats",
+      "items": [
+        {
+          "n": "6",
+          "l": "Interviews"
+        },
+        {
+          "n": "134",
+          "l": "Observations"
+        },
+        {
+          "n": "18",
+          "l": "Insights"
+        }
+      ],
+      "g": [
+        40,
+        40,
+        40,
+        40,
+        40
+      ]
+    },
+    {
       "t": "ai",
       "label": "How AI was involved",
-      "text": "AI mapped the assumptions and drafted research questions geared to turn them into knowns, after we identified the knowns, unknowns and assumptions of the project. I decided each assumption and approved every question.",
+      "text": "I used AI to clean the raw interview transcripts, pull candidate observations out of them, and draft the first clustering and the first set of insights. **AI did the heavy lifting on volume, and I stayed in charge of what counted as evidence.**",
       "g": [
-        24,
-        24,
-        24,
-        24,
-        24
+        40,
+        40,
+        40,
+        40,
+        40
       ]
     },
     {
@@ -372,18 +396,19 @@
     },
     {
       "t": "h2",
-      "text": "The insight",
+      "text": "One funnel, spread across many tools",
       "g": [
         37,
         37,
         37,
         37,
         37
-      ]
+      ],
+      "eyebrow": "The key insight"
     },
     {
       "t": "p",
-      "text": "Planning is a funnel from many finds to a shortlist to day-sized routes, and each step lives in a different tool.",
+      "text": "Planning is a funnel from many finds to a shortlist to day-sized routes, and each step lives in a different tool. Every hand-off between those tools costs time, and some of what I found gets lost on the way, so I end up sorting the same pins twice.",
       "g": [
         24,
         24,
@@ -415,18 +440,19 @@
     },
     {
       "t": "h2",
-      "text": "What was made and why",
+      "text": "Refining the concept with what I learned",
       "g": [
         37,
         37,
         37,
         37,
         37
-      ]
+      ],
+      "eyebrow": "Design decisions"
     },
     {
       "t": "p",
-      "text": "I built Vayo along that funnel: find, shortlist, plan the days.",
+      "text": "I brought three things together: what the interviews showed about how people plan, what the test app proved about pins, research and photos, and the funnel from the key insight. Then I used AI to push the concept further. It came up with five different concepts, I checked them against each other and rated each one on desirability, viability and feasibility, and the result is the one I built: find, shortlist, plan the days.",
       "g": [
         24,
         24,
@@ -436,8 +462,20 @@
       ]
     },
     {
+      "t": "ai",
+      "label": "How AI helped",
+      "text": "AI generated the five concepts, rated them, and hunted for dead ends and edge cases in the flow. I chose the direction and made the final call on every decision.",
+      "g": [
+        24,
+        24,
+        24,
+        24,
+        24
+      ]
+    },
+    {
       "t": "h3",
-      "text": "Finding: free questions instead of fixed categories",
+      "text": "Research with free questions instead of fixed categories",
       "g": [
         40,
         40,
@@ -466,11 +504,12 @@
         40,
         40,
         40
-      ]
+      ],
+      "wide": true
     },
     {
       "t": "h3",
-      "text": "Shortlisting: keep or skip first, ratings later",
+      "text": "Shortlisting with a quick keep or skip. Add ratings later.",
       "g": [
         60,
         60,
@@ -503,7 +542,7 @@
     },
     {
       "t": "h3",
-      "text": "Planning the days: from a list of stops to a day that adds up",
+      "text": "Advanced route planning with built-in time management",
       "g": [
         60,
         60,
@@ -547,7 +586,8 @@
     },
     {
       "t": "h2",
-      "text": "Outcome",
+      "eyebrow": "The outcome",
+      "text": "Planning a full trip in weeks instead of months",
       "g": [
         37,
         37,
@@ -558,7 +598,7 @@
     },
     {
       "t": "p",
-      "text": "Planning a trip like this used to take me 2 to 3 months. With Vayo it took 2 to 3 weeks, and I planned a full 4-week trip with it. So far only I have used it, so I can't yet say how it works for anyone else.",
+      "text": "The final design brings the whole funnel into one place: research with free questions, a shortlist built by keeping or skipping, and day plans with drive times and a sunset check. Everything sits on one map, so nothing has to be copied from one tool to the next.",
       "g": [
         24,
         24,
@@ -568,14 +608,119 @@
       ]
     },
     {
-      "t": "viz",
-      "name": "outcome",
+      "t": "gallery",
+      "items": [
+        "/vayo/img/gallery/A01_browsetalloverlay.webp",
+        "/vayo/img/gallery/A02_browsesidepanel.webp",
+        "/vayo/img/gallery/A04_bowsefull.webp",
+        "/vayo/img/gallery/A05_browsegallery.webp",
+        "/vayo/img/gallery/B01_plansunriselight.webp",
+        "/vayo/img/gallery/B02_planroutecollapsed.webp",
+        "/vayo/img/gallery/B03_plandrivelegsunsrise.webp",
+        "/vayo/img/gallery/C01_researchai.webp",
+        "/vayo/img/gallery/D01_3dotmenu.webp",
+        "/vayo/img/gallery/D02_apistats.webp",
+        "/vayo/img/gallery/F01_browsedark.webp",
+        "/vayo/img/gallery/F02_researchdark.webp",
+        "/vayo/img/gallery/F03_plancollection.webp"
+      ],
       "g": [
-        40,
-        40,
-        40,
-        40,
-        40
+        64,
+        64,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "t": "h3",
+      "text": "Key wins",
+      "g": [
+        60,
+        60,
+        60,
+        60,
+        60
+      ]
+    },
+    {
+      "t": "kwins",
+      "g": [
+        24,
+        24,
+        24,
+        24,
+        24
+      ],
+      "items": [
+        {
+          "title": "Time to plan a trip",
+          "max": 90,
+          "rows": [
+            {
+              "label": "MyMaps",
+              "from": 60,
+              "to": 90,
+              "text": "2 to 3 months"
+            },
+            {
+              "label": "Vayo",
+              "from": 14,
+              "to": 21,
+              "text": "2 to 3 weeks",
+              "vayo": true
+            }
+          ]
+        },
+        {
+          "title": "Locations with a picture",
+          "max": 100,
+          "rows": [
+            {
+              "label": "MyMaps",
+              "from": 0,
+              "to": 60,
+              "text": "0 to 60%"
+            },
+            {
+              "label": "Vayo",
+              "from": 100,
+              "to": 100,
+              "text": "100%",
+              "vayo": true
+            }
+          ]
+        },
+        {
+          "title": "Pictures per location",
+          "max": 6,
+          "rows": [
+            {
+              "label": "MyMaps",
+              "from": 0,
+              "to": 1,
+              "text": "0 to 1"
+            },
+            {
+              "label": "Vayo",
+              "from": 2,
+              "to": 6,
+              "text": "2 to 6",
+              "vayo": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "t": "p",
+      "text": "These numbers come from my own trips. I planned a full 4-week trip with Vayo. So far only I have used it, so I can't yet say how it works for anyone else.",
+      "g": [
+        24,
+        24,
+        24,
+        24,
+        24
       ]
     },
     {

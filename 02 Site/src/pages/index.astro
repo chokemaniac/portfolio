@@ -18,9 +18,9 @@ const clients = [
 ];
 // listed in the single-column (mobile) order; desktop shows two columns (odd = left, even = right)
 const cards = [
-  ["Case Study", "Viessmann", "fb9289d7c42b", "/case-study-viessmann"],
+  ["Case Study", "Vayo", "vayo-thumb", "/case-study-vayo"],
   ["Case Study", "Encore", "8f8afc98ed1f", "/case-study-encore"],
-  ["Case Study", "Studydrive", "8d4158cb5a13", "/case-study-studydrive"],
+  ["Case Study", "Viessmann", "fb9289d7c42b", "/case-study-viessmann"],
   ["Showcase", "Volkswagen", "44ca417a9f3b", "/showcase-volkswagen"],
   ["Showcase", "My Favourite Projects", "437349bdacfd", "/showcase-favourites"],
   ["Showcase", "UX/UI Design Archive", "d296a09324aa", ARCHIVE],
@@ -42,10 +42,21 @@ const services = [
         <div class="avatar"><img src={asset("4abf805abe78")} alt="mathias mahling" /></div>
         <div>
           <h2>Mathias Mahling</h2>
-          <div class="badge"><i></i>Limited project availability</div>
+          <div class="badge-w">
+            <div class="badge"><i aria-hidden="true"><svg viewBox="0 0 512 512"><!--Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M156.6 384.9L125.7 354c-8.5-8.5-11.5-20.8-7.7-32.2c3-8.9 7-20.5 11.8-33.8L24 288c-8.6 0-16.6-4.6-20.9-12.1s-4.2-16.7 .2-24.1l52.5-88.5c13-21.9 36.5-35.3 61.9-35.3l82.3 0c2.4-4 4.8-7.7 7.2-11.3C289.1-4.1 411.1-8.1 483.9 5.3c11.6 2.1 20.6 11.2 22.8 22.8c13.4 72.9 9.3 194.8-111.4 276.7c-3.5 2.4-7.3 4.8-11.3 7.2l0 82.3c0 25.4-13.4 49-35.3 61.9l-88.5 52.5c-7.4 4.4-16.6 4.5-24.1 .2s-12.1-12.2-12.1-20.9l0-107.2c-14.1 4.9-26.4 8.9-35.7 11.9c-11.2 3.6-23.4 .5-31.8-7.8zM384 168a40 40 0 1 0 0-80 40 40 0 1 0 0 80z" /></svg><svg class="flame" viewBox="0 0 6 10"><path d="M3 0C5.2 2.6 6 5 3 10C0 5 .8 2.6 3 0Z" fill="#ff8a1f" /><path d="M3 3.4C4.1 5 4.4 6.4 3 8.6C1.6 6.4 1.9 5 3 3.4Z" fill="#ffd23f" /></svg></i>Certified AI-Designer<button type="button" class="badge-chev" aria-expanded="false" aria-controls="courses" aria-label="Show the courses"><svg viewBox="0 0 448 512" aria-hidden="true"><!--Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" /></svg></button></div>
+            <ul class="courses" id="courses" aria-label="AI workshops I have attended">
+              <li class="courses-h" aria-hidden="true">AI workshops I have attended</li>
+              {[
+                ["Design OS - AI Workflows for UX/UI Designers", "Neue Fische / Spiced Academy · November 2026"],
+                ["User testing with AI", "UIntend · June 2026"],
+                ["UX Metrics with AI - Define, measure, and manage", "UIntend · May 2026"],
+                ["AI Integration & Automation for Design Teams", "Hatch Conference · September 2025"],
+              ].map(([name, when]) => <li><b>{name}</b><span>{when}</span></li>)}
+            </ul>
+          </div>
         </div>
       </div>
-      <h1>Digital Product Designer specialising in complex user interfaces.</h1>
+      <h1>AI-native Product Designer specialising in complex user interfaces.</h1>
       <p class="lead">Strong passion for clean and intelligent interfaces. Fintech friendly. Innovation hungry. Digital native.</p>
       <div class="clients">
         {clients.map(([f, alt, d, t, m]) => <img src={asset(f)} alt={alt} width={d[0]} height={d[1]} style={`--w:${d[0]};--h:${d[1]};--tw:${t[0]};--th:${t[1]};--mw:${m[0]};--mh:${m[1]}`} />)}
@@ -122,8 +133,31 @@ const services = [
   .avatar { width: 88px; height: 88px; border-radius: 24px; overflow: hidden; flex: none; }
   .avatar img { width: 231.8%; max-width: none; margin-left: -55.7%; }
   .who h2 { font-size: 28px; font-weight: 600; letter-spacing: -1.12px; margin-top: 5px; line-height: 35px; }
-  .badge { display: inline-flex; align-items: center; gap: 14px; height: 36px; margin-top: 8px; padding: 0 13px; background: #fff; border-radius: 40px; font-size: 14px; line-height: 24px; }
-  .badge i { width: 10px; height: 10px; border-radius: 50%; background: #fdad00; box-shadow: 0 0 0 3px rgba(253, 173, 0, .2); }
+  .badge-w { position: relative; display: inline-block; margin-top: 8px; }
+  .badge { display: inline-flex; align-items: center; gap: 10px; height: 36px; padding: 0 6px 0 13px; background: #fff; border-radius: 40px; color: var(--ink); font-size: 14px; line-height: 24px; font-weight: 600; letter-spacing: -.42px; box-shadow: 0 1px 4px rgba(0, 0, 0, .07); transition: color .3s, box-shadow .3s; } /* same look as the Next project button */
+  @media (hover: hover) { .badge:hover { color: #7645a4; box-shadow: 0 3px 12px rgba(118, 69, 164, .18); } }
+  .badge i { position: relative; display: grid; place-items: center; width: 14px; height: 14px; }
+  /* on hover the rocket is switched on: a flame at its tail, and it floats */
+  .badge .flame { position: absolute; left: -.5px; top: 10.5px; width: 6px; height: 10px; transform-origin: 50% 0; transform: rotate(45deg) scaleY(0); opacity: 0; transition: opacity .2s, transform .25s cubic-bezier(.2, .7, .2, 1); pointer-events: none; }
+  @media (hover: hover) {
+    .badge:hover .flame { opacity: 1; transform: rotate(45deg) scaleY(1); animation: flicker .14s ease-in-out infinite alternate; }
+    .badge:hover i { animation: fly 1s ease-in-out infinite; }
+  }
+  @keyframes flicker { from { transform: rotate(45deg) scaleY(.82) scaleX(.9); } to { transform: rotate(45deg) scaleY(1.15) scaleX(1.05); } }
+  @keyframes fly { 50% { transform: translate(1.5px, -2px); } }
+  .badge i svg { width: 14px; height: 14px; fill: currentColor; }
+  .badge-chev { color: inherit; display: grid; place-items: center; width: 24px; height: 24px; margin-left: -6px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; transition: background .3s; }
+  .badge-chev svg { width: 11px; height: 12px; fill: currentColor; transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
+  .badge-chev:hover, .badge-chev[aria-expanded="true"]:hover { background: rgba(24, 22, 56, .08); } /* the round highlight shows only on hover */
+  .badge-chev:focus-visible { outline: 2px solid #7645a4; outline-offset: 1px; }
+  .badge-chev[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .courses { position: absolute; left: 0; top: calc(100% + 8px); z-index: 20; width: max-content; max-width: 90vw; margin: 0; padding: 28px 40px; list-style: none; border-radius: 24px; background: #fff; box-shadow: 0 8px 40px rgba(24, 22, 56, .16); opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .25s, transform .35s cubic-bezier(.2, .7, .2, 1), visibility .25s; }
+  .badge-w.open .courses { opacity: 1; visibility: visible; transform: none; }
+  .courses li { display: flex; flex-direction: column; gap: 2px; padding: 12px 0; } /* the dividers are as wide as the text; with the card's padding, the space around the text is 40px */
+  .courses li + li { border-top: 1px solid rgba(24, 22, 56, .08); }
+  .courses .courses-h { padding: 12px 0 20px; border-top: 0 !important; font-size: 13px; line-height: 18px; font-weight: 600; letter-spacing: -.1px; color: #7645a4; } .courses .courses-h + li { border-top: 0; }
+  .courses b { font-size: 15px; line-height: 22px; font-weight: 600; letter-spacing: -.3px; color: var(--ink); }
+  .courses span { font-size: 14px; line-height: 20px; color: rgba(24, 22, 56, .6); }
   .hero h1 { font-size: 48px; font-weight: 600; letter-spacing: -1.92px; color: #000; max-width: 688px; margin-top: 40px; }
   .lead { font-size: 24px; line-height: 36px; color: var(--muted); max-width: 706px; margin-top: 24px; }
   .clients { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 44px; margin-top: 40px; }
@@ -162,12 +196,12 @@ const services = [
 
   /* motion: staggered hero entrance, scroll reveals, card hover, pulsing availability dot */
   @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
-  @keyframes pulse { 50% { box-shadow: 0 0 0 7px rgba(253, 173, 0, 0); } }
+  @keyframes twinkle { 50% { transform: translate(1.5px, -1.5px); } } /* the rocket lifts off a little and comes back */
   .hero > * { animation: rise .9s cubic-bezier(.2, .7, .2, 1) backwards; }
   .hero h1 { animation-delay: .1s; }
   .lead { animation-delay: .2s; }
   .clients { animation-delay: .3s; }
-  .badge i { animation: pulse 2s ease-in-out infinite; }
+  .badge i { animation: twinkle 2.4s ease-in-out infinite; }
   .card > img { transition: transform .8s cubic-bezier(.2, .7, .2, 1); }
   .card:hover > img { transform: scale(1.05); }
   .card .go { transition: transform .4s cubic-bezier(.2, .7, .2, 1), background .3s; }
@@ -178,13 +212,9 @@ const services = [
   .js .col + .col .card { transition-delay: .12s; }
   .tool { transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
   .tool:hover { transform: translateY(-4px); }
-  @supports (animation-timeline: view()) {
-    .svc, .about > div, .stats > div {
-      animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 60%;
-    }
-  }
+  /* the services and the about block reveal on scroll through the shared script (global.css) */
   @media (prefers-reduced-motion: reduce) {
-    .hero > *, .badge i, .svc, .about > div, .stats > div { animation: none !important; }
+    .hero > *, .badge i, .badge .flame { animation: none !important; }
     .card > img, .card .go, .tool, .js .card { transition: none; }
   }
 
@@ -196,7 +226,7 @@ const services = [
     .card .go { top: calc(var(--ct) + 62px); }
     .avatar { width: 96px; height: 96px; }
     .who h2 { font-size: 32px; letter-spacing: -1.28px; line-height: normal; margin-top: 6px; }
-    .badge { margin-top: 7px; }
+    .badge-w { margin-top: 7px; }
     .hero h1 { font-size: 56px; letter-spacing: -2.24px; max-width: 808px; }
     .services { margin-top: 113px; }
     .svc-grid { margin-top: 46px; }
@@ -210,7 +240,7 @@ const services = [
     .hero { padding-top: 0; }
     .avatar { width: 80px; height: 80px; }
     .who h2 { font-size: 24px; letter-spacing: -.96px; line-height: normal; margin-top: 3px; }
-    .badge { font-size: 13px; margin-top: 7px; }
+    .badge { font-size: 13px; } .badge-w { margin-top: 7px; }
     .hero h1 { font-size: 40px; letter-spacing: -1.6px; max-width: 660px; }
     .lead { font-size: 22px; line-height: 32px; max-width: 640px; }
     .clients { gap: 24px 40px; }
@@ -268,7 +298,7 @@ const services = [
     .who { gap: 16px; }
     .avatar { width: 64px; height: 64px; }
     .who h2 { font-size: 20px; letter-spacing: -.8px; margin-top: 2px; }
-    .badge { font-size: 11px; height: 31px; margin-top: 3px; padding: 0 12px; gap: 12px; }
+    .badge { font-size: 11px; height: 31px; padding: 0 5px 0 12px; gap: 9px; } .badge-w { margin-top: 3px; } .badge-chev { width: 21px; height: 21px; margin-left: -5px; }
     .hero h1 { font-size: 26px; letter-spacing: -1.04px; max-width: 470px; }
     .lead { font-size: 17px; line-height: 26px; max-width: 470px; }
     .clients { gap: 24px; }
@@ -300,6 +330,18 @@ const services = [
     .tools { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
   }
 </style>
+
+<script>
+  // "Certified AI-Designer" pill: the chevron opens the list of courses, a click elsewhere or Esc closes it
+  const bw = document.querySelector<HTMLElement>(".badge-w");
+  const chev = bw?.querySelector<HTMLElement>(".badge-chev");
+  if (bw && chev) {
+    const set = (open: boolean) => { bw.classList.toggle("open", open); chev.setAttribute("aria-expanded", String(open)); };
+    chev.addEventListener("click", () => set(!bw.classList.contains("open")));
+    document.addEventListener("click", (e) => { if (!bw.contains(e.target as Node)) set(false); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") { set(false); chev.focus(); } });
+  }
+</script>
 
 <script>
   // project tiles: slide up into place as they appear

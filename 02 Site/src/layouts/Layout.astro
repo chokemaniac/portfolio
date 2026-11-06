@@ -124,5 +124,25 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
       menu.addEventListener("click", (e) => { if ((e.target as HTMLElement).closest("a")) toggle(false); });
       document.addEventListener("keydown", (e) => { if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") toggle(false); });
     </script>
+    <script>
+      // scroll reveals: blocks of the case studies, About and the lower part of the home page fade in and rise as they come into view (the styles are in global.css); the Impressum page has none
+      const items = [...document.querySelectorAll<HTMLElement>(".article .blk, .about-page :is(.brands-h, .brands, .mind-h, .mi), .services > .label, .svc, .about > div")];
+      if (items.length && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        if (!("IntersectionObserver" in window)) items.forEach((el) => el.classList.add("rv-in"));
+        else {
+          const io = new IntersectionObserver((entries) => {
+            // blocks that are already on screen when the page loads come in one after another
+            entries.filter((e) => e.isIntersecting).forEach((e, i) => {
+              const el = e.target as HTMLElement;
+              el.style.transitionDelay = `${i * 90}ms`;
+              el.classList.add("rv-in");
+              setTimeout(() => (el.style.transitionDelay = ""), 1200 + i * 90);
+              io.unobserve(el);
+            });
+          }, { rootMargin: "0px 0px -4% 0px" });
+          items.forEach((el) => io.observe(el));
+        }
+      }
+    </script>
   </body>
 </html>

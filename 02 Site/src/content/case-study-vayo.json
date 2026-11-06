@@ -630,6 +630,11 @@
         64,
         64,
         64
+      ],
+      "dark": [
+        "F01_browsedark",
+        "F02_researchdark",
+        "F03_plancollection"
       ]
     },
     {

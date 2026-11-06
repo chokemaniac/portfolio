@@ -76,7 +76,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
           )}
           {b.t === "gallery" && (
             <div class="gal" aria-label="Screenshots of the finished app">
-              <div class="gal-track">{[0, 1].map((n) => b.items.map((src) => <figure class="gal-i"><img src={src} alt="" width="1800" height="1004" draggable="false" loading="lazy" decoding="async" aria-hidden={n ? "true" : undefined} /><button type="button" class="gal-z" data-full={src.replace("/gallery/", "/gallery/full/")} aria-label="View screenshot full size" tabindex={n ? -1 : undefined} aria-hidden={n ? "true" : undefined}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" /></svg></button></figure>))}</div>
+              <div class="gal-track">{[0, 1].map((n) => b.items.map((src) => <figure class="gal-i"><img src={src} alt="" width="1800" height="1004" draggable="false" loading="lazy" decoding="async" aria-hidden={n ? "true" : undefined} /><button type="button" class="gal-z" data-full={src.replace("/gallery/", "/gallery/full/")} data-dark={(b.dark ?? []).some((k) => src.includes(k)) ? "1" : undefined} aria-label="View screenshot full size" tabindex={n ? -1 : undefined} aria-hidden={n ? "true" : undefined}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" /></svg></button></figure>))}</div>
             </div>
           )}
           {b.t === "stats" && (() => { let g = 0; return <dl class="kpis"><svg width="0" height="0" aria-hidden="true" style="position:absolute"><filter id="mb4" x="-10%" y="-5%" width="120%" height="110%"><feGaussianBlur stdDeviation="0 7" /></filter><filter id="mb2" x="-10%" y="-5%" width="120%" height="110%"><feGaussianBlur stdDeviation="0 3.5" /></filter><filter id="mb1" x="-10%" y="-5%" width="120%" height="110%"><feGaussianBlur stdDeviation="0 1.5" /></filter></svg>{b.items.map((x) => <div><dd aria-label={x.n}>{[...x.n].map((c) => { const d = +c, seq = [...Array(20).keys(), ...Array(d + 2).keys()].map((v) => v % 10); return <span class="reel" aria-hidden="true" style={`--n:${20 + d};--g:${g++}`}><span class="fin">{d}</span><span class="st">{seq.map((v) => <i>{v}</i>)}</span></span>; })}</dd><dt>{x.l}</dt></div>)}</dl>; })()}
@@ -260,7 +260,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   .gal-i:hover .gal-z, .gal-z:focus-visible { opacity: 1; transform: none; }
   .gal-z:hover { color: #7645a4; }
   @media (hover: none) { .gal-z { opacity: 1; transform: none; } }
-  .gal-box { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 40px; background: rgba(255, 255, 255, .72); -webkit-backdrop-filter: blur(28px); backdrop-filter: blur(28px); opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; cursor: zoom-out; }
+  .gal-box { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 40px; background: rgba(255, 255, 255, .72); -webkit-backdrop-filter: blur(28px); backdrop-filter: blur(28px); opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s, background .4s; cursor: zoom-out; }
   .gal-box.open { opacity: 1; visibility: visible; }
   .gal-box img { grid-area: 1 / 1; max-width: calc(100vw - 80px); max-height: calc(100vh - 80px); max-height: calc(100dvh - 80px); width: auto; height: auto; filter: drop-shadow(0 24px 60px rgba(24, 22, 56, .25)) drop-shadow(0 4px 14px rgba(24, 22, 56, .12)); transform: scale(.96); transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
   .gal-box.open img { transform: none; }
@@ -272,6 +272,13 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   .gal-box .gal-x svg { width: auto; height: 20px; fill: var(--ink); stroke: none; transition: fill .3s; }
   @media (hover: hover) { .gal-box .gal-x:hover svg { fill: #7645a4; } }
   .gal-box .btn:focus-visible { outline: 2px solid #7645a4; outline-offset: 2px; }
+  /* dark-mode screenshots get a dark backdrop and dark buttons */
+  .gal-box.dark { background: rgba(8, 8, 14, .86); }
+  .gal-box.dark img { filter: drop-shadow(0 24px 60px rgba(0, 0, 0, .5)) drop-shadow(0 4px 14px rgba(0, 0, 0, .3)); }
+  .gal-box.dark .btn.btn-icon { background: #1d1c2b; box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 2px 10px rgba(0, 0, 0, .4); }
+  .gal-box.dark .btn svg { stroke: #fff; } .gal-box.dark .gal-x svg { fill: #fff; stroke: none; }
+  @media (hover: hover) { .gal-box.dark .btn.btn-icon:hover { box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 3px 14px rgba(150, 100, 220, .4); } .gal-box.dark .btn:hover svg { stroke: #b794e6; } .gal-box.dark .gal-x:hover svg { fill: #b794e6; stroke: none; } }
+  .gal-box.dark .btn:focus-visible { outline-color: #b794e6; }
   /* key wins: each diagram compares MyMaps with Vayo. The solid bar runs to the lower number, the light part to the upper number of the range */
   .kwins { display: grid; gap: 16px; }
   .kwin { margin: 0; padding: 24px 28px 26px; border-radius: 28px; background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .07); }
@@ -828,15 +835,17 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   document.body.append(box);
   let from: HTMLElement | null = null;
   const closeBox = () => { box.classList.remove("open"); document.body.style.overflow = ""; from?.focus(); };
-  const openBox = (src: string) => { from = document.activeElement as HTMLElement; box.querySelector("img")!.src = src; box.classList.add("open"); document.body.style.overflow = "hidden"; box.querySelector<HTMLElement>(".gal-x")!.focus(); };
+  const openBox = (src: string, dark = false) => { from = document.activeElement as HTMLElement; box.classList.toggle("dark", dark); box.querySelector("img")!.src = src; box.classList.add("open"); document.body.style.overflow = "hidden"; box.querySelector<HTMLElement>(".gal-x")!.focus(); };
   const step = (d: number) => {
-    const all = [...document.querySelectorAll<HTMLElement>(".gal-z:not([aria-hidden])")].map((z) => z.dataset.full!);
+    const all = [...document.querySelectorAll<HTMLElement>(".gal-z:not([aria-hidden])")].map((z) => ({ full: z.dataset.full!, dark: !!z.dataset.dark }));
     box.querySelectorAll("img:not(:last-of-type)").forEach((x) => x.remove()); // finish a slide that is still running
-    const old = box.querySelector("img")!, i = all.findIndex((u) => old.src.endsWith(u));
+    const old = box.querySelector("img")!, i = all.findIndex((u) => old.src.endsWith(u.full));
+    const to = all[(i + d + all.length) % all.length];
+    box.classList.toggle("dark", to.dark);
     const img = old.cloneNode() as HTMLImageElement;
-    img.src = all[(i + d + all.length) % all.length];
+    img.src = to.full;
     old.after(img);
-    const o = { duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 600, easing: "cubic-bezier(.2,.7,.2,1)" }, dx = innerWidth * d;
+    const o = { duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 600, easing: "cubic-bezier(.2, .7, .2, 1)" }, dx = innerWidth * d;
     img.animate([{ transform: `translateX(${dx}px)` }, { transform: "none" }], o);
     old.animate([{ transform: "none" }, { transform: `translateX(${-dx}px)` }], { ...o, fill: "forwards" }).onfinish = () => old.remove();
   };
@@ -883,7 +892,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
     let moved = 0; el.addEventListener("pointerdown", (e) => { moved = e.clientX; }); 
     track.addEventListener("click", (e) => {
       const z = (e.target as HTMLElement).closest<HTMLElement>(".gal-z");
-      if (z && Math.abs(e.clientX - moved) < 6) openBox(z.dataset.full!);
+      if (z && Math.abs(e.clientX - moved) < 6) openBox(z.dataset.full!, !!z.dataset.dark);
     });
     addEventListener("resize", measure);
     track.querySelectorAll("img").forEach((i) => i.addEventListener("load", measure));

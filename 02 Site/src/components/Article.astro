@@ -889,11 +889,13 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
       if (en.isIntersecting) { measure(); raf = requestAnimationFrame(tick); addEventListener("scroll", parallax, { passive: true }); parallax(); }
       else removeEventListener("scroll", parallax);
     }, { rootMargin: "200px 0px" }).observe(el);
-    // a drag must not count as a click on the zoom button
-    let moved = 0; el.addEventListener("pointerdown", (e) => { moved = e.clientX; }); 
-    track.addEventListener("click", (e) => {
-      const z = (e.target as HTMLElement).closest<HTMLElement>(".gal-z");
-      if (z && Math.abs(e.clientX - moved) < 6) openBox(z.dataset.full!, !!z.dataset.dark);
+    // a click on a screenshot (or its zoom button) opens it; a drag does not. The pointer is captured while dragging, so the picture under the pointer is looked up by position
+    let moved = 0; el.addEventListener("pointerdown", (e) => { moved = e.clientX; });
+    el.addEventListener("click", (e) => {
+      if (Math.abs(e.clientX - moved) >= 6) return;
+      const fig = document.elementsFromPoint(e.clientX, e.clientY).find((n) => n.classList.contains("gal-i"));
+      const z = fig?.querySelector<HTMLElement>(".gal-z");
+      if (z) openBox(z.dataset.full!, !!z.dataset.dark);
     });
     addEventListener("resize", measure);
     track.querySelectorAll("img").forEach((i) => i.addEventListener("load", measure));

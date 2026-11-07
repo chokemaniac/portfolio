@@ -136,6 +136,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
               ))}
               <div class="probs-nav">
                 <button type="button" class="btn btn-icon" data-dir="-1" aria-label="Previous problem"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+                <span class="probs-count" aria-live="polite">1/{b.items.length}</span>
                 <button type="button" class="btn btn-icon" data-dir="1" aria-label="Next problem"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg class="ring" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" /></svg></button>
               </div>
             </div>
@@ -343,6 +344,7 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
   .probs-nav svg.ring { position: absolute; left: 0; top: 0; width: 48px; height: 48px; transform: rotate(-90deg); pointer-events: none; overflow: visible; }
   .probs-nav svg.ring circle { fill: none; stroke: rgba(24, 22, 56, .12); stroke-width: 2; }
   @media (prefers-reduced-motion: reduce) { .probs-nav svg.ring { display: none; } }
+  .probs-count { display: grid; place-items: center; min-width: 44px; padding: 0 4px; font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: -.28px; font-variant-numeric: tabular-nums; color: var(--ink); }
   .probs-nav .btn:focus-visible { outline: 2px solid #7645a4; outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) { .probs.is-car .prob { transition: none; } }
   @media (min-width: 1400px) { .blk > .probs { grid-template-columns: repeat(4, 1fr); width: calc(100vw - 2 * var(--pad)); position: relative; left: 50%; transform: translateX(-50%); } }
@@ -607,29 +609,28 @@ const cs = (g) => (g ? g.map((x, i) => (x != null ? `--c${i}:${x}px` : "")).filt
     const n = cards.length;
     let active = 0, prev: number[] = [], cw = 0, gapW = 0;
     const L = (a: number, b: number, t: number) => a + (b - a) * t;
-    const slot = (i: number) => (i - active + n) % n;
+    const slot = (i: number) => i - active; // linear, not wrapped: cards before the active one wait out of sight on the left, so going from 4 back to 1 scrolls all the way back
     // x position per slot, so that the VISIBLE gaps are even: the focus card is drawn 6% bigger and the others 6% smaller (both around their centre)
-    const x = (s: number) => (s === 0 ? cw * 0.03 : cw * 1.03 + gapW + (s - 1) * (cw * 0.94 + gapW));
+    const x = (s: number) => (s === 0 ? cw * 0.03 : s < 0 ? cw * 0.03 + s * (cw * 0.94 + gapW) : cw * 1.03 + gapW + (s - 1) * (cw * 0.94 + gapW));
     const apply = (first = false) => {
       const now = cards.map((_, i) => slot(i));
       cards.forEach((c, i) => {
-        const s = now[i], focus = s === 0;
-        const op = focus ? 1 : s === 1 ? .55 : s === 2 ? .45 : .35;
+        const s = now[i], focus = s === 0, before = s < 0;
+        const op = before ? 0 : focus ? 1 : s === 1 ? .55 : s === 2 ? .45 : .35;
         const sc = focus ? 1.06 : .94;
-        const jump = !first && prev.length && Math.abs(s - prev[i]) > 1;
         c.classList.toggle("is-focus", focus);
         c.setAttribute("aria-current", focus ? "true" : "false");
-        const place = () => {
-          c.style.transform = `translate3d(${x(s).toFixed(1)}px, 0, 0) scale(${sc})`;
-          c.style.filter = focus ? "" : "blur(6px)";
-          c.style.zIndex = String(10 - s);
-        };
-        if (jump) { // a card wrapping around fades in at its new place instead of flying across the others
-          c.style.transition = "none"; c.style.opacity = "0"; place(); void c.offsetWidth;
-          c.style.transition = "transform .8s cubic-bezier(.2,.7,.2,1), opacity .8s ease .2s, filter .8s ease"; c.style.opacity = String(op);
-        } else { c.style.transition = first ? "none" : ""; place(); c.style.opacity = String(op); if (first) { void c.offsetWidth; c.style.transition = ""; } }
+        c.style.pointerEvents = before ? "none" : "";
+        c.style.transition = first ? "none" : "";
+        c.style.transform = `translate3d(${x(s).toFixed(1)}px, 0, 0) scale(${sc})`;
+        c.style.filter = focus ? "" : "blur(6px)";
+        c.style.zIndex = String(10 - Math.abs(s));
+        c.style.opacity = String(op);
+        if (first) { void c.offsetWidth; c.style.transition = ""; }
       });
       prev = now;
+      const count = nav.querySelector(".probs-count");
+      if (count) count.textContent = `${active + 1}/${n}`;
     };
     const layout = () => {
       probs.classList.add("is-car");

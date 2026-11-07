@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Cta from "../components/Cta.astro";
 import Social from "../components/Social.astro";
 import Tile from "../components/Tile.astro";
+import Lightbox from "../components/Lightbox.astro";
 import tools from "../data/tools.json";
 import { asset, u } from "../data/asset";
 
@@ -47,11 +48,11 @@ const services = [
             <ul class="courses" id="courses" aria-label="AI workshops I have attended">
               <li class="courses-h" aria-hidden="true">AI workshops I have attended</li>
               {[
-                ["Design OS - AI Workflows for UX/UI Designers", "Neue Fische / Spiced Academy · November 2026"],
-                ["User testing with AI", "UIntend · June 2026"],
-                ["UX Metrics with AI - Define, measure, and manage", "UIntend · May 2026"],
-                ["AI Integration & Automation for Design Teams", "Hatch Conference · September 2025"],
-              ].map(([name, when]) => <li><b>{name}</b><span>{when}</span></li>)}
+                ["Design OS - AI Workflows for UX/UI Designers", "Neue Fische / Spiced Academy · November 2026", ["/certificates/DesignOS-Certificate-Mathias-Mahling.jpg", "/certificates/DesignOS-Curriculum-Mathias-Mahling.jpg"], "https://eu.credential.net/3301d517-0e64-4252-a212-14f596c96f42#acc.tU3zGHNx"],
+                ["AI Integration & Automation for Design Teams", "Hatch Conference · September 2025", ["/certificates/Hatch-Conference-Certificate-Mathias-Mahling.jpg"]],
+                ["User testing with AI · Webinar", "UIntend · June 2026"],
+                ["UX metrics with AI · Webinar", "UIntend · May 2026"],
+              ].map(([name, when, pics, proof]) => <li><b>{name}</b><span>{when}</span>{pics && <div class="certs"><a class="cert" href={u(pics[0])} target="_blank" rel="noopener" data-lightbox={pics.map((x) => u(x)).join("|")}>View certificate</a>{proof && <a class="cert" href={proof} target="_blank" rel="noopener noreferrer">Proof of authenticity</a>}</div>}</li>)}
             </ul>
           </div>
         </div>
@@ -127,6 +128,7 @@ const services = [
   </div></div>
 
   <Cta />
+  <Lightbox />
 </Layout>
 
 <style is:global>
@@ -153,12 +155,15 @@ const services = [
   .badge-chev:hover, .badge-chev[aria-expanded="true"]:hover { background: rgba(24, 22, 56, .08); } /* the round highlight shows only on hover */
   .badge-chev:focus-visible { outline: 2px solid #7645a4; outline-offset: 1px; }
   .badge-chev[aria-expanded="true"] svg { transform: rotate(180deg); }
-  .courses { position: absolute; left: 0; top: calc(100% + 8px); z-index: 20; width: max-content; max-width: 90vw; margin: 0; padding: 28px 40px; list-style: none; border-radius: 24px; background: #fff; box-shadow: 0 8px 40px rgba(24, 22, 56, .16); opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .25s, transform .35s cubic-bezier(.2, .7, .2, 1), visibility .25s; }
+  .courses { position: absolute; left: 0; top: calc(100% + 8px); z-index: 20; width: max-content; max-width: 90vw; margin: 0; padding: 28px 40px 20px; list-style: none; border-radius: 24px; background: #fff; box-shadow: 0 8px 40px rgba(24, 22, 56, .16); opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .25s, transform .35s cubic-bezier(.2, .7, .2, 1), visibility .25s; }
   .badge-w.open .courses { opacity: 1; visibility: visible; transform: none; }
-  .courses li { display: flex; flex-direction: column; gap: 2px; padding: 12px 0; } /* the dividers are as wide as the text; with the card's padding, the space around the text is 40px */
+  .courses li { display: flex; flex-direction: column; gap: 2px; padding: 20px 24px 20px 0; } /* the dividers are as wide as the text; with the card's padding, the space around the text is 40px */
   .courses li + li { border-top: 1px solid rgba(24, 22, 56, .08); }
-  .courses .courses-h { padding: 12px 0 20px; border-top: 0 !important; font-size: 13px; line-height: 18px; font-weight: 600; letter-spacing: -.1px; color: #7645a4; } .courses .courses-h + li { border-top: 0; }
+  .courses .courses-h { padding: 12px 0 20px; border-top: 0 !important; font-size: 13px; line-height: 18px; font-weight: 600; letter-spacing: -.1px; color: rgba(24, 22, 56, .6); } .courses .courses-h + li { border-top: 0; padding-top: 12px; } /* the first course sits right under the headline, so it gets no extra space above */
   .courses b { font-size: 15px; line-height: 22px; font-weight: 600; letter-spacing: -.3px; color: var(--ink); }
+  .courses .certs { display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 10px; }
+  .courses .cert { width: fit-content; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: -.28px; color: #7645a4; transition: opacity .2s; }
+  @media (hover: hover) { .courses .cert:hover { text-decoration: underline; text-underline-offset: 3px; } }
   .courses span { font-size: 14px; line-height: 20px; color: rgba(24, 22, 56, .6); }
   .hero h1 { font-size: 48px; font-weight: 600; letter-spacing: -1.92px; color: #000; max-width: 688px; margin-top: 40px; }
   .lead { font-size: 24px; line-height: 36px; color: var(--muted); max-width: 706px; margin-top: 24px; }
